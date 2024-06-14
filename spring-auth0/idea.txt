@@ -1,0 +1,22 @@
+All in all Health Care Assistant: ✅
+1. All doctors info in BD - S
+2. Medication details and availability - M
+3. BMI, Age based Diet - M
+4. Disease prediction with symptoms - S
+5. Exercise Info - S
+6. Calorie from food images - S
+7. IoT integrations (heart beat, walking data etc. electronics device data processing) - X
+8. Virtual Personal Trainer - S
+9. Chabot - S
+10. Blood Bank - M
+12. Hand Sign Language - M
+13. Autism related - M
+
+Image editor with AI: 
+1. Crop Image
+2. Filter Image
+3. Text to image generation
+4. Different types Effect on images
+5. Blurring images
+6. Add focus on images
+
