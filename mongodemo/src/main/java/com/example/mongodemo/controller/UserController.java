@@ -66,6 +66,23 @@ public class UserController {
             return ResponseEntity.internalServerError().body(response);
         }
     }
+    @GetMapping("/resend-verification-mail")
+    public ResponseEntity<Response> resendVerificationMail(@RequestParam String email) {
+        try {
+            User user = userRepository.findByEmail(email);
+            if (user == null)
+                return ResponseEntity.ok().build();
+            if (user.isVerified())
+                return ResponseEntity.ok().build();
+            String token = jwtService.generateMailVerificationToken(email);
+            emailService.sendVerificationEmail(user.getName(), email, token);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            System.out.println(e);
+            Response response = new Response("Failed to resend verification email", true);
+            return ResponseEntity.internalServerError().body(response);
+        }
+    }
 
     @PostMapping("/login")
     public ResponseEntity<Response> login(@RequestBody User user) {
@@ -78,6 +95,10 @@ public class UserController {
             }
             if (!authRepository.checkPassword(user.getPassword(), existingUser.getPassword())) {
                 Response response = new Response("Invalid password", true);
+                return ResponseEntity.status(401).body(response);
+            }
+            if (!existingUser.isVerified()) {
+                Response response = new Response("Your account is not verified. Please check your mail to verify your email", true);
                 return ResponseEntity.status(401).body(response);
             }
             String token = jwtService.generateUserToken(existingUser);
