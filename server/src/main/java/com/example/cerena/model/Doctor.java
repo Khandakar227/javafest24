@@ -1,17 +1,24 @@
 package com.example.cerena.model;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.TextIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Document("doctors")
-@Getter @Setter
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+// @Getter @Setter
 public class Doctor {
     @Id
-    private String id;
+    private ObjectId id;
     private String photo;
     @TextIndexed private String name;
     private String degree;

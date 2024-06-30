@@ -2,10 +2,12 @@ package com.example.cerena.controller;
 
 import java.util.List;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.cerena.model.Doctor;
 import com.example.cerena.model.Response;
 import com.example.cerena.model.User;
+import com.example.cerena.model.Medicinemodel.Medicine;
 import com.example.cerena.service.DoctorService;
 import com.example.cerena.service.JwtService;
 import com.example.cerena.service.UserService;
@@ -73,8 +76,16 @@ public class DoctorController {
         }
     }
 
+    @GetMapping
+
+    public ResponseEntity<List<Doctor>> getAllDoctor() {
+        return new ResponseEntity<List<Doctor>>(
+                doctorService.allmed(), HttpStatus.OK);
+
+    }
+
     @GetMapping("/{id}")
-    public Doctor getDoctorById(@PathVariable String id) {
+    public Doctor getDoctorById(@PathVariable ObjectId id) {
         return doctorService.getDoctorById(id);
     }
 

@@ -1,4 +1,4 @@
-package com.example.cerena.repository;
+package com.example.cerena.repository.MediRepo;
 
 import java.util.Optional;
 
@@ -11,7 +11,8 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.example.cerena.model.Medicine;
+
+import com.example.cerena.model.Medicinemodel.Medicine;
 
 @Repository
 public interface MedicineRepository extends MongoRepository<Medicine, ObjectId> {
@@ -21,9 +22,11 @@ public interface MedicineRepository extends MongoRepository<Medicine, ObjectId> 
     
     @Query("{ 'Type': { $regex: ?0, $options: 'i' } }")
     Page<Medicine> findByType(String type, Pageable pageable);
-     @Field(name = "Company Name")
-    @Query("{ 'Company Name': { $regex: ?0, $options: 'i' } }")
-    Page<Medicine> findByCompanyName(String companyName, Pageable pageable);
+     @Field(name = "manufacturer")
+    @Query("{ 'manufacturer': { $regex: ?0, $options: 'i' } }")
+    Page<Medicine> findByCompanyName(String manufacturer, Pageable pageable);
 
     Page<Medicine> findAllBy(TextCriteria criteria, Pageable pageable);
+    
 }
+

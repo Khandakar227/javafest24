@@ -1,4 +1,4 @@
-package com.example.cerena.model;
+package com.example.cerena.model.Medicinemodel;
 
 import java.util.List;
 
@@ -14,7 +14,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Document(collection="mediciness")
+@Document(collection = "medicine")
+
 // @Document("movies")//
 @Data
 @AllArgsConstructor
@@ -24,27 +25,36 @@ public class Medicine {
     @Id
     private ObjectId id;
 
-    private String Type;
+    private String type;
+    @Field(name = "brand name")
     private String Name;
+    private String slug;
+    @Field(name = "strength")
     private String MG;
-    @Field(name = "Generic Name")
+    @Field(name = "dosage form")
+    private String dosageForm;
+    @Field(name = "generic")
     private String GenericName;
 
-    @Field(name = "Company Name")
+    @Field(name = "manufacturer")
     private String CompanyName;
-
+    @Field(name = "package container")
     private String Price;
-    private String Link;
+    // @Field(name = "Package Size")
+    // private String Size;
 
-    public Medicine(String type, String name, String mg, String genericName, String companyName, String price,
-            String link) {
+    public Medicine(String type, String name,String slug, String mg,String dosage, String genericName, String companyName, String price
+            ) {
         super();
-        this.Type =type;
+        this.slug=slug;
+        this.dosageForm=dosage;
+        this.type = type;
         this.Name = name;
         this.MG = mg;
         this.GenericName = genericName;
         this.CompanyName = companyName;
         this.Price = price;
-        this.Link = link;
+       
     }
 }
+
