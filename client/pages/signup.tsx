@@ -4,7 +4,7 @@ import Link from "next/link";
 import { FormEvent } from "react";
 
 export default function Register() {
-  const reguster = async (e:FormEvent) => {
+  const register = async (e:FormEvent) => {
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
     const data = Object.fromEntries(formData.entries());
@@ -13,18 +13,26 @@ export default function Register() {
       alert("Password Mismatch");
       return;
     }
-    const res = (await fetch(serverUrl + '/user/signup', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    })).json();
-    console.log(res);
+    try {
+      const res = await (await fetch(serverUrl + '/user/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      })).json();
+      if(res.error) {
+        alert(res.message);
+        return;
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
+
   return (
     <div className="min-h-screen flex justify-center items-center bg-primary bg-opacity-15">
         <div className="bg-white rounded-md shadow p-4 max-w-md w-full">
             <Link href="/"><Image className="mx-auto mb-4" src={'/cerena-logo.png'} alt="Cerena" width={80} height={80} /></Link>
-            <form className="pb-8" onSubmit={reguster}>
+            <form className="pb-8" onSubmit={register}>
                 <input type="text" name="name" id="name" placeholder="Name" className="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm" />
                 <input type="email" name="email" id="email" placeholder="Email" className="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm" />
                 <input type="password" name="password" id="password" placeholder="Password" className="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm" />
