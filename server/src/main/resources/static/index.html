@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-section {
+            text-align: left;
+        }
+        
+        .unit-tabs {
+            margin-bottom: 20px;
+        }
+        
+        .unit-btn {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        
+        .unit-btn.active {
+            background-color: #3e8e41;
+        }
+        
+        .gender-options {
+            margin-top: 10px;
+        }
+        
+        .height-group {
+            display: flex;
+            margin-bottom: 10px;
+        }
+        
+        .height-group input {
+            width: 45%;
+            margin-right: 5%;
+        }
+        
+        #result-section {
+            margin-top: 20px;
+        }
+        
+        #result {
+            font-size: 18px;
+            font-weight: bold;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        #bmi-chart {
+            margin: 20px auto;
+            width: 200px;
+            height: 200px;
+            background-image: url('https://www.myheart.org.sg/wp-content/uploads/2022/03/BMI-Calculator.png');
+            background-size: cover;
+            position: relative;
+        }
+
+        #bmi-arrow {
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-bottom: 20px solid black;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: -20px;
+            transform-origin: bottom center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>BMI Calculator</h1>
+        <div class="form-section">
+            <div class="unit-tabs">
+                <button class="unit-btn active" id="us-units-btn">US Units</button>
+                <button class="unit-btn" id="metric-units-btn">Metric Units</button>
+                <button class="unit-btn" id="other-units-btn">Other Units</button>
+            </div>
+            <form id="bmi-form">
+                <div id="us-units">
+                    <label for="age">Age</label>
+                    <input type="number" id="age" name="age" min="2" max="120">
+                    <br>
+                    <div class="gender-options">
+                        <label>Gender</label>
+                        <label><input type="radio" name="gender" value="male" checked> Male</label>
+                        <label><input type="radio" name="gender" value="female"> Female</label>
+                    </div>
+                    
+                    <label for="height-feet">Height</label>
+                    <div class="height-group">
+                        <input type="number" id="height-feet" name="height-feet" placeholder="feet" min="1">
+                        <input type="number" id="height-inches" name="height-inches" placeholder="inches" min="0">
+                    </div>
+                    
+                    <label for="weight-lbs">Weight</label>
+                    <input type="number" id="weight-lbs" name="weight-lbs" placeholder="pounds">
+                </div>
+                <button type="submit">Calculate</button>
+                <button type="button" id="clear-btn">Clear</button>
+            </form>
+        </div>
+        <div id="result-section" class="hidden">
+            <h2>Result</h2>
+            <div id="result"></div>
+            <div id="bmi-chart">
+                <div id="bmi-arrow"></div>
+            </div>
+            <ul>
+                <li id="healthy-range"></li>
+                <li id="healthy-weight"></li>
+                <li id="bmi-prime"></li>
+                <li id="ponderal-index"></li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('bmi-form');
+        const resultDiv = document.getElementById('result');
+        const bmiArrow = document.getElementById('bmi-arrow');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const age = document.getElementById('age').value;
+            const gender = document.querySelector('input[name="gender"]:checked').value;
+            const feet = document.getElementById('height-feet').value || 0;
+            const inches = document.getElementById('height-inches').value || 0;
+            const weight = document.getElementById('weight-lbs').value || 0;
+
+            const heightInInches = parseInt(feet) * 12 + parseInt(inches);
+            const heightInMeters = heightInInches * 0.0254;
+            const weightInKg = weight * 0.453592;
+
+            fetch('http://localhost:8080/api/v1/bmi', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ age, gender, height: heightInMeters, weight: weightInKg })
+            })
+            .then(response => response.json())
+            .then(data => {
+                const bmi = data.bmi.toFixed(2);
+                const category = data.category;
+
+                resultDiv.innerHTML = `BMI = ${bmi} kg/m² (${category})`;
+                bmiArrow.style.transform = `rotate(${(bmi - 18.5) * 10}deg)`;
+
+                const healthyWeightMin = 18.5 * Math.pow(heightInMeters, 2);
+                const healthyWeightMax = 25 * Math.pow(heightInMeters, 2);
+
+                document.getElementById('healthy-range').textContent = `Healthy BMI range: 18.5 kg/m² - 25 kg/m²`;
+                document.getElementById('healthy-weight').textContent = `Healthy weight for the height: ${healthyWeightMin.toFixed(1)} lbs - ${healthyWeightMax.toFixed(1)} lbs`;
+                document.getElementById('bmi-prime').textContent = `BMI Prime: ${(bmi/ 25).toFixed(2)}`;
+                document.getElementById('ponderal-index').textContent = `Ponderal Index: ${((bmi) / Math.pow(heightInMeters, 3)).toFixed(2)}`;
+
+                document.getElementById('result-section').classList.remove('hidden');
+            })
+            .catch(error => console.error(error));
+        });
+
+        document.getElementById('clear-btn').addEventListener('click', () => {
+            form.reset();
+            resultDiv.innerHTML = '';
+            document.getElementById('result-section').classList.add('hidden');
+        });
+
+        // Toggle active unit button
+        document.querySelectorAll('.unit-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                document.querySelector('.unit-btn.active').classList.remove('active');
+                button.classList.add('active');
+                updateUnits(button.id);
+            });
+        });
+
+        function updateUnits(activeBtnId) {
+            const units = {
+                'us-units-btn': () => {
+                    document.getElementById('us-units').style.display = 'block';
+                    document.getElementById('metric-units').style.display = 'none';
+                },
+                'metric-units-btn': () => {
+                    document.getElementById('us-units').style.display = 'none';
+                    document.getElementById('metric-units').style.display = 'block';
+                },
+                'other-units-btn': () => {
+                    document.getElementById('us-units').style.display = 'none';
+                    document.getElementById('metric-units').style.display = 'none';
+                    // Add other units handling if needed
+                }
+            };
+
+            units[activeBtnId]();
+        }
+
+        // Initial unit setting
+        updateUnits('us-units-btn');
+    </script>
+</body>
+</html>
