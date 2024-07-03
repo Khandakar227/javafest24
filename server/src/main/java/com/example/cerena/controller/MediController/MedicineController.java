@@ -1,8 +1,9 @@
-package com.example.cerena.controller;
+package com.example.cerena.controller.MediController;
 
 import java.util.List;
 import java.util.Optional;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,12 +18,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.cerena.model.Medicine;
 import com.example.cerena.model.Response;
 import com.example.cerena.model.User;
+import com.example.cerena.model.Medicinemodel.Generic;
+import com.example.cerena.model.Medicinemodel.Medicine;
 import com.example.cerena.service.JwtService;
-import com.example.cerena.service.MedicineService;
 import com.example.cerena.service.UserService;
+import com.example.cerena.service.MediService.GenericService;
+import com.example.cerena.service.MediService.MedicineService;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -31,6 +34,8 @@ import jakarta.servlet.http.HttpServletRequest;
 public class MedicineController {
     @Autowired
     MedicineService medicineService;
+    @Autowired
+    GenericService genericService;
 
     @Autowired
     JwtService jwtService;
@@ -91,11 +96,35 @@ public class MedicineController {
     // public Medicine getMedicineById(@PathVariable String id) {
     // return medicineService.getMedicineById(id);
     // }
+
     @GetMapping("/{id}")
     public ResponseEntity<Optional<Medicine>> getSingleMovie(@PathVariable String id) {
         return new ResponseEntity<Optional<Medicine>>(medicineService.getMedicineById(id), HttpStatus.OK);
     }
-    // @GetMapping("/search")
+ @GetMapping("/generic/{id}")
+    public ResponseEntity<Optional<Generic>> getGenericById(@PathVariable ObjectId id) {
+        Optional<Generic> generic = genericService.getGenericById(id);
+        if (generic.isPresent()) {
+            return new ResponseEntity<>(generic, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+    //eta search krbe id wise doc er generic details
+    @GetMapping("/{id}/generic")
+    public ResponseEntity<Optional<Generic>> getGenericByMedicineId(@PathVariable String id) {
+        Optional<Medicine> medicineOptional = medicineService.getMedicineById(id);
+        if (medicineOptional.isPresent()) {
+            Medicine medicine = medicineOptional.get();
+            String genericName = medicine.getGenericName();
+            Optional<Generic> generic = genericService.getGenericByName(genericName);
+            return new ResponseEntity<>(generic, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(Optional.empty(), HttpStatus.NOT_FOUND);
+        }
+    }
+ 
+     @GetMapping("/search")
     public Page<Medicine> searchMedicines(@RequestParam String query,
     @RequestParam(defaultValue = "0") int page,
     @RequestParam(defaultValue = "20") int size) {
@@ -116,11 +145,11 @@ public class MedicineController {
         }
     }
 
-    @GetMapping("/company/{companyName}")
-    public Page<Medicine> getMedicinesByCompany(@PathVariable String companyName,
+    @GetMapping("/company/{manufacturer}")
+    public Page<Medicine> getMedicinesByCompany(@PathVariable String manufacturer,
     @RequestParam(defaultValue = "0") int page,
     @RequestParam(defaultValue = "20") int size) {
     Pageable pageable = PageRequest.of(page, size);
-    return medicineService.getMedicinesByCompany(companyName, pageable);
+    return medicineService.getMedicinesByCompany(manufacturer, pageable);
     }
 }

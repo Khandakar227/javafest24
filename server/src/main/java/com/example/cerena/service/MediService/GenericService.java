@@ -1,0 +1,30 @@
+package com.example.cerena.service.MediService;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.bson.types.ObjectId;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.cerena.model.Medicinemodel.Generic;
+import com.example.cerena.repository.MediRepo.GenericRepository;
+
+@Service
+public class GenericService {
+
+  @Autowired
+  private GenericRepository genericRepository;
+
+  public List<Generic> allGenName() {
+
+    return genericRepository.findAll();
+  }
+
+  public Optional<Generic> getGenericById(ObjectId id) {
+    return Optional.of(genericRepository.findById(id).orElse(null));
+  }
+  public Optional<Generic> getGenericByName(String genericName) {
+        return genericRepository.findByGenericName(genericName);
+    }
+}

@@ -1,4 +1,4 @@
-package com.example.cerena.service;
+package com.example.cerena.service.MediService;
 
 import java.util.List;
 import java.util.Optional;
@@ -9,19 +9,20 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.query.TextCriteria;
 import org.springframework.stereotype.Service;
 
-import com.example.cerena.model.Medicine;
-import com.example.cerena.repository.MedicineRepository;
+import com.example.cerena.model.Medicinemodel.Medicine;
+import com.example.cerena.repository.MediRepo.MedicineRepository;
 
 @Service
 public class MedicineService {
     @Autowired
     private MedicineRepository medicineRepository;
+ 
 
     public List<Medicine> allmed() {
        
         return medicineRepository.findAll();
     }
-
+    
     public Page<Medicine> searchMedicines(String searchText, Pageable pageable) {
         TextCriteria criteria = TextCriteria.forDefaultLanguage().matching(searchText);
         return medicineRepository.findAllBy(criteria, pageable);
@@ -36,8 +37,8 @@ public class MedicineService {
         return medicineRepository.findByType(type, pageable);
     }
 
-    public Page<Medicine> getMedicinesByCompany(String companyName, Pageable pageable) {
-        return medicineRepository.findByCompanyName(companyName, pageable);
+    public Page<Medicine> getMedicinesByCompany(String manufacturer, Pageable pageable) {
+        return medicineRepository.findByCompanyName(manufacturer, pageable);
     }
 
     public Medicine createMedicine(Medicine medicine) {
