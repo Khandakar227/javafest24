@@ -44,64 +44,58 @@ public class MedicineController {
     UserService userService;
 
     @GetMapping
-
-    public ResponseEntity<List<Medicine>> getAllmeed() {
-        return new ResponseEntity<List<Medicine>>(
-                medicineService.allmed(), HttpStatus.OK);
-
+    public Page<Medicine> getAllMedicines(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "20") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return medicineService.getAllMedicines(pageable);
     }
 
     @PostMapping
     public ResponseEntity<Response> addMedicine(@RequestBody Medicine medicine,
-    HttpServletRequest request) {
-    try {
-    String authorization = request.getHeader("Authorization");
-    String token = authorization.substring(7);
-    String email = jwtService.extractEmail(token);
-    User user = userService.getUserByEmail(email);
-    if (user == null || !jwtService.isTokenValid(token, user) ||
-    !user.getRole().equals("ADMIN"))
-    return ResponseEntity.status(403).build();
+            HttpServletRequest request) {
+        try {
+            String authorization = request.getHeader("Authorization");
+            if(authorization == null) return ResponseEntity.status(403).build();
+            String token = authorization.substring(7);
+            String email = jwtService.extractEmail(token);
+            User user = userService.getUserByEmail(email);
+            if (user == null || !jwtService.isTokenValid(token, user) || !user.getRole().equals("ADMIN"))
+                return ResponseEntity.status(403).build();
 
-    medicineService.createMedicine(medicine);
-    return ResponseEntity.ok(new Response("Medicine added", false));
-    } catch (Exception e) {
-    System.out.println(e);
-    return ResponseEntity.internalServerError().build();
-    }
+            medicineService.createMedicine(medicine);
+            return ResponseEntity.ok(new Response("Medicine added", false));
+        } catch (Exception e) {
+            System.out.println(e);
+            return ResponseEntity.internalServerError().build();
+        }
     }
 
     @PostMapping("/bulk")
-    public ResponseEntity<Response> addMedicines(@RequestBody List<Medicine>
-    medicines, HttpServletRequest request) {
-    try {
-    String authorization = request.getHeader("Authorization");
-    String token = authorization.substring(7);
-    String email = jwtService.extractEmail(token);
-    User user = userService.getUserByEmail(email);
-    if (user == null || !jwtService.isTokenValid(token, user) ||
-    !user.getRole().equals("ADMIN"))
-    return ResponseEntity.status(403).build();
+    public ResponseEntity<Response> addMedicines(@RequestBody List<Medicine> medicines, HttpServletRequest request) {
+        try {
+            String authorization = request.getHeader("Authorization");
+            if(authorization == null) return ResponseEntity.status(403).build();
+            String token = authorization.substring(7);
+            String email = jwtService.extractEmail(token);
+            User user = userService.getUserByEmail(email);
+            if (user == null || !jwtService.isTokenValid(token, user) ||
+                    !user.getRole().equals("ADMIN"))
+                return ResponseEntity.status(403).build();
 
-    medicineService.addAllMedicines(medicines);
+            medicineService.addAllMedicines(medicines);
 
-    return ResponseEntity.ok(new Response("Medicines added", false));
-    } catch (Exception e) {
-    System.out.println(e);
-    return ResponseEntity.internalServerError().build();
+            return ResponseEntity.ok(new Response("Medicines added", false));
+        } catch (Exception e) {
+            System.out.println(e);
+            return ResponseEntity.internalServerError().build();
+        }
     }
-    }
-
-    /// ......Problem....// @GetMapping("/{id}")
-    // public Medicine getMedicineById(@PathVariable String id) {
-    // return medicineService.getMedicineById(id);
-    // }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Medicine>> getSingleMovie(@PathVariable String id) {
+    public ResponseEntity<Optional<Medicine>> getMedicine(@PathVariable String id) {
         return new ResponseEntity<Optional<Medicine>>(medicineService.getMedicineById(id), HttpStatus.OK);
     }
- @GetMapping("/generic/{id}")
+
+    @GetMapping("/generic/{id}")
     public ResponseEntity<Optional<Generic>> getGenericById(@PathVariable ObjectId id) {
         Optional<Generic> generic = genericService.getGenericById(id);
         if (generic.isPresent()) {
@@ -110,26 +104,27 @@ public class MedicineController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-    //eta search krbe id wise doc er generic details
+
+    // eta search krbe id wise doc er generic details
     @GetMapping("/{id}/generic")
     public ResponseEntity<Optional<Generic>> getGenericByMedicineId(@PathVariable String id) {
         Optional<Medicine> medicineOptional = medicineService.getMedicineById(id);
         if (medicineOptional.isPresent()) {
             Medicine medicine = medicineOptional.get();
-            String genericName = medicine.getGenericName();
+            String genericName = medicine.getGeneric();
             Optional<Generic> generic = genericService.getGenericByName(genericName);
             return new ResponseEntity<>(generic, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(Optional.empty(), HttpStatus.NOT_FOUND);
         }
     }
- 
-     @GetMapping("/search")
+
+    @GetMapping("/search")
     public Page<Medicine> searchMedicines(@RequestParam String query,
-    @RequestParam(defaultValue = "0") int page,
-    @RequestParam(defaultValue = "20") int size) {
-    Pageable pageable = PageRequest.of(page, size);
-    return medicineService.searchMedicines(query, pageable);
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return medicineService.searchMedicines(query, pageable);
     }
 
     @GetMapping("/type/{type}")
@@ -147,9 +142,9 @@ public class MedicineController {
 
     @GetMapping("/company/{manufacturer}")
     public Page<Medicine> getMedicinesByCompany(@PathVariable String manufacturer,
-    @RequestParam(defaultValue = "0") int page,
-    @RequestParam(defaultValue = "20") int size) {
-    Pageable pageable = PageRequest.of(page, size);
-    return medicineService.getMedicinesByCompany(manufacturer, pageable);
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return medicineService.getMedicinesByCompany(manufacturer, pageable);
     }
 }

@@ -1,10 +1,6 @@
 package com.example.cerena.model.Medicinemodel;
 
-import java.util.List;
-
-import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.TextIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -16,45 +12,47 @@ import lombok.Setter;
 
 @Document(collection = "medicine")
 
-// @Document("movies")//
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-// @Getter @Setter
+@Getter
+@Setter
 public class Medicine {
     @Id
-    private ObjectId id;
+    private String id;
 
     private String type;
-    @Field(name = "brand name")
-    private String Name;
+
+    @Field(name = "brandName")
+    private String brandName;
     private String slug;
+    
     @Field(name = "strength")
-    private String MG;
-    @Field(name = "dosage form")
+    private String strength;
+
+    @Field(name = "dosageForm")
     private String dosageForm;
+
     @Field(name = "generic")
-    private String GenericName;
+    private String generic;
 
     @Field(name = "manufacturer")
-    private String CompanyName;
-    @Field(name = "package container")
-    private String Price;
-    // @Field(name = "Package Size")
-    // private String Size;
+    private String manufacturer;
 
-    public Medicine(String type, String name,String slug, String mg,String dosage, String genericName, String companyName, String price
-            ) {
+    @Field(name = "price")
+    private String price;
+
+
+    public Medicine(String type, String brandName, String slug, String strength, String generic,
+            String manufacturer, String price, String dosageForm) {
         super();
-        this.slug=slug;
-        this.dosageForm=dosage;
+        this.slug = slug;
         this.type = type;
-        this.Name = name;
-        this.MG = mg;
-        this.GenericName = genericName;
-        this.CompanyName = companyName;
-        this.Price = price;
-       
+        this.brandName = brandName;
+        this.strength = strength;
+        this.generic = generic;
+        this.manufacturer = manufacturer;
+        this.price = price;
+        this.dosageForm = dosageForm;
     }
 }
-

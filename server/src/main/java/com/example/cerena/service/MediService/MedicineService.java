@@ -18,27 +18,27 @@ public class MedicineService {
     private MedicineRepository medicineRepository;
  
 
-    public List<Medicine> allmed() {
-       
+    public List<Medicine> getAllMedicines() {
         return medicineRepository.findAll();
     }
-    
+    public Page<Medicine> getAllMedicines(Pageable pageable) {
+        return medicineRepository.findAll(pageable);
+    }
     public Page<Medicine> searchMedicines(String searchText, Pageable pageable) {
         TextCriteria criteria = TextCriteria.forDefaultLanguage().matching(searchText);
         return medicineRepository.findAllBy(criteria, pageable);
     }
 
     public Optional<Medicine> getMedicineById(String id) {
-        return Optional.of(medicineRepository.findById(id).orElse(null));
+        return medicineRepository.findById(id);
     }
- 
 
     public Page<Medicine> getMedicinesByType(String type, Pageable pageable) {
         return medicineRepository.findByType(type, pageable);
     }
 
     public Page<Medicine> getMedicinesByCompany(String manufacturer, Pageable pageable) {
-        return medicineRepository.findByCompanyName(manufacturer, pageable);
+        return medicineRepository.findByManufacturer(manufacturer, pageable);
     }
 
     public Medicine createMedicine(Medicine medicine) {

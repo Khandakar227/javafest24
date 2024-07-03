@@ -2,12 +2,10 @@ package com.example.cerena.controller;
 
 import java.util.List;
 
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.cerena.model.Doctor;
 import com.example.cerena.model.Response;
 import com.example.cerena.model.User;
-import com.example.cerena.model.Medicinemodel.Medicine;
 import com.example.cerena.service.DoctorService;
 import com.example.cerena.service.JwtService;
 import com.example.cerena.service.UserService;
@@ -43,6 +40,7 @@ public class DoctorController {
     public ResponseEntity<Response> addDoctor(@RequestBody Doctor doctor, HttpServletRequest request) {
         try {
             String authorization = request.getHeader("Authorization");
+            if(authorization == null) return ResponseEntity.status(403).build();
             String token = authorization.substring(7);
             String email = jwtService.extractEmail(token);
             User user = userService.getUserByEmail(email);
@@ -61,6 +59,7 @@ public class DoctorController {
     public ResponseEntity<Response> addDoctors(@RequestBody List<Doctor> doctors, HttpServletRequest request) {
         try {
             String authorization = request.getHeader("Authorization");
+            if(authorization == null) return ResponseEntity.status(403).build();
             String token = authorization.substring(7);
             String email = jwtService.extractEmail(token);
             User user = userService.getUserByEmail(email);
@@ -77,15 +76,13 @@ public class DoctorController {
     }
 
     @GetMapping
-
-    public ResponseEntity<List<Doctor>> getAllDoctor() {
-        return new ResponseEntity<List<Doctor>>(
-                doctorService.allmed(), HttpStatus.OK);
-
+    public Page<Doctor> getAllDoctor(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "20") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return doctorService.findAllDoctors(pageable);
     }
 
     @GetMapping("/{id}")
-    public Doctor getDoctorById(@PathVariable ObjectId id) {
+    public Doctor getDoctorById(@PathVariable String id) {
         return doctorService.getDoctorById(id);
     }
 

@@ -1,6 +1,5 @@
 package com.example.cerena.model.Medicinemodel;
 
-import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -15,61 +14,59 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Generic {
     @Id
-    private ObjectId id;
+    private String id;
 
-    @Field(name = "generic id")
     private int genericId;
 
-    @Field(name = "generic name")
-    private String genericName;
+    private String name;
 
     private String slug;
 
-    @Field(name = "monograph link")
+    @Field(name = "monographLink")
     private String monographLink;
 
-    @Field(name = "drug class")
+    @Field(name = "drugClass")
     private String drugClass;
 
     private String indication;
 
-    @Field(name = "indication description")
+    @Field(name = "indicationDescription")
     private String indicationDescription;
 
-    @Field(name = "therapeutic class description")
+    @Field(name = "therapeuticClassDescription")
     private String therapeuticClassDescription;
 
-    @Field(name = "pharmacology description")
+    @Field(name = "pharmacologyDescription")
     private String pharmacologyDescription;
 
-    @Field(name = "dosage description")
+    @Field(name = "dosageDescription")
     private String dosageDescription;
 
-    @Field(name = "administration description")
+    @Field(name = "administrationDescription")
     private String administrationDescription;
 
-    @Field(name = "interaction description")
+    @Field(name = "interactionDescription")
     private String interactionDescription;
 
-    @Field(name = "contraindications description")
+    @Field(name = "contraindicationsDescription")
     private String contraindicationsDescription;
 
-    @Field(name = "side effects description")
+    @Field(name = "sideEffectsDescription")
     private String sideEffectsDescription;
 
-    @Field(name = "pregnancy and lactation description")
+    @Field(name = "pregnancyAndLactationDescription")
     private String pregnancyAndLactationDescription;
 
-    @Field(name = "precautions description")
+    @Field(name = "precautionsDescription")
     private String precautionsDescription;
 
-    @Field(name = "pediatric usage description")
+    @Field(name = "pediatricUsageDescription")
     private String pediatricUsageDescription;
 
-    @Field(name = "overdose effects description")
+    @Field(name = "overdoseEffectsDescription")
     private String overdoseEffectsDescription;
 
-    @Field(name = "storage conditions description")
+    @Field(name = "storageConditionsDescription")
     private String storageConditionsDescription;
     
 }

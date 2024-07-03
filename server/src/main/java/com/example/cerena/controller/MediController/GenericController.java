@@ -1,11 +1,14 @@
 package com.example.cerena.controller.MediController;
 
+import com.example.cerena.model.Response;
+import com.example.cerena.model.User;
 import com.example.cerena.model.Medicinemodel.Generic;
-import com.example.cerena.model.Medicinemodel.Medicine;
-import com.example.cerena.repository.MediRepo.*;
+import com.example.cerena.service.JwtService;
+import com.example.cerena.service.UserService;
 import com.example.cerena.service.MediService.GenericService;
+import java.util.Optional;
+import jakarta.servlet.http.HttpServletRequest;
 
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,53 +22,69 @@ public class GenericController {
 
     @Autowired
     private GenericService genericService;
-     @GetMapping
-    public ResponseEntity<List<Generic>> getAllmeed() {
+
+    @Autowired
+    JwtService jwtService;
+
+    @Autowired
+    UserService userService;
+
+    @GetMapping
+    public ResponseEntity<List<Generic>> getAllGenerics() {
         return new ResponseEntity<List<Generic>>(
-                genericService.allGenName(), HttpStatus.OK);
+                genericService.allGenericName(), HttpStatus.OK);
 
     }
 
-    // Get all generics
-    // @GetMapping
-    // public List<Generic> getAllGenerics() {
-    //     return genericRepository.findAll();
-    // }
+    // Get a single generic by ID
+    @GetMapping("/{id}")
+    public ResponseEntity<Optional<Generic>> getGenericById(@PathVariable String id) {
+        return new ResponseEntity<Optional<Generic>>(genericService.getGenericById(id), HttpStatus.OK);
+    }
 
-    //Get a single generic by ID
-    // @GetMapping("/{id}")
-    // public ResponseEntity<Generic> getGenericById(@PathVariable ObjectId id) {
-    //     return genericRepository.findById(id)
-    //             .map(ResponseEntity::ok)
-    //             .orElse(ResponseEntity.notFound().build());
-    // }
+    @PostMapping("/bulk")
+    public ResponseEntity<Response> addGenerics(@RequestBody List<Generic> generic, HttpServletRequest request) {
+        try {
+            String authorization = request.getHeader("Authorization");
+            if (authorization == null)
+                return ResponseEntity.status(403).build();
+            String token = authorization.substring(7);
+            String email = jwtService.extractEmail(token);
+            User user = userService.getUserByEmail(email);
+            if (user == null || !jwtService.isTokenValid(token, user) ||
+                    !user.getRole().equals("ADMIN"))
+                return ResponseEntity.status(403).build();
 
-    // Create a new generic
-    // @PostMapping
-    // public Generic createGeneric(@RequestBody Generic generic) {
-    //     return genericRepository.save(generic);
-    // }
+            genericService.addAllGenerics(generic);
+
+            return ResponseEntity.ok(new Response("Generics added", false));
+        } catch (Exception e) {
+            System.out.println(e);
+            return ResponseEntity.internalServerError().build();
+        }
+    }
 
     // Update an existing generic
     // @PutMapping("/{id}")
-    // public ResponseEntity<Generic> updateGeneric(@PathVariable ObjectId id, @RequestBody Generic genericDetails) {
-    //     return genericRepository.findById(id)
-    //             .map(generic -> {
-    //                 generic.setGenName(genericDetails.getGenName());
-    //                 // set other fields
-    //                 return ResponseEntity.ok(genericRepository.save(generic));
-    //             })
-    //             .orElse(ResponseEntity.notFound().build());
+    // public ResponseEntity<Generic> updateGeneric(@PathVariable ObjectId id,
+    // @RequestBody Generic genericDetails) {
+    // return genericRepository.findById(id)
+    // .map(generic -> {
+    // generic.setGenName(genericDetails.getGenName());
+    // // set other fields
+    // return ResponseEntity.ok(genericRepository.save(generic));
+    // })
+    // .orElse(ResponseEntity.notFound().build());
     // }
 
     // Delete a generic
     // @DeleteMapping("/{id}")
     // public ResponseEntity<Void> deleteGeneric(@PathVariable ObjectId id) {
-    //     return genericRepository.findById(id)
-    //             .map(generic -> {
-    //                 genericRepository.delete(generic);
-    //                 return ResponseEntity.noContent().build();
-    //             })
-    //             .orElse(ResponseEntity.notFound().build());
+    // return genericRepository.findById(id)
+    // .map(generic -> {
+    // genericRepository.delete(generic);
+    // return ResponseEntity.noContent().build();
+    // })
+    // .orElse(ResponseEntity.notFound().build());
     // }
 }
