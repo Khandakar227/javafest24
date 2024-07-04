@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.cerena.model.JwtTokenResponse;
 import com.example.cerena.model.Response;
 import com.example.cerena.model.User;
+import com.example.cerena.model.UserTokenResponse;
 import com.example.cerena.service.AuthService;
 import com.example.cerena.service.EmailService;
 import com.example.cerena.service.JwtService;
@@ -99,7 +99,8 @@ public class UserController {
                 return ResponseEntity.status(401).body(response);
             }
             String token = jwtService.generateUserToken(existingUser);
-            JwtTokenResponse response = new JwtTokenResponse("Login successful", false, token);
+            existingUser.setPassword(null);
+            UserTokenResponse response = new UserTokenResponse("Login successful", false, token, existingUser);
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             System.out.println(e);
