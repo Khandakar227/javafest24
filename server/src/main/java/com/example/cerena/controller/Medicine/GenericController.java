@@ -1,11 +1,12 @@
-package com.example.cerena.controller.MediController;
+package com.example.cerena.controller.Medicine;
 
 import com.example.cerena.model.Response;
 import com.example.cerena.model.User;
-import com.example.cerena.model.Medicinemodel.Generic;
+import com.example.cerena.model.Medicine.Generic;
 import com.example.cerena.service.JwtService;
 import com.example.cerena.service.UserService;
-import com.example.cerena.service.MediService.GenericService;
+import com.example.cerena.service.Medicine.GenericService;
+
 import java.util.Optional;
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/generics")
+@RequestMapping("/api/v1/generic")
 public class GenericController {
 
     @Autowired
@@ -42,6 +43,26 @@ public class GenericController {
         return new ResponseEntity<Optional<Generic>>(genericService.getGenericById(id), HttpStatus.OK);
     }
 
+    @PostMapping
+    public ResponseEntity<Response> addGeneric(@RequestBody Generic generic,
+            HttpServletRequest request) {
+        try {
+            String authorization = request.getHeader("Authorization");
+            if(authorization == null) return ResponseEntity.status(403).build();
+            String token = authorization.substring(7);
+            String email = jwtService.extractEmail(token);
+            User user = userService.getUserByEmail(email);
+            if (user == null || !jwtService.isTokenValid(token, user) || !user.getRole().equals("ADMIN"))
+                return ResponseEntity.status(403).build();
+
+            genericService.createGeneric(generic);
+            return ResponseEntity.ok(new Response("Generic added", false));
+        } catch (Exception e) {
+            System.out.println(e);
+            return ResponseEntity.internalServerError().build();
+        }
+    }
+
     @PostMapping("/bulk")
     public ResponseEntity<Response> addGenerics(@RequestBody List<Generic> generic, HttpServletRequest request) {
         try {
@@ -57,7 +78,7 @@ public class GenericController {
 
             genericService.addAllGenerics(generic);
 
-            return ResponseEntity.ok(new Response("Generics added", false));
+            return ResponseEntity.ok(new Response("All Generics added", false));
         } catch (Exception e) {
             System.out.println(e);
             return ResponseEntity.internalServerError().build();

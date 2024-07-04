@@ -1,4 +1,4 @@
-package com.example.cerena.controller.MediController;
+package com.example.cerena.controller.Medicine;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,12 +20,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.cerena.model.Response;
 import com.example.cerena.model.User;
-import com.example.cerena.model.Medicinemodel.Generic;
-import com.example.cerena.model.Medicinemodel.Medicine;
+import com.example.cerena.model.Medicine.Generic;
+import com.example.cerena.model.Medicine.Medicine;
 import com.example.cerena.service.JwtService;
 import com.example.cerena.service.UserService;
-import com.example.cerena.service.MediService.GenericService;
-import com.example.cerena.service.MediService.MedicineService;
+import com.example.cerena.service.Medicine.GenericService;
+import com.example.cerena.service.Medicine.MedicineService;
 
 import jakarta.servlet.http.HttpServletRequest;
 

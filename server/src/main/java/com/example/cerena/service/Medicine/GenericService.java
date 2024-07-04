@@ -1,4 +1,4 @@
-package com.example.cerena.service.MediService;
+package com.example.cerena.service.Medicine;
 
 import java.util.List;
 import java.util.Optional;
@@ -7,7 +7,7 @@ import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.cerena.model.Medicinemodel.Generic;
+import com.example.cerena.model.Medicine.Generic;
 import com.example.cerena.repository.MediRepo.GenericRepository;
 
 @Service

@@ -8,8 +8,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
-
-import com.example.cerena.model.Medicinemodel.Medicine;
+import com.example.cerena.model.Medicine.Medicine;
 
 @Repository
 public interface MedicineRepository extends MongoRepository<Medicine, String> {

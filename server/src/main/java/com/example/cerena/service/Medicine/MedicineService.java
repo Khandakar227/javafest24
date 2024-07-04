@@ -1,4 +1,4 @@
-package com.example.cerena.service.MediService;
+package com.example.cerena.service.Medicine;
 
 import java.util.List;
 import java.util.Optional;
@@ -9,7 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.query.TextCriteria;
 import org.springframework.stereotype.Service;
 
-import com.example.cerena.model.Medicinemodel.Medicine;
+import com.example.cerena.model.Medicine.Medicine;
 import com.example.cerena.repository.MediRepo.MedicineRepository;
 
 @Service

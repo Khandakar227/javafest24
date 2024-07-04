@@ -1,4 +1,4 @@
-package com.example.cerena.model.Medicinemodel;
+package com.example.cerena.model.Medicine;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
