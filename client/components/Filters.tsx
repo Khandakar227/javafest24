@@ -28,7 +28,7 @@ export default function Filters() {
             router.push({ pathname: router.pathname, query })
         }
         else
-            router.push({ pathname: router.pathname, query: { ...router.query, speciality: selected } })
+            router.push({ pathname: router.pathname, query: { ...router.query, speciality: selected, page: 1 } })
     }
 
     function onDistrictChange(e: ChangeEvent) {
@@ -39,7 +39,7 @@ export default function Filters() {
             router.push({ pathname: router.pathname, query })
         }
         else
-            router.push({ pathname: router.pathname, query: { ...router.query, district: selected } })
+            router.push({ pathname: router.pathname, query: { ...router.query, district: selected, page: 1 } })
     }
 
     function onSortBy(e:ChangeEvent) {

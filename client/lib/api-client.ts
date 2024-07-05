@@ -22,8 +22,8 @@ export const getLoggedInUser = async () => {
     return res;
 }
 
-export const getDoctors = async (page=0, speciality:string, district:string, sortField:string, direction:'ASC' | 'DESC') => {
-    const res = await (await fetch(serverUrl + `/doctor?page=${page}&speciality=${speciality}&district=${district}&sortField=${sortField}&direction=${direction}`)).json();
+export const getDoctors = async (page=0, speciality:string, district:string, sortField:string, direction:'ASC' | 'DESC', query='') => {
+    const res = await (await fetch(serverUrl + `/doctor?page=${page}&query=${query}&speciality=${speciality}&district=${district}&sortField=${sortField}&direction=${direction}`)).json();
     return res;
 }
 

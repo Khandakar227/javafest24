@@ -12,6 +12,7 @@ import Head from "next/head";
 export default function Doctors() {
   const router = useRouter();
   const [doctors, setDoctors] = useState([] as Doctor[]);
+  const [query, setQuery] = useState('' as string);
   const [totalPages, setTotalPages] = useState(0);
   const [page, setPage] = useState(0);
   const [speciality, setSpeciality] = useState('');
@@ -32,13 +33,15 @@ export default function Doctors() {
     else setDirection('ASC');
     if (router.query.sortField) setSortField(router.query.sortField as string);
     else setSortField('name');
+    if (router.query.query) setQuery(router.query.query as string);
+    else setQuery('');
      
     console.log(router.query)
 
   }, [router.query])
 
   useEffect(() => {
-    getDoctors(page, speciality, district, sortField, direction)
+    getDoctors(page, speciality, district, sortField, direction, query)
       .then(res => {
         setTotalPages(res.totalPages);
         setDoctors(res.content || []);
@@ -49,12 +52,17 @@ export default function Doctors() {
         console.log(err)
         setLoading(false);
       })
-  }, [page, speciality, district, sortField, direction])
+  }, [page, speciality, district, sortField, direction, query])
 
   function search(e: FormEvent) {
     e.preventDefault();
     const keyword = (e.target as HTMLFormElement).keyword.value;
     console.log(keyword);
+    setQuery(keyword);
+    router.push({
+      pathname: router.pathname,
+      query: { ...router.query, query:keyword, page: 1 }
+    })
   }
 
   function onPageChange(selectedItem: { selected: number; }) {

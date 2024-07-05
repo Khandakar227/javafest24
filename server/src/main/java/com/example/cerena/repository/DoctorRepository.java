@@ -21,5 +21,9 @@ public interface DoctorRepository extends MongoRepository<Doctor, String> {
 
     @Query("{ 'district': { $regex: ?0, $options: 'i' }, 'speciality': { $regex: ?1, $options: 'i' } }")
     Page<Doctor> findAllBy(String district, String speciality, Pageable pageable);
+    
+    @Query("{ '$and': [ { 'district': { $regex: ?0, $options: 'i' } }, { 'speciality': { $regex: ?1, $options: 'i' } }, { '$text': { '$search': ?2 } } ] }")
+    Page<Doctor> findAllBy(String district, String speciality, String textSearch, Pageable pageable);
+
     Page<Doctor> findAllBy(TextCriteria criteria, Pageable pageable);
 }

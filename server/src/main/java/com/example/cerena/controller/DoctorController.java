@@ -78,6 +78,7 @@ public class DoctorController {
 
     @GetMapping
     public Page<Doctor> getAllDoctor(
+        @RequestParam(defaultValue = "") String query,
         @RequestParam(defaultValue = "") String district,
         @RequestParam(defaultValue = "") String speciality,
         @RequestParam(defaultValue = "0") int page,
@@ -85,7 +86,8 @@ public class DoctorController {
         @RequestParam(defaultValue = "name") String sortField,
         @RequestParam(defaultValue = "ASC") Sort.Direction direction) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(direction, sortField));
-        return doctorService.findAllDoctors(district, speciality, pageable);
+        System.out.println(query);
+        return doctorService.findAllDoctors(district, speciality, query, pageable);
     }
 
     @GetMapping("/{id}")
