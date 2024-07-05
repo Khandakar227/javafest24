@@ -22,10 +22,15 @@ public class DoctorService {
     public Page<Doctor> findAllDoctors(Pageable pageable) {
         return doctorRepository.findAll(pageable);
     }
+    public Page<Doctor> findAllDoctors(String district, String speciality, Pageable pageable) {
+        System.out.println(district + " " + speciality + " " + pageable);
+        return doctorRepository.findAllBy(district, speciality, pageable);
+    }
     public Page<Doctor> searchDoctors(String searchText, Pageable pageable) {
         TextCriteria criteria = TextCriteria.forDefaultLanguage().matching(searchText);
         return doctorRepository.findAllBy(criteria, pageable);
     }
+
     public Doctor getDoctorById(String id) {
         return doctorRepository.findById(id).orElse(null);
     }

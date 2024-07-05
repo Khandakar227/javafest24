@@ -16,7 +16,7 @@ const MobileSidebar = ({ show, setShow }:MobileSidebarProps) => {
                 <div className="grid gap-4">
                     {
                         navsmenu.map(n => <Link href={n.href}
-                            className={`px-6 py-2 block hover:bg-primary hover:text-white ${router.asPath == n.href ? "bg-green-700 text-white" : ""}`}
+                            className={`px-6 py-2 block hover:bg-primary hover:text-white ${router.pathname == n.href ? "bg-green-700 text-white" : ""}`}
                             key={n.href}>{n.label}</Link>)
                     }
                 </div>

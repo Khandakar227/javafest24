@@ -1,5 +1,5 @@
 export type Doctor = {
-    _id: string,
+    id: string,
     photo: string,
     name: string,
     degree: string,
@@ -12,7 +12,7 @@ export type Doctor = {
     contact: string,
 }
 export type User = {
-    _id: number;
+    id: number;
     name: string;
     email: string;
     role: string;

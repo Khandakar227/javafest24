@@ -1,204 +1,79 @@
 export const medical_specialties = [
-  {
-    "category": "Anesthesiology and Pain Management",
-    "subspecialties": [
-      "Anesthesiology",
-      "Pain Medicine",
-      "Critical Care Medicine"
-    ]
-  },
-  {
-    "category": "Cardiology and Cardiovascular Surgery",
-    "subspecialties": [
-      "Cardiology",
-      "Cardiovascular Surgery",
-      "Thoracic Surgery"
-    ]
-  },
-  {
-    "category": "Dermatology",
-    "subspecialties": [
-      "Dermatology",
-      "Cosmetic Dermatology",
-      "Dermatosurgery"
-    ]
-  },
-  {
-    "category": "Emergency Medicine",
-    "subspecialties": []
-  },
-  {
-    "category": "Endocrinology",
-    "subspecialties": [
-      "Diabetes",
-      "Thyroid Disorders",
-      "Hormonal Diseases"
-    ]
-  },
-  {
-    "category": "Gastroenterology and Hepatology",
-    "subspecialties": [
-      "Gastroenterology",
-      "Hepatology",
-      "Pancreatic Diseases"
-    ]
-  },
-  {
-    "category": "General Surgery",
-    "subspecialties": [
-      "Laparoscopic Surgery",
-      "Colorectal Surgery",
-      "Breast Surgery"
-    ]
-  },
-  {
-    "category": "Hematology and Oncology",
-    "subspecialties": [
-      "Blood Diseases",
-      "Cancer Treatment",
-      "Bone Marrow Transplant"
-    ]
-  },
-  {
-    "category": "Internal Medicine",
-    "subspecialties": []
-  },
-  {
-    "category": "Nephrology",
-    "subspecialties": [
-      "Kidney Diseases",
-      "Dialysis",
-      "Transplant"
-    ]
-  },
-  {
-    "category": "Neurology and Neurosurgery",
-    "subspecialties": [
-      "Neurology",
-      "Neurosurgery",
-      "Stroke Management"
-    ]
-  },
-  {
-    "category": "Obstetrics and Gynecology",
-    "subspecialties": [
-      "Obstetrics",
-      "Gynecology",
-      "Infertility",
-      "Gynecological Oncology"
-    ]
-  },
-  {
-    "category": "Ophthalmology",
-    "subspecialties": [
-      "Cataract Surgery",
-      "Retinal Diseases",
-      "Cornea and External Diseases"
-    ]
-  },
-  {
-    "category": "Orthopedics",
-    "subspecialties": [
-      "Trauma Surgery",
-      "Joint Replacement",
-      "Spine Surgery",
-      "Pediatric Orthopedics"
-    ]
-  },
-  {
-    "category": "Otolaryngology (ENT)",
-    "subspecialties": [
-      "Ear, Nose, and Throat Diseases",
-      "Head and Neck Surgery"
-    ]
-  },
-  {
-    "category": "Pediatrics",
-    "subspecialties": [
-      "General Pediatrics",
-      "Neonatology",
-      "Pediatric Surgery",
-      "Pediatric Subspecialties"
-    ]
-  },
-  {
-    "category": "Plastic and Reconstructive Surgery",
-    "subspecialties": [
-      "Aesthetic Surgery",
-      "Burn Surgery",
-      "Reconstructive Surgery"
-    ]
-  },
-  {
-    "category": "Psychiatry and Psychology",
-    "subspecialties": [
-      "Adult Psychiatry",
-      "Child Psychiatry",
-      "Clinical Psychology",
-      "Addiction Medicine"
-    ]
-  },
-  {
-    "category": "Pulmonology",
-    "subspecialties": [
-      "Respiratory Medicine",
-      "Asthma and Allergy",
-      "Sleep Medicine"
-    ]
-  },
-  {
-    "category": "Radiology",
-    "subspecialties": [
-      "Diagnostic Radiology",
-      "Interventional Radiology"
-    ]
-  },
-  {
-    "category": "Rheumatology",
-    "subspecialties": [
-      "Arthritis",
-      "Autoimmune Diseases"
-    ]
-  },
-  {
-    "category": "Urology",
-    "subspecialties": [
-      "General Urology",
-      "Urologic Oncology",
-      "Male Infertility"
-    ]
-  },
-  {
-    "category": "Vascular Surgery",
-    "subspecialties": []
-  },
-  {
-    "category": "Dentistry and Oral Surgery",
-    "subspecialties": [
-      "General Dentistry",
-      "Oral and Maxillofacial Surgery",
-      "Orthodontics"
-    ]
-  },
-  {
-    "category": "Physical Medicine and Rehabilitation",
-    "subspecialties": [
-      "Physiotherapy",
-      "Sports Medicine"
-    ]
-  },
-  {
-    "category": "Nutritional Sciences and Dietetics",
-    "subspecialties": []
-  },
-  {
-    "category": "Alternative Medicine",
-    "subspecialties": [
-      "Homeopathy",
-      "Acupuncture"
-    ]
+  { "label": "Acupuncture", "value": "Acupuncture" },
+  { "label": "Addiction Medicine", "value": "Addiction" },
+  { "label": "Adult Psychiatry", "value": "Psychiatry" },
+  { "label": "Aesthetic Surgery", "value": "Aesthetic" },
+  { "label": "Anesthesiology", "value": "Anesthesiology" },
+  { "label": "Arthritis", "value": "Arthritis" },
+  { "label": "Asthma", "value": "Asthma" },
+  { "label": "Allergy", "value": "Allergy" },
+  { "label": "Autoimmune Diseases", "value": "Autoimmune Diseases" },
+  { "label": "Blood Diseases", "value": "Blood" },
+  { "label": "Bone Marrow Transplant", "value": "Bone Marrow Transplant" },
+  { "label": "Breast Surgery", "value": "Breast Surgery" },
+  { "label": "Burn Surgery", "value": "Burn Surgery" },
+  { "label": "Cancer Treatment", "value": "Cancer Treatment" },
+  { "label": "Cardiology", "value": "Cardiology" },
+  { "label": "Cardiovascular Surgery", "value": "Cardiovascular Surgery" },
+  { "label": "Cataract Surgery", "value": "Cataract Surgery" },
+  { "label": "Child Psychiatry", "value": "Child Psychiatry" },
+  { "label": "Clinical Psychology", "value": "Clinical Psychology" },
+  { "label": "Colorectal Surgery", "value": "Colorectal Surgery" },
+  { "label": "Cornea and External Diseases", "value": "Cornea" },
+  { "label": "Cosmetic Dermatology", "value": "Cosmetic" },
+  { "label": "Critical Care Medicine", "value": "Critical Care" },
+  { "label": "Dermatology", "value": "Dermatology" },
+  { "label": "Dermatosurgery", "value": "Dermatosurgery" },
+  { "label": "Diabetes", "value": "Diabetes" },
+  { "label": "Diagnostic Radiology", "value": "Radiology" },
+  { "label": "Dialysis", "value": "Dialysis" },
+  { "label": "Ear, Nose, and Throat Diseases", "value": "Ear, Nose, Throat" },
+  { "label": "Emergency Medicine", "value": "Emergency Medicine" },
+  { "label": "Gastroenterology", "value": "Gastroenterology" },
+  { "label": "General Dentistry", "value": "General Dentistry" },
+  { "label": "General Pediatrics", "value": "Pediatrics" },
+  { "label": "General Urology", "value": "General Urology" },
+  { "label": "Gynecological Oncology", "value": "Oncology" },
+  { "label": "Gynecology", "value": "Gynecology" },
+  { "label": "Head and Neck Surgery", "value": "Head and Neck" },
+  { "label": "Hepatology", "value": "Hepatology" },
+  { "label": "Homeopathy", "value": "Homeopathy" },
+  { "label": "Hormonal Diseases", "value": "Hormonal Diseases" },
+  { "label": "Infertility", "value": "Infertility" },
+  { "label": "Internal Medicine", "value": "Internal" },
+  { "label": "Interventional Radiology", "value": "Interventional Radiology" },
+  { "label": "Joint", "value": "Joint" },
+  { "label": "Kidney Diseases", "value": "Kidney Diseases" },
+  { "label": "Laparoscopic Surgery", "value": "Laparoscopic Surgery" },
+  { "label": "Male Infertility", "value": "Male Infertility" },
+  { "label": "Maxillofacial Surgery", "value": "Maxillofacial" },
+  { "label": "Neonatology", "value": "Neonatology" },
+  { "label": "Neurology", "value": "Neurology" },
+  { "label": "Neurosurgery", "value": "Neurosurgery" },
+  { "label": "Nutritional Sciences and Dietetics", "value": "Nutrition" },
+  { "label": "Obstetrics", "value": "Obstetrics" },
+  { "label": "Oral Surgery", "value": "Oral" },
+  { "label": "Orthodontics", "value": "Orthodontics" },
+  { "label": "Pain Medicine", "value": "Pain" },
+  { "label": "Pancreatic Diseases", "value": "Pancreatic Diseases" },
+  { "label": "Pediatric Orthopedics", "value": "Pediatric Orthopedics" },
+  { "label": "Pediatric Surgery", "value": "Pediatric Surgery" },
+  { "label": "Physiotherapy", "value": "Physiotherapy" },
+  { "label": "Reconstructive Surgery", "value": "Reconstructive Surgery" },
+  { "label": "Respiratory Medicine", "value": "Respiratory Medicine" },
+  { "label": "Retinal Diseases", "value": "Retina" },
+  { "label": "Sleep Medicine", "value": "Sleep Medicine" },
+  { "label": "Spine Surgery", "value": "Spine Surgery" },
+  { "label": "Sports Medicine", "value": "Sports" },
+  { "label": "Stroke Management", "value": "Stroke" },
+  { "label": "Thoracic Surgery", "value": "Thoracic Surgery" },
+  { "label": "Thyroid Disorders", "value": "Thyroid Disorders" },
+  { "label": "Transplant", "value": "Transplant" },
+  { "label": "Trauma Surgery", "value": "Trauma Surgery" },
+  { "label": "Urologic Oncology", "value": "Urologic Oncology" },
+  { "label": "Vascular Surgery", "value": "Vascular"
   }
-];
+]
 
 export const districts = [
   'Barishal',

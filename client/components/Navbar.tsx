@@ -22,7 +22,7 @@ export default function Navbar(props:NavbarProps) {
           {
             !loaded ? <span className="text-sm font-semibold">Loading...</span> : user ? <Avatar/>
             :
-            <Link href={"/login"} className="rounded-md px-4 py-1 font-semibold bg-green-900 text-white block">Login</Link>
+            <Link href={"/login"} className="rounded-md px-4 py-1 bg-green-900 text-white block">Login</Link>
           }
             <button className="hidden md:block" onClick={props.onMenuClicked}><GiHamburgerMenu size={26}/></button>
             <button className="md:hidden" onClick={() => setShow(!show)}><GiHamburgerMenu size={26}/></button>
