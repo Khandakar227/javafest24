@@ -22,7 +22,12 @@ export const getLoggedInUser = async () => {
     return res;
 }
 
-export const getDoctors = async () => {
-    const res = await (await fetch(serverUrl + "/doctor")).json();
+export const getDoctors = async (page=0) => {
+    const res = await (await fetch(serverUrl + `/doctor?page=${page}`)).json();
+    return res;
+}
+
+export const searchDoctor = async (keyword:string, page:number) => {
+    const res = await (await fetch(serverUrl + `/doctor/search?query=${keyword}&page=${page}`)).json();
     return res;
 }
