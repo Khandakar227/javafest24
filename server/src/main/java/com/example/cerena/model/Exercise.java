@@ -15,21 +15,17 @@ public class Exercise {
     @Id
     private String id;
     @TextIndexed private String excerciseName;
-    private String muscleGpDetails;
     @TextIndexed private String muscleGp;
-    private String equipmentDetails;
     @TextIndexed private String equipment;
-    private int rating;
+    private float rating;
     private String description;
     private String benefits;
     private List<String> img;
 
-    public Exercise(String excerciseName, String muscleGpDetails, String muscleGp, String equipmentDetails, String equipment, int rating, String description, String benefits, List<String> img) {
+    public Exercise(String excerciseName, String muscleGp, String equipment, float rating, String description, String benefits, List<String> img) {
         super();
         this.excerciseName = excerciseName;
-        this.muscleGpDetails = muscleGpDetails;
         this.muscleGp = muscleGp;
-        this.equipmentDetails = equipmentDetails;
         this.equipment = equipment;
         this.rating = rating;
         this.description = description;
