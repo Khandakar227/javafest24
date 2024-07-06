@@ -48,8 +48,9 @@ export default function Filters() {
     }
 
     function changeDirection(e: MouseEvent) {
-        setDirection(direction == 'ASC' ? 'DESC' : 'ASC');
-        router.push({ pathname: router.pathname, query: { ...router.query, direction: direction } })
+        const newDirection = direction == 'ASC' ? 'DESC' : 'ASC';
+        setDirection(newDirection);
+        router.push({ pathname: router.pathname, query: { ...router.query, direction: newDirection } })
      }
 
     return (

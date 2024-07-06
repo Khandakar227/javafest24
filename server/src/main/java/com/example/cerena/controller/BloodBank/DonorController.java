@@ -1,8 +1,6 @@
 package com.example.cerena.controller.BloodBank;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.cerena.model.BloodBank.Donor;
@@ -25,9 +23,7 @@ public class DonorController {
 
     @PostMapping("/register")
     public Donor registerDonor(@RequestBody Donor donor) {
-        
         return donorService.saveDonor(donor);
-        
     }
    
 

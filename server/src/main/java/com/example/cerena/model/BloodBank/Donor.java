@@ -6,18 +6,18 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 @Document(collection = "donors")
 @Data
-@NoArgsConstructor@AllArgsConstructor
+@Getter @Setter
+@AllArgsConstructor
 public class Donor {
     @Id
     private String id;
-    
     // @NotBlank
     private String fullName;
-    
     // @NotBlank
     private String bloodGroup;
     
