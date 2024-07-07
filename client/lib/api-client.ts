@@ -31,3 +31,13 @@ export const searchDoctor = async (keyword:string, page:number) => {
     const res = await (await fetch(serverUrl + `/doctor/search?query=${keyword}&page=${page}`)).json();
     return res;
 }
+
+export const getDoctor = async (id:string) => {
+    const res = await (await fetch(serverUrl + `/doctor/${id}`)).json();
+    return res;
+}
+
+export const getExercises = async (query:string, page=0) => {
+    const res = await (await fetch(serverUrl + `/exercise/muscle/${query}?page=${page}`)).json();
+    return res;
+}

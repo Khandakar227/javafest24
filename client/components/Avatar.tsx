@@ -12,7 +12,7 @@ export default function Avatar() {
         <motion.div animate={show ? "open" : "closed"} variants={{
             open: {opacity: 1, y: 0},
             closed: {opacity: 0, y: "-100%", width: 0, display: "none"}
-        }} className='min-w-40 right-0 p-2 rounded bg-white shadow-md absolute'>
+        }} className='min-w-40 right-0 p-2 rounded bg-white shadow-md absolute z-10'>
             <ul>
                 {
                     user?.role == 'ADMIN' && (<li className='border-b'><Link className='py-2 block font-semibold' href="/admin">Admin</Link></li>)

@@ -18,3 +18,13 @@ export type User = {
     role: string;
     verified: boolean;
 }
+
+export type Exercise = {
+    excerciseName: string;
+    muscleGp: string;
+    equipment: string;
+    description: string;
+    benefits: string;
+    rating: number;
+    img: string [];
+}
