@@ -7,6 +7,7 @@ import Paginate from 'react-paginate';
 import { FormEvent, useEffect, useState } from "react";
 import Spinner from "@/components/Spinner";
 import Head from "next/head";
+import Link from "next/link";
 
 
 export default function Doctors() {
@@ -100,14 +101,14 @@ export default function Doctors() {
               <div className="m-4 p-4 bg-white bg-opacity-5 shadow rounded">
                 {
                   doctors.map(d => (
-                    <div key={d.id} className="flex gap-4 items-center p-4 shadow rounded-md m-4 bg-white">
+                    <Link href={`/doctors/${d.id}`} key={d.id} className="flex gap-4 items-center p-4 shadow rounded-md m-4 bg-white">
                       <img src={d.photo} alt={d.name} className="w-20 h-20 rounded-full" />
                       <div>
                         <h2 className="text-lg font-semibold">{d.name}</h2>
                         <p className="text-sm">{d.speciality}</p>
                         <p className="text-sm text-gray-500">{d.district}</p>
                       </div>
-                    </div>
+                    </Link>
                   ))
                 }
               </div>

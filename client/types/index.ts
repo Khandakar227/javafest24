@@ -28,3 +28,13 @@ export type Exercise = {
     rating: number;
     img: string [];
 }
+
+export type PredictedDisease = {
+    name: string,
+    possibility: string,
+    description: string,
+}
+export type QnA = {
+    question: string;
+    answer: string; 
+}

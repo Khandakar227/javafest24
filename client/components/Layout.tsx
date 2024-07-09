@@ -9,7 +9,7 @@ const variants: Variants = {
   closed: { opacity: 0, x: "-100%", width: 0, display: "none" },
 }
 
-const poppins = Poppins({weight: ['800', '400'], subsets: ['latin']})
+const poppins = Poppins({weight: ['800', '600', '500', '400'], subsets: ['latin']})
 
 export default function Layout({ children }: PropsWithChildren) {
   const [showSidebar, setShowSidebar] = useState(true);

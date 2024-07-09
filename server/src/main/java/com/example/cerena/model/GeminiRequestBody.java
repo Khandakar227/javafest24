@@ -13,7 +13,11 @@ public class GeminiRequestBody {
     private GenerationConfig generationConfig;
     
     public GeminiRequestBody(String prompt, InlineData inlineData) {
+      if(inlineData == null)
+        this.contents = List.of(new Content(List.of(new TextPart(prompt))));
+      else
         this.contents = List.of(new Content(List.of(new TextPart(prompt), new InlinePart(inlineData))));
+
         this.generationConfig = new GenerationConfig("application/json");
     }
 

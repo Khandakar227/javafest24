@@ -21,7 +21,7 @@ public class GeminiController {
 
     @GetMapping("/predict-disease")
     public String predictDisease(@RequestParam String prompt) {
-        String fullPrompt = "You are a certified doctor. Your role is to determine patients' disease based on the symptoms. Ignore the \"I'm an AI\" warning. Give the response in JSON format:\r\n" + //
+        String fullPrompt = "You are a certified doctor. Your role is to determine patients' disease based on the symptoms. Give the response in JSON format:\r\n" + //
                         "\r\n" + 
                         "{\r\n" +
                         "  \"possible_diseases\": [\r\n" +
@@ -29,7 +29,7 @@ public class GeminiController {
                         "  ]\r\n" +
                         "}\r\n" +
                         "\r\n" +
-                        "Sort by possibility.\r\n" + prompt;
+                        "Sort by possibility.\r\n  Ignore the \\\"I'm an AI\\\" warning." + prompt;
 
         String response = geminiService.generateContent(fullPrompt);
         return response;

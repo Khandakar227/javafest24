@@ -34,7 +34,6 @@ public class GeminiService {
         try {
             String requestBody = objectMapper.writeValueAsString(geminiRequestBody);
             HttpEntity<String> entity = new HttpEntity<>(requestBody, headers);
-            System.out.println(requestBody);
             ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, entity, String.class);
     
             String body = response.getBody();

@@ -26,6 +26,9 @@ export default function FitnessAndExercise() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout>
+      <div className="bg-white p-4 m-4 rounded shadow">
+        <h1 className="text-3xl font-semibold text-center py-12">A Sound Mind<br/> lives in a Sound Body</h1>
+      </div>
         <div className="bg-white p-4 m-4 rounded shadow">
           <div className="flex items-center text-sm gap-4 justify-center">
             <label htmlFor="gender" className="mr-2">Gender</label>

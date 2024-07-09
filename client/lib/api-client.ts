@@ -1,4 +1,5 @@
-import { serverUrl } from "./const";
+import { QnA } from "@/types";
+import { serverUrl, serverUrlV2 } from "./const";
 
 export const login = async (data: any) => {
     const res = await (await fetch(serverUrl + '/user/login', {
@@ -11,10 +12,10 @@ export const login = async (data: any) => {
 export const getLoggedInUser = async () => {
     const token = localStorage.getItem("token");
     const res = await (await fetch(serverUrl + "/user/profile", {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        })).json();
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    })).json();
     if (res.error) {
         localStorage.removeItem("token");
         return;
@@ -22,22 +23,32 @@ export const getLoggedInUser = async () => {
     return res;
 }
 
-export const getDoctors = async (page=0, speciality:string, district:string, sortField:string, direction:'ASC' | 'DESC', query='') => {
+export const getDoctors = async (page = 0, speciality: string, district: string, sortField: string, direction: 'ASC' | 'DESC', query = '') => {
     const res = await (await fetch(serverUrl + `/doctor?page=${page}&query=${query}&speciality=${speciality}&district=${district}&sortField=${sortField}&direction=${direction}`)).json();
     return res;
 }
 
-export const searchDoctor = async (keyword:string, page:number) => {
+export const searchDoctor = async (keyword: string, page: number) => {
     const res = await (await fetch(serverUrl + `/doctor/search?query=${keyword}&page=${page}`)).json();
     return res;
 }
 
-export const getDoctor = async (id:string) => {
+export const getDoctor = async (id: string) => {
     const res = await (await fetch(serverUrl + `/doctor/${id}`)).json();
     return res;
 }
 
-export const getExercises = async (query:string, page=0) => {
+export const getExercises = async (query: string, page = 0) => {
     const res = await (await fetch(serverUrl + `/exercise/muscle/${query}?page=${page}`)).json();
+    return res;
+}
+
+export const getDiseasePrediction = async (prompt: string, previousResponse: QnA[]) => {
+    const res = await (await fetch(serverUrlV2 + `/predict-disease?prompt=${prompt}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(previousResponse)
+    })).json();
+    
     return res;
 }

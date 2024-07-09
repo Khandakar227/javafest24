@@ -14,3 +14,7 @@ export const navsmenu = [
     { label: 'AI Assistant', href: '/ai-assistant' },
     { label: 'Calorie Tracking', href: '/calorie-tracking' },
 ]
+
+export const getBasePath = (pathname:string) => {
+  return '/' + pathname.split('/')[1]
+}
