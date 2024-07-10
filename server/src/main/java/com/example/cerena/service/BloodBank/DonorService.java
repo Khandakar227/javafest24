@@ -24,4 +24,12 @@ public class DonorService {
         }
         return donorRepository.findByBloodGroupAndCityAndDivisionAndDistrict(bloodGroup, city, division, district);
     }
+    // public List<Donor> searchDonorsByLocation(double lat, double lng) {
+       
+    //     return donorRepository.findByLocationNear(lat, lng);
+    // }
+
+    public List<Donor> searchDonorsByLocation(String city, String district, String division) {
+        return donorRepository.findByCityAndDistrictAndDivision(city, district, division);
+    }
 }
