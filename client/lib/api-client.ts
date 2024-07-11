@@ -52,3 +52,12 @@ export const getDiseasePrediction = async (prompt: string, previousResponse: QnA
     
     return res;
 }
+
+export const getWords = async (page=0, alphabet='') => {
+    let res;
+    if(alphabet)
+        res = await (await fetch(serverUrl + `/signs/prefix/${alphabet}?page=${page}`)).json();
+    else
+        res = await (await fetch(serverUrl + `/signs/words?page=${page}`)).json();
+    return res;
+}

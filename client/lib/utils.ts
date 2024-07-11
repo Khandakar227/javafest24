@@ -12,6 +12,7 @@ export const navsmenu = [
     { label: 'Disease Prediction', href: '/disease-prediction' },
     { label: 'Blood Bank', href: '/blood-bank' },
     { label: 'AI Assistant', href: '/ai-assistant' },
+    { label: 'Sign Speak', href: '/signspeak' },
     { label: 'Calorie Tracking', href: '/calorie-tracking' },
 ]
 

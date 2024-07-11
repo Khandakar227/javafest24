@@ -54,6 +54,7 @@ function DiseasePrediction() {
             setLoading(false);
             if (res.possible_diseases) {
                 setPrediction(res.possible_diseases || []);
+                setPreviousResponse([]);
                 setIsPredicting(false);
             } else if (res.question) {
                 setIsPredicting(true);
@@ -80,6 +81,7 @@ function DiseasePrediction() {
             setLoading(false);
             if (res.possible_diseases) {
                 setPrediction(res.possible_diseases || []);
+                setPreviousResponse([]);
                 setIsPredicting(false);
             } else if (res.question) {
                 setIsPredicting(true);
@@ -146,7 +148,6 @@ function DiseasePrediction() {
                                     ></textarea>
                                     <button disabled={loading} className="bg-primary rounded px-4 py-2" onClick={onPredict}>{loading ? <Spinner size={1} /> : 'Predict'}</button>
                                 </div>
-
                         }
                     </div>
                     <div>
