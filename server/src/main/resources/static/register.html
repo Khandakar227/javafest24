@@ -1,229 +1,126 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Blood Bank Map Search</title>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAhRMoXzgWtmJlBWv-xJrhUV8pRZIBewgI&libraries=places"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC2gbtlS2OhZ8cHdjokgRIDBurvhZPGQXU&libraries=places"></script>
 </head>
 <body>
     <h1>Search Donors by Map</h1>
-    <div id="map" style="height: 500px; width: 100%;"></div>
-    <div id="location-info" style="margin-top: 20px;">
+    <div id="map" style="height: 500px; width: 100%"></div>
+    <div id="location-info" style="margin-top: 20px">
         <h2>Location Info:</h2>
-        <p id="coordinates">Coordinates: </p>
-        <p id="city">City: </p>
-        <p id="district">District: </p>
-        <p id="division">Division: </p>
+        <p id="coordinates">Coordinates:</p>
+        <p id="city">City:</p>
+        <p id="district">District:</p>
+        <p id="division">Division:</p>
+        <p id="info">Information</p>
     </div>
     <script>
         function initMap() {
-            const map = new google.maps.Map(document.getElementById('map'), {
+            const map = new google.maps.Map(document.getElementById("map"), {
                 center: { lat: -34.397, lng: 150.644 },
-                zoom: 8
+                zoom: 8,
             });
 
-            map.addListener('click', async (e) => {
+            map.addListener("click", async (e) => {
                 const lat = e.latLng.lat();
                 const lng = e.latLng.lng();
                 console.log(`Clicked coordinates: ${lat}, ${lng}`);
-                
+
                 const address = await getAddressFromCoordinates(lat, lng);
                 if (address) {
-                    const { city, district, division } = address;
+                    const { city, district, division} = address;
                     console.log(`City: ${city}, District: ${district}, Division: ${division}`);
 
                     // Update the div with location information
-                    document.getElementById('city').textContent = `City: ${city}`;
-                    document.getElementById('district').textContent = `District: ${district}`;
-                    document.getElementById('division').textContent = `Division: ${division}`;
-                    
-                    // Call the backend API to search donors by city, district, and division
-                    const response = await fetch(`/api/v1/donors/searchbylocation?city=${city}&district=${district}&division=${division}`);
-                    const donors = await response.json();
-                    console.log('Found donors:', donors);
-                    // Display donors on the map or in a list
+                    document.getElementById("coordinates").textContent = `Coordinates: ${lat.toFixed(6)}, ${lng.toFixed(6)}`;
+                    document.getElementById("city").textContent = `City: ${city}`;
+                    document.getElementById("district").textContent = `District: ${district}`;
+                    document.getElementById("division").textContent = `Division: ${division}`;
+
+                    // Clear the previous donor information
+                    document.getElementById("info").textContent = '';
+
+                    // Call the backend API to search donors by city first, then fallback to district if no results found
+                    try {
+                        let response = await fetch(`http://localhost:8080/api/v1/donors/searchbycity?city=${city}`);
+                        let donors = await response.json();
+                        alert('Response from city search:', donors);
+
+                       /* if (donors.length === 0) {
+                            // Fallback to search by district if no donors found by city
+                            response = await fetch(`http://localhost:8080/api/v1/donors/searchbylocation?district=${district}`);
+                            donors = await response.json();
+                            console.log('Response from district search:', donors);
+
+                            if (donors.length === 0) {
+                                document.getElementById("info").textContent = "Couldn't find donor!";
+                            } else {
+                                document.getElementById("info").textContent = "Found donor!";
+                                displayDonors(donors);
+                            }
+                        } else {
+                            document.getElementById("info").textContent = "Found donor!";
+                            displayDonors(donors);
+                        }
+*/
+                        if(donors.length===0)
+                       alert("Could not Found donors:", donors);
+                       else {
+                        document.getElementById("info").textContent = "Found donor!";
+                                displayDonors(donors);
+                       }
+                    } catch (error) {
+                        console.error('Error fetching donors:', error);
+                    }
                 } else {
-                    alert('Could not get address from the clicked location.');
+                    alert("Could not get address from the clicked location.");
                 }
             });
         }
 
         async function getAddressFromCoordinates(lat, lng) {
-            const geocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=AIzaSyAhRMoXzgWtmJlBWv-xJrhUV8pRZIBewgI`;
+            const geocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=AIzaSyC2gbtlS2OhZ8cHdjokgRIDBurvhZPGQXU`;
             const response = await fetch(geocodeUrl);
             const data = await response.json();
 
-            if (data.status === 'OK') {
+            if (data.status === "OK") {
                 const result = data.results[0];
                 const addressComponents = result.address_components;
                 let city, district, division;
 
-                addressComponents.forEach(component => {
+                addressComponents.forEach((component) => {
                     const types = component.types;
-                    if (types.includes('locality')) {
+                    if (types.includes("locality")) {
                         city = component.long_name;
-                    } else if (types.includes('administrative_area_level_2')) {
+                    } else if (types.includes("administrative_area_level_2")) {
                         district = component.long_name;
-                    } else if (types.includes('administrative_area_level_1')) {
+                    } else if (types.includes("administrative_area_level_1")) {
                         division = component.long_name;
                     }
                 });
 
                 return { city, district, division };
             } else {
-                console.error('Geocoding failed:', data.status);
+                console.error("Geocoding failed:", data.status);
                 return null;
             }
+        }
+
+        function displayDonors(donors) {
+            const infoElement = document.getElementById("info");
+            infoElement.textContent = "Donors found:";
+
+            donors.forEach(donor => {
+                const donorInfo = document.createElement("p");
+                donorInfo.textContent = `Name: ${donor.fullName}, Blood Group: ${donor.bloodGroup}, Contact: ${donor.mobileNo},Address: ${donor.address}`;
+                infoElement.appendChild(donorInfo);
+            });
         }
 
         window.onload = initMap;
     </script>
 </body>
 </html>
-
-
-<!-- <!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blood Bank Map Search</title>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAhRMoXzgWtmJlBWv-xJrhUV8pRZIBewgI&libraries=places"></script>
-</head>
-<body>
-    <h1>Search Donors by Map</h1>
-    <div id="map" style="height: 500px; width: 100%;"></div>
-    <script>
-        function initMap() {
-            const map = new google.maps.Map(document.getElementById('map'), {
-                center: { lat: -34.397, lng: 150.644 },
-                zoom: 8
-            });
-
-            map.addListener('click', async (e) => {
-                const lat = e.latLng.lat();
-                const lng = e.latLng.lng();
-                console.log(`Clicked coordinates: ${lat}, ${lng}`);
-                
-                const address = await getAddressFromCoordinates(lat, lng);
-                if (address) {
-                    const { city, district, division } = address;
-                    console.log(`City: ${city}, District: ${district}, Division: ${division}`);
-                    
-                    // Call the backend API to search donors by city, district, and division
-                    const response = await fetch(`/api/v1/donors/searchbylocation?city=${city}&district=${district}&division=${division}`);
-                    const donors = await response.json();
-                    console.log('Found donors:', donors);
-                    // Display donors on the map or in a list
-                } else {
-                    alert('Could not get address from the clicked location.');
-                }
-            });
-        }
-
-        async function getAddressFromCoordinates(lat, lng) {
-            const geocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=AIzaSyAhRMoXzgWtmJlBWv-xJrhUV8pRZIBewgI`;
-            const response = await fetch(geocodeUrl);
-            const data = await response.json();
-
-            if (data.status === 'OK') {
-                const result = data.results[0];
-                const addressComponents = result.address_components;
-                let city, district, division;
-
-                addressComponents.forEach(component => {
-                    const types = component.types;
-                    if (types.includes('locality')) {
-                        city = component.long_name;
-                    } else if (types.includes('administrative_area_level_2')) {
-                        district = component.long_name;
-                    } else if (types.includes('administrative_area_level_1')) {
-                        division = component.long_name;
-                    }
-                });
-
-                return { city, district, division };
-            } else {
-                console.error('Geocoding failed:', data.status);
-                return null;
-            }
-        }
-
-        window.onload = initMap;
-    </script>
-</body>
-</html>
-
-
-<!-- <!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blood Bank</title>
-</head>
-<body>
-    <h1>Become a Donor</h1>
-    <form id="donorForm">
-        <label for="fullName">Full Name:</label>
-        <input type="text" id="fullName" name="fullName" required><br>
-        
-        <label for="bloodGroup">Blood Group:</label>
-        <input type="text" id="bloodGroup" name="bloodGroup" required><br>
-        
-        <label for="gender">Gender:</label>
-        <input type="text" id="gender" name="gender" required><br>
-        
-        <label for="age">Age:</label>
-        <input type="number" id="age" name="age"><br>
-        
-        <label for="mobileNo">Mobile No:</label>
-        <input type="text" id="mobileNo" name="mobileNo" required><br>
-        
-        <label for="address">Address:</label>
-        <input type="text" id="address" name="address" required><br>
-        
-        <label for="city">City:</label>
-        <input type="text" id="city" name="city"><br>
-        
-        <label for="division">Division:</label>
-        <input type="text" id="division" name="division"><br>
-        
-        <label for="district">District:</label>
-        <input type="text" id="district" name="district"><br>
-        
-        <button type="button" onclick="submitForm()">Register</button>
-    </form>
-
-    <script>
-        async function submitForm() {
-            const form = document.getElementById('donorForm');
-            const formData = new FormData(form);
-            const data = {};
-            formData.forEach((value, key) => (data[key] = value));
-    
-            try {
-                const response = await fetch('/api/v1/donors/register', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(data)
-                });
-    
-                if (response.ok) {
-                    alert('Registration successful!');
-                } else {
-                    const errorMessage = await response.text();
-                    alert('Registration failed:sad ' + errorMessage);
-                }
-            } catch (error) {
-                console.error('Error registering donor:', error);
-                alert('Registration failed. Please try again later.');
-            }
-        }
-    </script>
-    
-</body>
-</html> --> -->

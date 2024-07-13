@@ -30,6 +30,10 @@ public class DonorService {
     // }
 
     public List<Donor> searchDonorsByLocation(String city, String district, String division) {
-        return donorRepository.findByCityAndDistrictAndDivision(city, district, division);
+        return donorRepository.findByCityOrDistrictOrDivision(city, district, division);
     }
+    public List<Donor> searchbyCity(String city) {
+        return donorRepository.findByCity(city);
+    }
+    
 }

@@ -48,5 +48,9 @@ public class DonorController {
                                               @RequestParam String division) {
         return donorService.searchDonorsByLocation(city, district, division);
     }
+    @GetMapping("/searchbycity")
+    public List<Donor> searchDonorsByCity(@RequestParam String city) {
+        return donorService.searchbyCity(city);
+    }
 
 }

@@ -11,9 +11,10 @@ public interface DonorRepository extends MongoRepository<Donor, String> {
     
     // System.out.println("repos calling");
     List<Donor> findByBloodGroup(String bloodGroup);
+    List<Donor> findByCity(String city);
    
     
-     List<Donor> findByCityAndDistrictAndDivision(String city, String district, String division);
+     List<Donor> findByCityOrDistrictOrDivision(String city, String district, String division);
     // List<Donor> findByLocationNear(double lat, double lng);
     List<Donor> findByBloodGroupAndCityAndDivisionAndDistrict(String bloodGroup, String city, String division, String district);
 }
