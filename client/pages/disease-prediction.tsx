@@ -153,7 +153,7 @@ function DiseasePrediction() {
                     <div>
                         {
                             prediction.length > 0 ?
-                                <div className="py-4 px-2 m-4 rounded bg-white shadow sticky top-0">
+                                <div className="py-4 px-2 m-4 rounded bg-white shadow md:sticky top-0">
                                     <h1 className="text-xl font-bold px-4">Possible Diseases</h1>
                                     <ul>
                                         {

@@ -1,4 +1,5 @@
 import { getWords } from "@/lib/api-client";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { FiSearch } from "react-icons/fi";
 import ReactPaginate from "react-paginate";
@@ -45,7 +46,7 @@ function SignSpeakDictionary() {
                 <div className="grid justify-between items-center gap-4 lg:grid-cols-3 md:grid-cols-2">
                 {
                     words.map((word, i) => (
-                        <div className={`p-2 m-2 text-sm`} key={"word " + i}>{word.word?.split(',')[0]}</div>
+                        <Link href={`/signspeak/word/${word.word}`} className={`block p-2 m-2 text-sm`} key={"word " + i}>{word.word?.split(',')[0]}</Link>
                     ))
                 }
                 </div>

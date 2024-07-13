@@ -61,3 +61,8 @@ export const getWords = async (page=0, alphabet='') => {
         res = await (await fetch(serverUrl + `/signs/words?page=${page}`)).json();
     return res;
 }
+
+export const getWord = async (word: string) => {
+    const res = await (await fetch(serverUrl + `/signs/word/${word}`)).json();
+    return res;
+}
