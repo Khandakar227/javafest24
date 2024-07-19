@@ -66,3 +66,22 @@ export const getWord = async (word: string) => {
     const res = await (await fetch(serverUrl + `/signs/word/${word}`)).json();
     return res;
 }
+
+export const getRandomWords = async () => {
+    const res = await (await fetch(serverUrl + `/signs/quiz`)).json();
+    return res;
+}
+
+export const getMedicines = async (keyword:string, page=0) => {
+    if(!keyword) {
+        const res = await (await fetch(serverUrl + `/medicine?page=${page}`)).json();
+        return res;
+    }
+    const res = await (await fetch(serverUrl + `/medicine/search?query=${keyword}&page=${page}`)).json();
+    return res;
+}
+
+export const getFullMedicineInfo = async(slug:string) => {
+    const res = await (await fetch(serverUrl + `/medicine/slug/${slug}`)).json();
+    return res;
+}

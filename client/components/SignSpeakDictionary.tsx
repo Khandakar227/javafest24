@@ -25,7 +25,7 @@ function SignSpeakDictionary() {
     function onPageChange(selectedItem: { selected: number; }) {
         console.log("selectedItem ", selectedItem)
         setPage(selectedItem.selected);
-    }    
+    }
     return (
         <>
             <div className='max-w-4xl mx-auto flex gap-4 justify-center items-center py-5'>

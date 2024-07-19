@@ -36,6 +36,11 @@ function SignSpeak() {
                 <div className='m-4 p-4 rounded bg-white shadow'>
                     <SignSpeakDictionary />
                 </div>
+
+                <div className='m-4 px-4 py-12 rounded bg-white shadow text-center mb-12'>
+                    <p className='text-2xl font-semibold pb-12'>Want to test your sign language knowledge?</p>
+                    <Link href={"/signspeak/quiz"} className='bg-primary rounded px-4 py-2'>Take a Quiz</Link>
+                </div>
             </Layout>
         </>
     )

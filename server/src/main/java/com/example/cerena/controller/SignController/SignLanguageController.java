@@ -82,6 +82,11 @@ public class SignLanguageController {
         }
     }
 
+    @GetMapping("/quiz")
+    public List<SignLanguageEntry> getAQuizQuestion() {
+        return signLanguageService.getRandomSample();
+    }
+
     @PostMapping
     public ResponseEntity<SignLanguageEntry> addSign(@RequestBody SignLanguageEntry entry,
             HttpServletRequest request) {

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.Query;
+import org.springframework.data.mongodb.repository.Aggregation;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
@@ -19,5 +20,7 @@ public interface SignLanguageRepository extends MongoRepository<SignLanguageEntr
     public Page<SignOnlyWord> findAllWords(Pageable pageable);
 
     @Query("{ 'word': { $regex: '^?0', $options: 'i' } }")
-    public Page<SignLanguageEntry> findByTextStartingWith(String prefix, Pageable pageable); 
+    public Page<SignLanguageEntry> findByTextStartingWith(String prefix, Pageable pageable);
+    @Aggregation("{ '$sample': { size: 4 } }")
+    public List<SignLanguageEntry> findRandomSample();
 }

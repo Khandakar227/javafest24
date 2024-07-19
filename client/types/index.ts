@@ -26,7 +26,7 @@ export type Exercise = {
     description: string;
     benefits: string;
     rating: number;
-    img: string [];
+    img: string[];
 }
 
 export type PredictedDisease = {
@@ -36,5 +36,39 @@ export type PredictedDisease = {
 }
 export type QnA = {
     question: string;
-    answer: string; 
+    answer: string;
+}
+
+export type Medicine = {
+    brandName: string,
+    dosageForm: string,
+    generic: string,
+    id: string,
+    manufacturer: string,
+    price: string,
+    slug: string,
+    strength: string,
+    type: string
+}
+
+export type Generic = {
+    id: string,
+    genericId: number,
+    name: string,
+    slug: string,
+    drugClass?: string,
+    indication?: string,
+    indicationDescription?: string,
+    therapeuticClassDescription?: string,
+    pharmacologyDescription?: string,
+    dosageDescription?: string,
+    administrationDescription?: string,
+    interactionDescription?: string,
+    contraindicationsDescription?: string,
+    sideEffectsDescription?: string,
+    pregnancyAndLactationDescription?: string,
+    precautionsDescription?: string,
+    pediatricUsageDescription?: string,
+    overdoseEffectsDescription?: string,
+    storageConditionsDescription?: string
 }

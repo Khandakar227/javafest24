@@ -1,6 +1,7 @@
 package com.example.cerena.model.Medicine;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.TextIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -21,23 +22,23 @@ public class Medicine {
     @Id
     private String id;
 
-    private String type;
+    @TextIndexed private String type;
 
     @Field(name = "brandName")
-    private String brandName;
+    @TextIndexed private String brandName;
     private String slug;
     
     @Field(name = "strength")
-    private String strength;
+    @TextIndexed private String strength;
 
     @Field(name = "dosageForm")
-    private String dosageForm;
+    @TextIndexed private String dosageForm;
 
     @Field(name = "generic")
-    private String generic;
+    @TextIndexed private String generic;
 
     @Field(name = "manufacturer")
-    private String manufacturer;
+    @TextIndexed private String manufacturer;
 
     @Field(name = "price")
     private String price;
@@ -55,4 +56,5 @@ public class Medicine {
         this.price = price;
         this.dosageForm = dosageForm;
     }
+    
 }

@@ -1,5 +1,6 @@
 package com.example.cerena.repository.MediRepo;
 
+import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -20,6 +21,9 @@ public interface MedicineRepository extends MongoRepository<Medicine, String> {
     @Query("{ 'manufacturer': { $regex: ?0, $options: 'i' } }")
     Page<Medicine> findByManufacturer(String manufacturer, Pageable pageable);
     Page<Medicine> findAllBy(TextCriteria criteria, Pageable pageable);
+    @Query("{ '$or': [ {'brandName': { $regex: '?0', $options: 'i' }}, {'strength': { $regex: '?0', $options: 'i' }}, {dosageForm: { $regex: '?0', $options: 'i' }}, {manufacturer:{ $regex: '?0', $options: 'i' }} ] }")
+    Page<Medicine> search(String text, Pageable pageable);
+    Optional<Medicine> findMedicineBySlug(String slug);
     
 }
 

@@ -41,11 +41,18 @@ public class MedicineService {
         return medicineRepository.findByManufacturer(manufacturer, pageable);
     }
 
+    public Optional<Medicine> getMedicineBySlug(String slug) {
+        return medicineRepository.findMedicineBySlug(slug);
+    }
     public Medicine createMedicine(Medicine medicine) {
         return medicineRepository.save(medicine);
     }
 
     public List<Medicine> addAllMedicines(List<Medicine> medicines) {
         return medicineRepository.saveAll(medicines);
+    }
+
+    public Page<Medicine> search(String keyword, Pageable page) {
+        return medicineRepository.search(keyword, page);
     }
 }

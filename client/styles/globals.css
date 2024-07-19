@@ -7,3 +7,10 @@
   -webkit-backdrop-filter: blur( 9px );
   border-radius: 10px;
 }
+.ac-body > ul {
+  list-style: disc;
+  list-style-position: inside;
+}
+.ac-body b, .ac-body strong {
+  @apply font-semibold;
+}

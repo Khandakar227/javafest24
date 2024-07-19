@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.cerena.model.Response;
 import com.example.cerena.model.User;
+import com.example.cerena.model.Medicine.FullMedicine;
 import com.example.cerena.model.Medicine.Generic;
 import com.example.cerena.model.Medicine.Medicine;
 import com.example.cerena.service.JwtService;
@@ -124,7 +125,7 @@ public class MedicineController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size) {
         Pageable pageable = PageRequest.of(page, size);
-        return medicineService.searchMedicines(query, pageable);
+        return medicineService.search(query, pageable);
     }
 
     @GetMapping("/type/{type}")
@@ -146,5 +147,19 @@ public class MedicineController {
             @RequestParam(defaultValue = "20") int size) {
         Pageable pageable = PageRequest.of(page, size);
         return medicineService.getMedicinesByCompany(manufacturer, pageable);
+    }
+
+    @GetMapping("/slug/{slug}")
+    public ResponseEntity<FullMedicine> getMedicineBySlug(@PathVariable String slug) {
+        Optional<Medicine> medicineOptional = medicineService.getMedicineBySlug(slug);
+        if(medicineOptional.isPresent()) {
+            Medicine medicine = medicineOptional.get();
+            String genericName = medicine.getGeneric();
+            Optional<Generic> generic = genericService.getGenericByName(genericName);
+            FullMedicine fullMedicine = new FullMedicine(medicine, generic.get());
+            return new ResponseEntity<>(fullMedicine, HttpStatus.OK);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
