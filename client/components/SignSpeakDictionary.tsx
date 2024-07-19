@@ -25,7 +25,6 @@ function SignSpeakDictionary() {
     function onPageChange(selectedItem: { selected: number; }) {
         console.log("selectedItem ", selectedItem)
         setPage(selectedItem.selected);
-    
     }    
     return (
         <>
