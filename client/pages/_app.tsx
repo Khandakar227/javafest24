@@ -16,6 +16,7 @@ export default function App({ Component, pageProps }: AppProps) {
         console.log(err);
       }).finally(() => setLoaded(true));
   }, [])
+  
   return (
     <Component {...pageProps} />
   )

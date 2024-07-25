@@ -23,6 +23,7 @@ export default function Add() {
         e.preventDefault();
         const data = Object.fromEntries(new FormData(e.target as HTMLFormElement));
         console.log(data)
+        // submit in database
     }
 
     return (
@@ -55,6 +56,7 @@ export default function Add() {
                         </select>
                         <input type="tel" name="mobileNo" id="mobileNo" placeholder="Phone Number" className="shadow border w-full rounded-md outline-none px-4 py-2 my-3" required/>
                         <input type="number" min={12} name="age" id="age" placeholder="Your Age" className="shadow border w-full rounded-md outline-none px-4 py-2 my-3" required/>
+                       
                         <button className="my-4 px-4 py-2 rounded-md bg-primary">Save</button>
                     </form>
                 </div>
