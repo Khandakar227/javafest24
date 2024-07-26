@@ -93,3 +93,8 @@ export const estimateFoodCalorie = async(image:File, foodName="", width=0, heigh
     const res = await (await fetch(serverUrl + `/food-calorie?foodName=${foodName}&width=${width}&height=${height}`, options)).json();
     return res;
 }
+
+export const calculateBMI = async (weight: number, height: number) => {
+    const res = await (await fetch(serverUrl + `/bmi?weight=${weight}&height=${height}`)).json();
+    return res;
+}

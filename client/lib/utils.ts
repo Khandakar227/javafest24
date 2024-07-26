@@ -9,6 +9,7 @@ export const navsmenu = [
     { label: 'Doctors', href: '/doctors' },
     { label: 'Medicines', href: '/medicines' },
     { label: 'Fitness and Exercise', href: '/fitness-and-exercise' },
+    { label: 'BMI Calculator', href: '/bmi-calculator' },
     { label: 'Disease Prediction', href: '/disease-prediction' },
     { label: 'Blood Bank', href: '/blood-bank' },
     { label: 'Sign Speak', href: '/signspeak' },
