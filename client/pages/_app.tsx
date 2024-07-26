@@ -3,6 +3,7 @@ import { getLoggedInUser } from "@/lib/api-client";
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { useEffect } from "react";
+import { Toaster } from 'react-hot-toast';
 
 export default function App({ Component, pageProps }: AppProps) {
   const [user, setUser] = useUser();
@@ -18,6 +19,9 @@ export default function App({ Component, pageProps }: AppProps) {
   }, [])
   
   return (
-    <Component {...pageProps} />
+    <>
+      <Component {...pageProps} />
+      <Toaster position="top-right"/>
+    </>
   )
 }

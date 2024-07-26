@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.cerena.model.HealthCalculator.Bmi;
 import com.example.cerena.service.HealthService.BmiService;
-@CrossOrigin(origins = "http://127.0.0.1:5500")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/v1/bmi")
 public class BmiController {

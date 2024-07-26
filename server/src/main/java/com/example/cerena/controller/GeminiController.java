@@ -35,9 +35,19 @@ public class GeminiController {
         return response;
     }
     @PostMapping("/food-calorie")
-    public String foodCalorie( @RequestParam("file") MultipartFile file ) {
+    public String foodCalorie( @RequestParam("file") MultipartFile file, @RequestParam(defaultValue = "") String foodName,
+    @RequestParam(defaultValue = "0") String width,
+    @RequestParam(defaultValue = "0") String height) {
+      System.out.println(foodName + " " + width + " " + height);
         String prompt = """
-        You are a nutritionist. Your role is to estimate the calorie content of the food for each of its ingredients. Ignore the \"I'm an AI\" warning. Give the response in JSON format:
+        You are a nutritionist. Your role is to estimate the calorie content of the food for each of its ingredients."""
+        +
+        (!foodName.isEmpty() ?( "Food name is "+ foodName) : "") +
+        (width.isEmpty() || width.equals("0") ? "" : ("Approximated Width " + width + "cm")) +
+        (height.isEmpty() || height.equals("0") ? "" : ("Approximated Height " + height + "cm"))
+        +   
+        """
+        Ignore the \"I'm an AI\" warning. Give the response in JSON format:
         {
           "food": "string",
           "ingredients": [

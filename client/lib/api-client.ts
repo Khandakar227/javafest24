@@ -85,3 +85,11 @@ export const getFullMedicineInfo = async(slug:string) => {
     const res = await (await fetch(serverUrl + `/medicine/slug/${slug}`)).json();
     return res;
 }
+
+export const estimateFoodCalorie = async(image:File, foodName="", width=0, height=0) => {
+    const form = new FormData();
+    form.append("file", image);
+    const options = { method: 'POST', body: form };
+    const res = await (await fetch(serverUrl + `/food-calorie?foodName=${foodName}&width=${width}&height=${height}`, options)).json();
+    return res;
+}

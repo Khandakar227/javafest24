@@ -14,3 +14,10 @@
 .ac-body b, .ac-body strong {
   @apply font-semibold;
 }
+
+
+@layer utilities { 
+  .dropzone {
+    @apply px-4 py-12 text-center border border-dashed bg-slate-50 rounded-lg;
+  }
+}
