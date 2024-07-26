@@ -42,7 +42,7 @@ export default function Login() {
           <input type="password" name="password" id="password" placeholder="Password" className="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm" />
           <button disabled={loading} type="submit" className="mt-2 w-full bg-primary text-white p-2 rounded-md">{loading ? 'Loading...' : 'Login'}</button>
         </form>
-        <p>Don't have an account? <Link className="text-primary underline font-semibold" href={"/signup"}> Register </Link></p>
+        <p>Don't have an account?<Link className="text-primary underline font-semibold" href={"/signup"}> Register </Link></p>
         <p className="text-end"><button className="text-primary font-semibold"> Forgot Password </button></p>
       </div>
     </div>

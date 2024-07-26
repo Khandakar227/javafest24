@@ -72,3 +72,6 @@ export type Generic = {
     overdoseEffectsDescription?: string,
     storageConditionsDescription?: string
 }
+
+
+
