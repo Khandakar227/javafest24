@@ -3,9 +3,13 @@ import Layout from "@/components/Layout";
 import { useUser, userUserLoaded } from "@/hooks/user";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { registerDonor } from "@/lib/api-client";
+import { registerDonor, searchDonorsByCity } from "@/lib/api-client";
 import { cities, divisions } from "@/lib/const";
-import GoogleMap from "@/components/GoogleMap";
+import GoogleMapComponent from "@/components/GoogleMap";
+import { IoClose } from "react-icons/io5";
+import toast from "react-hot-toast";
+
+type FulllAdress = { lat?: number, lng: number, address: string }
 
 const BloodGroups = ['A+', 'B+', 'AB+', 'O+', 'A-', 'B-', 'AB-', 'O-'];
 
@@ -15,48 +19,45 @@ export default function Add() {
   const [userLoaded, _] = userUserLoaded();
   const router = useRouter();
 
-  const [selectedDivision, setSelectedDivision] = useState("");
-  const [selectedDistrict, setSelectedDistrict] = useState("");
-  const [districtOptions, setDistrictOptions] = useState<string[]>([]);
-  const [cityOptions, setCityOptions] = useState<string[]>([]);
-  const [message, setMessage] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
   const [registrationSuccessful, setRegistrationSuccessful] = useState(false);
+  const [addresses, setAddresses] = useState<FulllAdress[]>([]);
 
   useEffect(() => {
     if (!userLoaded) return;
     if (!user) {
-      alert("You must be logged in!");
-      // router.push("/login");
+      toast.error("You must be logged in!");
+      router.push("/login");
     }
   }, [userLoaded, user]);
-
-  function handleDivisionChange(event: React.ChangeEvent<HTMLSelectElement>) {
-    const division = event.target.value;
-    setSelectedDivision(division);
-    const districts = divisions.find(d => d.name === division)?.districts || [];
-    setDistrictOptions(districts);
-    setSelectedDistrict("");
-    setCityOptions([]);
-  }
-
-  function handleDistrictChange(event: React.ChangeEvent<HTMLSelectElement>) {
-    const district = event.target.value;
-    setSelectedDistrict(district);
-    const citiesList = cities[district] || [];
-    setCityOptions(citiesList);
-  }
 
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
     const data = Object.fromEntries(new FormData(e.target as HTMLFormElement));
-    const response = await registerDonor(data);
+    const userInfo = { ...data, addresses };
+    setLoading(true)
+    registerDonor(userInfo)
+    .then(response => {
+      if (response.error) return toast.error(response.error);
+      (e.target as HTMLFormElement).reset();
+      setAddresses([]);
+    })
+    .catch(err => {
+      toast.error(err.message);
+      console.log(err)
+    })
+    .finally(() => setLoading(false));
+  }
 
-    if (response.error) {
-      setMessage(`Registration failed: ${response.error}`);
-    } else {
-      setMessage("Registration successful! Thank you for registering.");
-      setRegistrationSuccessful(true);
-    }
+  async function handleLocationSelect(fullAddress: any) {
+    setAddresses(a => [...a, fullAddress])
+  }
+
+  async function removeAddress(address: FulllAdress) {
+    setAddresses(a => {
+      const addresses = a.filter(_a => _a.address != address.address)
+      return addresses;
+    })
   }
 
   return (
@@ -73,11 +74,6 @@ export default function Add() {
         </div>
 
         <div className="shadow rounded-md px-4 py-12 m-4 bg-white">
-          {message && (
-            <div className={`text-center py-4 px-4 ${registrationSuccessful ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'} rounded-md`}>
-              {message}
-            </div>
-          )}
           {!registrationSuccessful && (
             <form onSubmit={onSubmit} className="mx-auto max-w-2xl">
               <input type="text" className="shadow border w-full rounded-md outline-none px-4 py-2 my-3" placeholder="Full Name" name="fullName" id="fullName" required />
@@ -91,27 +87,15 @@ export default function Add() {
               </select>
               <input type="tel" name="mobileNo" id="mobileNo" placeholder="Phone Number" className="shadow border w-full rounded-md outline-none px-4 py-2 my-3" required />
               <input type="number" min={12} name="age" id="age" placeholder="Your Age" className="shadow border w-full rounded-md outline-none px-4 py-2 my-3" required />
-              
-              <textarea name="address" id="address" placeholder="Address" className="shadow border w-full rounded-md outline-none px-4 py-2 my-3" required></textarea>
-              
-              <select name="division" id="division" className="w-full shadow rounded border py-2 px-4 my-3" onChange={handleDivisionChange} value={selectedDivision} required>
-                <option value="">Select Division</option>
-                {divisions.map(d => <option key={d.name} value={d.name}>{d.name}</option>)}
-              </select>
-
-              <select name="district" id="district" className="w-full shadow rounded border py-2 px-4 my-3" onChange={handleDistrictChange} value={selectedDistrict} required>
-                <option value="">Select District</option>
-                {districtOptions.map(d => <option key={d} value={d}>{d}</option>)}
-              </select>
-
-              <select name="city" id="city" className="w-full shadow rounded border py-2 px-4 my-3" required>
-                <option value="">Select City</option>
-                {cityOptions.map(c => <option key={c} value={c}>{c}</option>)}
-              </select>
-              <GoogleMap />
-
-
-              <button type="submit" className="my-4 px-4 py-2 rounded-md bg-primary text-white">Save</button>
+              <p className="pt-4">Address: </p>
+              {
+                addresses.map(a => <div key={a.lat + ' ' + a.lng} className="bg-primary bg-opacity-20 py-1 px-2 border rounded w-full flex items-center justify-between gap-1 my-2">
+                  <p>{a.address}</p>
+                  <button onClick={() => removeAddress(a)}><IoClose /></button>
+                </div>)
+              }
+              <GoogleMapComponent onLocationSelect={handleLocationSelect} />
+              <button disabled={loading} type="submit" className="my-4 px-4 py-2 rounded-md bg-primary text-white">{loading ? "Please wait..." : "Save"}</button>
             </form>
           )}
         </div>

@@ -1,6 +1,9 @@
 package com.example.cerena.model.BloodBank;
 
+import java.util.List;
+
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.GeoSpatialIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 // import javax.validation.constraints.NotBlank;
 
@@ -11,29 +14,26 @@ import lombok.Setter;
 
 @Document(collection = "donors")
 @Data
-@Getter @Setter
+@Getter
+@Setter
 @AllArgsConstructor
 public class Donor {
     @Id
     private String id;
-    // @NotBlank
     private String fullName;
-    // @NotBlank
     private String bloodGroup;
-    
-    // @NotBlank
     private String gender;
-    
     private int age;
-    
-    // @NotBlank
     private String mobileNo;
-    
-    // @NotBlank
-    private String address;
-    
-    private String city;
-    private String division;
-    private String district;
- 
+    private boolean isVerified;
+    private List<Address> addresses;
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    public static class Address {
+        private String name;
+        @GeoSpatialIndexed
+        private double[] location;
+    }
 }

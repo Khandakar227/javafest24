@@ -20,4 +20,52 @@
   .dropzone {
     @apply px-4 py-12 text-center border border-dashed bg-slate-50 rounded-lg;
   }
+
+  .dashboard-container {
+    @apply p-8;
+  }
+
+  .dashboard {
+    @apply flex flex-wrap gap-6 justify-center;
+  }
+
+  .blood-group {
+    @apply border border-gray-300 rounded-lg p-4 w-64 text-center;
+  }
+
+  .blood-group h2 {
+    @apply text-xl font-bold mb-4;
+  }
+
+  .blood-group ul {
+    @apply list-none p-0;
+  }
+
+  .blood-group ul li {
+    @apply mb-2;
+  }
+  .dashboard-container {
+    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
 }
+
+.dashboard {
+    background: #fff;
+    border-radius: 10px;
+    padding: 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard h1 {
+    margin-bottom: 1rem;
+}
+
+.dashboard .chart-container {
+    position: relative;
+    height: 400px;
+}
+
+  
+}
+
