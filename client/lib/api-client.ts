@@ -98,3 +98,47 @@ export const calculateBMI = async (weight: number, height: number) => {
     const res = await (await fetch(serverUrl + `/bmi?weight=${weight}&height=${height}`)).json();
     return res;
 }
+
+export const registerDonor = async (data: any) => {
+    const token = localStorage.getItem("token");
+    const res = await (await fetch(`${serverUrl}/donors/register`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(data),
+    })).json();
+    return res;
+};
+
+export const searchDonorsByCity = async (city: string) => {
+    const token = localStorage.getItem("token");
+    const res = await (await fetch(`${serverUrl}/donors/searchbycity?city=${city}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+        },
+    })).json();
+    return res;
+};
+
+
+export const fetchBloodGroups = async () => {
+    try {
+        const response = await fetch(`${serverUrl}/donors/countByBloodGroup`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        if (typeof data !== 'object' || data === null) {
+            throw new Error('Unexpected response format');
+        }
+
+        return data; // This should be an object with blood group counts
+    } catch (error) {
+        console.error('Failed to fetch blood groups:', error);
+        return {}; 
+    }
+};

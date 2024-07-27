@@ -3,8 +3,9 @@ import Layout from "@/components/Layout";
 import { useUser, userUserLoaded } from "@/hooks/user";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { registerDonor } from "@/lib/api-client";
+import { registerDonor, searchDonorsByCity } from "@/lib/api-client";
 import { cities, divisions } from "@/lib/const";
+import GoogleMapComponent from "@/components/GoogleMap";
 
 
 
@@ -24,6 +25,8 @@ export default function Add() {
   const [cityOptions, setCityOptions] = useState<string[]>([]);
   const [message, setMessage] = useState<string | null>(null);
   const [registrationSuccessful, setRegistrationSuccessful] = useState(false);
+  const [selectedCity, setSelectedCity] = useState<string | null>(null);
+  const [donors, setDonors] = useState<any[]>([]);
 
   useEffect(() => {
     if (!userLoaded) return;
@@ -59,6 +62,16 @@ export default function Add() {
     } else {
       setMessage("Registration successful! Thank you for registering.");
       setRegistrationSuccessful(true);
+    }
+  }
+  
+  async function handleLocationSelect(city: string) {
+    setSelectedCity(city);
+    const response = await searchDonorsByCity(city);
+    if (response.error) {
+      setMessage(`Error fetching donors: ${response.error}`);
+    } else {
+      setDonors(response);
     }
   }
 
@@ -114,6 +127,25 @@ export default function Add() {
 
               <button type="submit" className="my-4 px-4 py-2 rounded-md bg-primary text-white">Save</button>
             </form>
+          )}
+        </div>
+        <div className="shadow rounded-md px-4 py-8 m-4 bg-white">
+          <GoogleMapComponent onLocationSelect={handleLocationSelect} />
+        </div>
+        <div className="shadow rounded-md px-4 py-8 m-4 bg-white">
+          {selectedCity && (
+            <div>
+              <h3 className="text-lg font-semibold">Donors in {selectedCity}</h3>
+              {donors.length > 0 ? (
+                <ul>
+                  {donors.map(donor => (
+                    <li key={donor.id}>{donor.fullName} - {donor.bloodGroup}</li>
+                  ))}
+                </ul>
+              ) : (
+                <p>No donors found in this city.</p>
+              )}
+            </div>
           )}
         </div>
       </Layout>

@@ -9,6 +9,7 @@ import com.example.cerena.service.BloodBank.DonorService;
 
 // import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 @CrossOrigin(origins = "http://127.0.0.1:5500")
 @RestController
 @RequestMapping("/api/v1/donors")
@@ -16,11 +17,7 @@ public class DonorController {
 
     @Autowired
     private DonorService donorService;
-    @GetMapping
-    public String retuString()
-    {
-        return "Hello Donor";
-    }
+    
 
     @PostMapping("/register")
     public Donor registerDonor(@RequestBody Donor donor) {
@@ -51,6 +48,14 @@ public class DonorController {
     @GetMapping("/searchbycity")
     public List<Donor> searchDonorsByCity(@RequestParam String city) {
         return donorService.searchbyCity(city);
+    }
+    @GetMapping("/searchbycity/donordetails")
+    public List<Donor> Donordetails(@RequestParam String city) {
+        return donorService.searchbyCity(city);
+    }
+    @GetMapping("/countByBloodGroup")
+    public Map<String, Long> countDonorsByBloodGroup() {
+        return donorService.countDonorsByBloodGroup();
     }
 
 }
