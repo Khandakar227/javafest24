@@ -5,12 +5,9 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { registerDonor } from "@/lib/api-client";
 import { cities, divisions } from "@/lib/const";
-
-
+import GoogleMap from "@/components/GoogleMap";
 
 const BloodGroups = ['A+', 'B+', 'AB+', 'O+', 'A-', 'B-', 'AB-', 'O-'];
-
-
 
 
 export default function Add() {
@@ -29,7 +26,7 @@ export default function Add() {
     if (!userLoaded) return;
     if (!user) {
       alert("You must be logged in!");
-      router.push("/login");
+      // router.push("/login");
     }
   }, [userLoaded, user]);
 
@@ -111,6 +108,8 @@ export default function Add() {
                 <option value="">Select City</option>
                 {cityOptions.map(c => <option key={c} value={c}>{c}</option>)}
               </select>
+              <GoogleMap />
+
 
               <button type="submit" className="my-4 px-4 py-2 rounded-md bg-primary text-white">Save</button>
             </form>
