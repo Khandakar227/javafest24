@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { fetchBloodGroups } from "@/lib/api-client";
 import { Pie } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, ChartOptions } from "chart.js";
-import { Paper, Typography, Container } from '@mui/material';
+import SearchDonor from "@/components/SearchDonor";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -71,11 +71,10 @@ export default function BloodBank() {
         <title>Blood Bank - Cerena</title>
       </Head>
       <Layout>
-        {/* <div className="flex flex-wrap justify-center m-4"> */}
         <div
-          className={`shadow rounded-md px-4 py-12 m-1 bg-white w='auto`}
+          className={`shadow rounded-md px-4 py-12 m-4 bg-white`}
           style={{
-            backgroundImage: `url('/blood-bank/blood-cover.png')`,
+            backgroundImage: `url('/blood-bank/blood-bank-cover.svg')`,
             backgroundSize: "cover",
             backgroundPosition: "center",
             width: "auto",
@@ -83,64 +82,34 @@ export default function BloodBank() {
             backgroundRepeat: "no-repeat",
           }}
         ></div>
-        <div className="flex flex-row justify-center m-4 w-auto h-auto">
-
-          {/* <Image
-              src="/blood-bank/blood-donation.png"
-              alt="Blood Bank"
-              width={550}
-              height={100}
-            /> */}
-          {/* <div className={`flex flex-row justify-center shadow rounded-md px-4 py-12 m-1 bg-white `} > */}
-            {/* <Container maxWidth="sm" style={{ width: "auto", height: "auto" }}> */}
-              <Paper elevation={5} sx={{ padding:2, textAlign: 'center'}}>
-                <Typography variant="h4" component="h1" gutterBottom>
-                  Blood Group Distribution
-                </Typography>
-                <div className="flex flex-row justify-center m-4 w-auto h-auto" style={{ height: '300px',width:'400px'}}>
-                  <Pie data={chartData} options={chartOptions} />
-                </div>
-              </Paper>
-            {/* </Container> */}
-          {/* </div> */}
+        <div className="flex flex-col md:flex-row justify-between items-stretch m-4 gap-4">
+          <div className="shadow p-4 rounded bg-white">
+            <h3 className="text-2xl font-semibold">
+            Blood Group Demographics
+            </h3>
+            <div className="flex flex-row justify-center m-4 mx-auto" style={{ height: '300px', width: '100%' }}>
+              <Pie data={chartData} options={chartOptions} />
+            </div>
+          </div>
 
 
-          <div>
-            <div
-              className={`shadow rounded-md px-4 py-12 m-4 bg-white  flex flex-col items-center justify-center`}
-              style={{ width: "auto", height: "auto" }}
+          <div className="w-full grid gap-4">
+            <div className={`shadow rounded-md px-4 py-12 bg-white  flex flex-col items-center justify-center w-full`}
             >
-              <h1 className="text-center font-bold text-2xl">
-                Need Urgent Blood?
-              </h1>
-              <p className="text-center font-semibold text-lg mx-auto pb-2">
-                Let us help you find people of required blood type around you
-              </p>
+              <h1 className="text-center font-bold text-2xl">Need Urgent Blood?</h1>
+              <p className="text-center font-semibold text-lg mx-auto pb-2">Let us help you find people of required blood type around you</p>
+              <div className="py-4 w-full">
+                <SearchDonor/>
+              </div>
+            </div>
+            <div className={`shadow rounded-md px-4 py-12 bg-white flex flex-col items-center justify-center`}
+            >
               <p className="text-center font-semibold text-lg mx-auto">
                 Anyone willing to be a donor?
-                <Link
-                  className="text-red-700 font-semibold underline mx-2"
-                  href={"/blood-bank/add"}
-                >
-                  Click here{" "}
-                </Link>
+                <Link className="text-red-700 font-semibold underline mx-2" href={"/blood-bank/add"}
+                > Click here </Link>
               </p>
             </div>
-            <div
-              className={`shadow rounded-md px-4 py-12 m-4 bg-white flex flex-col items-center justify-center`}
-              style={{ width: "auto", height: "auto" }}
-            >
-              <h1 className="text-center font-bold text-2xl">Find donor</h1>
-              {/* <p className="text-center font-semibold text-lg mx-auto pb-2">Find donors by blood type and location</p> */}
-              <Link
-                className="text-green-700 font-semibold underline mx-2"
-                href={"/blood-bank/Search"}
-              >
-                Search Donor
-              </Link>
-            </div>
-
-
           </div>
         </div>
       </Layout>

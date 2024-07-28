@@ -17,15 +17,15 @@ const center = {
 };
 
 interface GoogleMapComponentProps {
-  onLocationSelect: (data:{lat?: number, lng?: number, address:string}) => void;
+  onLocationSelect: (data:{lat?: number, lng?: number, name:string}) => void;
+  mapVisible?:boolean;
 }
-interface Coordinates { lat: number; lng: number;}
 
-const GoogleMapComponent: React.FC<GoogleMapComponentProps> = ({onLocationSelect}) => {
+const GoogleMapComponent: React.FC<GoogleMapComponentProps> = ({onLocationSelect, mapVisible}) => {
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
   const autocompleteRef = useRef<google.maps.places.Autocomplete | null>(null);
-  const [selectedPosition, setSelectedPosition] = useState<Coordinates | null>(null);
+  const [selectedPosition, setSelectedPosition] = useState<number[]>([]);
   const [address, setAddress] = useState("");
   const inputRef = useRef({} as HTMLInputElement);
 
@@ -45,14 +45,11 @@ const GoogleMapComponent: React.FC<GoogleMapComponentProps> = ({onLocationSelect
     inputRef.current.value = address;
   }, [inputRef, address])
 
-  useEffect(() => {
-  }, [selectedPosition, address])
-
   const onPlaceChanged = (place: google.maps.places.PlaceResult | null) => {
     if (!place) return;
     console.log(place);
     setAddress(place.formatted_address as string);
-    setSelectedPosition({lat:place.geometry?.location?.lat() || center.lat, lng: place.geometry?.location?.lng() || center.lng})
+    setSelectedPosition([place.geometry?.location?.lng() || center.lng, place.geometry?.location?.lat() || center.lat])
   };
 
   const handleMapClick = async (event: google.maps.MapMouseEvent) => {
@@ -64,13 +61,13 @@ const GoogleMapComponent: React.FC<GoogleMapComponentProps> = ({onLocationSelect
     const response = await geocoder.geocode({ location: { lat, lng } });
     
     setAddress(response.results[0]?.formatted_address);
-    setSelectedPosition({ lat, lng });
+    setSelectedPosition([lng, lat]);
   };
 
   function addAddress() {
-    onLocationSelect({...selectedPosition, address});
+    onLocationSelect({...selectedPosition, name:address});
     setAddress("");
-    setSelectedPosition(null);
+    setSelectedPosition([]);
   }
   if (!apiKey) {
     console.error("Google Maps API key is not defined.");
@@ -95,18 +92,22 @@ const GoogleMapComponent: React.FC<GoogleMapComponentProps> = ({onLocationSelect
               className="shadow border w-full rounded-md outline-none px-4 py-2 my-3"
             />
             {
-              address && selectedPosition?.lat && selectedPosition?.lng && (<button onClick={addAddress} className="px-4 py-1 bg-primary rounded" type="button">Add</button>)
+              address && selectedPosition?.length && (<button onClick={addAddress} className="px-4 py-1 bg-primary rounded" type="button">Add</button>)
             }
           </div>
         </Autocomplete>
+        {
+          mapVisible && (
         <GoogleMap
           mapContainerStyle={mapContainerStyle}
           center={center}
           zoom={8}
           onClick={handleMapClick}
         >
-          {selectedPosition && <Marker position={selectedPosition} />}
+          {selectedPosition?.length && <Marker position={{lng: selectedPosition[0], lat: selectedPosition[1]}} />}
         </GoogleMap>
+          )
+        }
       </LoadScript>
     </>
   );

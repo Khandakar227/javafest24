@@ -73,5 +73,16 @@ export type Generic = {
     storageConditionsDescription?: string
 }
 
+export type Address = { location: number[], name: string }
 
 
+export type Donor = {
+    id: string,
+    fullName: string,
+    bloodGroup: string,
+    gender: string,
+    age: number,
+    mobileNo: string,
+    addresses: Address[],
+    verified: boolean,
+}

@@ -3,16 +3,11 @@ import Layout from "@/components/Layout";
 import { useUser, userUserLoaded } from "@/hooks/user";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { registerDonor, searchDonorsByCity } from "@/lib/api-client";
-import { cities, divisions } from "@/lib/const";
 import GoogleMapComponent from "@/components/GoogleMap";
 import { IoClose } from "react-icons/io5";
 import toast from "react-hot-toast";
-
-type FulllAdress = { lat?: number, lng: number, address: string }
-
-const BloodGroups = ['A+', 'B+', 'AB+', 'O+', 'A-', 'B-', 'AB-', 'O-'];
-
+import { BloodGroups } from "@/lib/const";
+import { Address } from "@/types";
 
 export default function Add() {
   const [user, setUser] = useUser();
@@ -21,7 +16,7 @@ export default function Add() {
 
   const [loading, setLoading] = useState(false);
   const [registrationSuccessful, setRegistrationSuccessful] = useState(false);
-  const [addresses, setAddresses] = useState<FulllAdress[]>([]);
+  const [addresses, setAddresses] = useState<Address[]>([]);
 
   useEffect(() => {
     if (!userLoaded) return;
@@ -35,27 +30,28 @@ export default function Add() {
     e.preventDefault();
     const data = Object.fromEntries(new FormData(e.target as HTMLFormElement));
     const userInfo = { ...data, addresses };
+    console.log(userInfo);
     setLoading(true)
-    registerDonor(userInfo)
-    .then(response => {
-      if (response.error) return toast.error(response.error);
-      (e.target as HTMLFormElement).reset();
-      setAddresses([]);
-    })
-    .catch(err => {
-      toast.error(err.message);
-      console.log(err)
-    })
-    .finally(() => setLoading(false));
+    // registerDonor(userInfo)
+    // .then(response => {
+    //   if (response.error) return toast.error(response.error);
+    //   (e.target as HTMLFormElement).reset();
+    //   setAddresses([]);
+    // })
+    // .catch(err => {
+    //   toast.error(err.message);
+    //   console.log(err)
+    // })
+    // .finally(() => setLoading(false));
   }
 
   async function handleLocationSelect(fullAddress: any) {
     setAddresses(a => [...a, fullAddress])
   }
 
-  async function removeAddress(address: FulllAdress) {
+  async function removeAddress(address: Address) {
     setAddresses(a => {
-      const addresses = a.filter(_a => _a.address != address.address)
+      const addresses = a.filter(_a => _a.name != address.name)
       return addresses;
     })
   }
@@ -89,12 +85,12 @@ export default function Add() {
               <input type="number" min={12} name="age" id="age" placeholder="Your Age" className="shadow border w-full rounded-md outline-none px-4 py-2 my-3" required />
               <p className="pt-4">Address: </p>
               {
-                addresses.map(a => <div key={a.lat + ' ' + a.lng} className="bg-primary bg-opacity-20 py-1 px-2 border rounded w-full flex items-center justify-between gap-1 my-2">
-                  <p>{a.address}</p>
+                addresses.map(a => <div key={a.name} className="bg-primary bg-opacity-20 py-1 px-2 border rounded w-full flex items-center justify-between gap-1 my-2">
+                  <p>{a.name}</p>
                   <button onClick={() => removeAddress(a)}><IoClose /></button>
                 </div>)
               }
-              <GoogleMapComponent onLocationSelect={handleLocationSelect} />
+              <GoogleMapComponent onLocationSelect={handleLocationSelect} mapVisible={true} />
               <button disabled={loading} type="submit" className="my-4 px-4 py-2 rounded-md bg-primary text-white">{loading ? "Please wait..." : "Save"}</button>
             </form>
           )}

@@ -112,18 +112,21 @@ export const registerDonor = async (data: any) => {
     return res;
 };
 
-export const searchDonorsByCity = async (city: string) => {
+export const findDonorNear = async (bloodGroup: string, lng:string,  lat:string) => {
+    const res = await (await fetch(`${serverUrl}/donors/searchByBloodGroup?bloodGroup=${bloodGroup}&lng=${lng}&lat=${lat}&maxDistance=5000`)).json()
+    return res;
+}
+
+export const getDonorsAddedByMe = async (page=0) => {
     const token = localStorage.getItem("token");
-    const res = await (await fetch(`${serverUrl}/donors/searchbycity?city=${city}`, {
-        method: 'GET',
+    const res = await (await fetch(`${serverUrl}/donors/added?page=${page}`, {
         headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
         },
     })).json();
     return res;
-};
-
+}
 
 export const fetchBloodGroups = async () => {
     try {

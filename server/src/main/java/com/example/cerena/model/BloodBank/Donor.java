@@ -3,6 +3,7 @@ package com.example.cerena.model.BloodBank;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.GeoSpatialIndexType;
 import org.springframework.data.mongodb.core.index.GeoSpatialIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 // import javax.validation.constraints.NotBlank;
@@ -25,6 +26,7 @@ public class Donor {
     private String gender;
     private int age;
     private String mobileNo;
+    private String addedBy;
     private boolean isVerified;
     private List<Address> addresses;
 
@@ -33,7 +35,7 @@ public class Donor {
     @AllArgsConstructor
     public static class Address {
         private String name;
-        @GeoSpatialIndexed
+        @GeoSpatialIndexed(type = GeoSpatialIndexType.GEO_2DSPHERE)
         private double[] location;
     }
 }

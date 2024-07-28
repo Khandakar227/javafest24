@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.example.cerena.model.BloodBank.Donor;
 import com.example.cerena.repository.BloodBank.DonorRepository;
-import com.mongodb.client.model.geojson.Point;
 
 import java.util.HashMap;
 import java.util.List;
@@ -38,9 +37,17 @@ public class DonorService {
     //     return donorRepository.findByCity(city);
     // }
 
-    public Page<Donor> getDonorNear(double lat, double lng, double maxDistance, Pageable pageable) {
-        return donorRepository.findNear(lat, lng, maxDistance, pageable);
+    public Page<Donor> getDonorNear(double lng, double lat, double maxDistance, Pageable pageable) {
+        return donorRepository.findNear(lng, lat, maxDistance, pageable);
     }
+    public Page<Donor> getDonorOfBloodGroupNear(String bloodGroup, double lng, double lat, double maxDistance, Pageable pageable) {
+        return donorRepository.findNearByBLoodGroup(bloodGroup, lng, lat, maxDistance, pageable);
+    }
+
+    public Page<Donor> getDonorsAddedBy(String addedBy, Pageable pageable) {
+        return donorRepository.findByAddedBy(addedBy, pageable);
+    }
+
      public Map<String, Long> countDonorsByBloodGroup() {
         List<Donor> donors = donorRepository.findAll();
         Map<String, Long> bloodGroupCount = new HashMap<>();
