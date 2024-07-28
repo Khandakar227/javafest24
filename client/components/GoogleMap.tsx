@@ -17,7 +17,8 @@ const center = {
 };
 
 interface GoogleMapComponentProps {
-  onLocationSelect: (data:{lat?: number, lng?: number, name:string}) => void;
+  // onLocationSelect: (data:{lat?: number, lng?: number, name:string}) => void;
+  onLocationSelect: (data:{location: number[], name:string}) => void;
   mapVisible?:boolean;
 }
 
@@ -65,7 +66,8 @@ const GoogleMapComponent: React.FC<GoogleMapComponentProps> = ({onLocationSelect
   };
 
   function addAddress() {
-    onLocationSelect({...selectedPosition, name:address});
+    // onLocationSelect({...selectedPosition, name:address});
+    onLocationSelect({location:selectedPosition, name:address});
     setAddress("");
     setSelectedPosition([]);
   }

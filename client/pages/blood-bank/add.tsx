@@ -8,6 +8,7 @@ import { IoClose } from "react-icons/io5";
 import toast from "react-hot-toast";
 import { BloodGroups } from "@/lib/const";
 import { Address } from "@/types";
+import { registerDonor } from "@/lib/api-client";
 
 export default function Add() {
   const [user, setUser] = useUser();
@@ -32,21 +33,36 @@ export default function Add() {
     const userInfo = { ...data, addresses };
     console.log(userInfo);
     setLoading(true)
-    // registerDonor(userInfo)
-    // .then(response => {
-    //   if (response.error) return toast.error(response.error);
-    //   (e.target as HTMLFormElement).reset();
-    //   setAddresses([]);
-    // })
-    // .catch(err => {
-    //   toast.error(err.message);
-    //   console.log(err)
-    // })
-    // .finally(() => setLoading(false));
+    registerDonor(userInfo)
+    .then(response => {
+      if (response.error) return toast.error(response.error);
+      (e.target as HTMLFormElement).reset();
+      setAddresses([]);
+    })
+    .catch(err => {
+      toast.error(err.message);
+      console.log(err)
+    })
+    .finally(() => setLoading(false));
   }
 
-  async function handleLocationSelect(fullAddress: any) {
-    setAddresses(a => [...a, fullAddress])
+//   async function handleLocationSelect(fullAddress: any) {
+//     // setAddresses(a => {
+//     //     let address = { ...fullAddress, location: [fullAddress.lng || 0, fullAddress.lat || 0] }
+//     //     return [...a, address]
+//     //   })
+//     setAddresses(a => {
+//       let address = { name: fullAddress.name, location: [fullAddress.lng || 0, fullAddress.lat || 0] }
+//       console.log(address)
+//       return [...a, address]
+//     })
+    
+//   }
+
+async function handleLocationSelect(fullAddress: {location: number[], name:string}) {    
+    setAddresses(a => {
+      return [...a, fullAddress]
+    })
   }
 
   async function removeAddress(address: Address) {
@@ -55,6 +71,7 @@ export default function Add() {
       return addresses;
     })
   }
+  
 
   return (
     <>

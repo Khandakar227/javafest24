@@ -27,7 +27,7 @@ function SearchDonor() {
         console.log({address, bloodGroup});
         if(!bloodGroup) return toast.error("Please select a blood group");
         if(!address?.location.length) return;
-        router.push(`/blood-bank/search?bloodGroup=${bloodGroup}&lng=${encodeURIComponent(address?.location[0])}&lat=${encodeURIComponent(address?.location[1])}&name=${address?.name}`);
+        router.push(`/blood-bank/search?bloodGroup=${encodeURIComponent(bloodGroup)}&lng=${encodeURIComponent(address?.location[0])}&lat=${encodeURIComponent(address?.location[1])}&name=${address?.name}`);
     }
   return (
     <form onSubmit={search} className="text-center w-full">

@@ -139,7 +139,7 @@ export const fetchBloodGroups = async () => {
             throw new Error('Unexpected response format');
         }
 
-        return data; // This should be an object with blood group counts
+        return data; 
     } catch (error) {
         console.error('Failed to fetch blood groups:', error);
         return {}; 
