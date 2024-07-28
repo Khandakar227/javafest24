@@ -49,7 +49,7 @@ public class DonorController {
         donor.setVerified(false);
         donor.setAddedBy(email);
         Donor newDonor =  donorService.saveDonor(donor);
-        smsService.sendVerificationMessage(newDonor);
+        //smsService.sendVerificationMessage(newDonor);
         
         return ResponseEntity.status(200).body(newDonor);
     }
