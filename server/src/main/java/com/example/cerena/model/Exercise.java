@@ -21,8 +21,9 @@ public class Exercise {
     private String description;
     private String benefits;
     private List<String> img;
+    private List<String> gender;
 
-    public Exercise(String excerciseName, String muscleGp, String equipment, float rating, String description, String benefits, List<String> img) {
+    public Exercise(String excerciseName, String muscleGp, String equipment, float rating, String description, String benefits, List<String> img, List<String> gender) {
         super();
         this.excerciseName = excerciseName;
         this.muscleGp = muscleGp;
@@ -31,5 +32,6 @@ public class Exercise {
         this.description = description;
         this.benefits = benefits;
         this.img = img;
+        this.gender = gender;
     }
 }

@@ -50,7 +50,7 @@ public class SMSService {
     }
 
     private String getToken(Donor donor) {
-        return jwtService.generatePhoneVerificationToken(donor.getMobileNo(), donor.getFullName());
+        return jwtService.generatePhoneVerificationToken(donor.getId(), donor.getMobileNo());
     }
 
     private String getMessage(String token) {
@@ -59,7 +59,7 @@ public class SMSService {
 Dear Recipient,
 Your number has been added as a blood donor for our site. People can contact you when they need urgent blood. To verify your phone number, please click the link below:
 """
-+ "http://localhost:8080/api/v1/donor/verify?token=" + token +
++ "http://localhost:8080/api/v1/donors/verify?token=" + token +
 """
 \n
 If you have no knowledge of this, you can ignore this message.

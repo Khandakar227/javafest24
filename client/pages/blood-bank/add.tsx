@@ -16,7 +16,6 @@ export default function Add() {
   const router = useRouter();
 
   const [loading, setLoading] = useState(false);
-  const [registrationSuccessful, setRegistrationSuccessful] = useState(false);
   const [addresses, setAddresses] = useState<Address[]>([]);
 
   useEffect(() => {
@@ -38,6 +37,7 @@ export default function Add() {
       if (response.error) return toast.error(response.error);
       (e.target as HTMLFormElement).reset();
       setAddresses([]);
+      toast.success("Donor added successfully!");
     })
     .catch(err => {
       toast.error(err.message);
@@ -46,18 +46,6 @@ export default function Add() {
     .finally(() => setLoading(false));
   }
 
-//   async function handleLocationSelect(fullAddress: any) {
-//     // setAddresses(a => {
-//     //     let address = { ...fullAddress, location: [fullAddress.lng || 0, fullAddress.lat || 0] }
-//     //     return [...a, address]
-//     //   })
-//     setAddresses(a => {
-//       let address = { name: fullAddress.name, location: [fullAddress.lng || 0, fullAddress.lat || 0] }
-//       console.log(address)
-//       return [...a, address]
-//     })
-    
-//   }
 
 async function handleLocationSelect(fullAddress: {location: number[], name:string}) {    
     setAddresses(a => {
@@ -87,7 +75,6 @@ async function handleLocationSelect(fullAddress: {location: number[], name:strin
         </div>
 
         <div className="shadow rounded-md px-4 py-12 m-4 bg-white">
-          {!registrationSuccessful && (
             <form onSubmit={onSubmit} className="mx-auto max-w-2xl">
               <input type="text" className="shadow border w-full rounded-md outline-none px-4 py-2 my-3" placeholder="Full Name" name="fullName" id="fullName" required />
               <select name="gender" id="gender" className="w-full shadow rounded border py-2 px-4 my-3">
@@ -110,7 +97,6 @@ async function handleLocationSelect(fullAddress: {location: number[], name:strin
               <GoogleMapComponent onLocationSelect={handleLocationSelect} mapVisible={true} />
               <button disabled={loading} type="submit" className="my-4 px-4 py-2 rounded-md bg-primary text-white">{loading ? "Please wait..." : "Save"}</button>
             </form>
-          )}
         </div>
       </Layout>
     </>

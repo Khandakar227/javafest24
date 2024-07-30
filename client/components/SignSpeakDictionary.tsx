@@ -28,6 +28,7 @@ function SignSpeakDictionary() {
     }
     return (
         <>
+            <h1 className="text-2xl font-semibold py-6 text-center">ASL Dictionary</h1>
             <div className='max-w-4xl mx-auto flex gap-4 justify-center items-center py-5'>
                 <input type="search" name="prefix" id="prefix" className='px-2 py-1 rounded shadow border w-full outline-none focus:outline-primary' placeholder='Type a word...' />
                 <button className='bg-primary p-2 rounded'><FiSearch size={20} /></button>

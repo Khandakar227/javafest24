@@ -22,20 +22,9 @@ public class DonorService {
         return donorRepository.save(donor);
     }
 
-    // public List<Donor> searchDonors(String bloodGroup, String city, String division, String district) {
-    //     if (city == null|| division == null ||district == null) {
-    //         return donorRepository.findByBloodGroup(bloodGroup);
-    //     }
-    //     return donorRepository.findByBloodGroupAndCityAndDivisionAndDistrict(bloodGroup, city, division, district);
-    // }
-    
-
-    // public List<Donor> searchDonorsByLocation(String city, String district, String division) {
-    //     return donorRepository.findByCityOrDistrictOrDivision(city, district, division);
-    // }
-    // public List<Donor> searchbyCity(String city) {
-    //     return donorRepository.findByCity(city);
-    // }
+    public Donor getDonorById(String id) {
+        return donorRepository.findById(id).orElse(null);
+    }
 
     public Page<Donor> getDonorNear(double lng, double lat, double maxDistance, Pageable pageable) {
         return donorRepository.findNear(lng, lat, maxDistance, pageable);

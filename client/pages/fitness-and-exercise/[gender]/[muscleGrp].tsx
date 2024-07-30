@@ -2,7 +2,7 @@ import Layout from "@/components/Layout"
 import Spinner from "@/components/Spinner";
 import Head from "next/head"
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react"
+import { ChangeEvent, useEffect, useState } from "react"
 import { muscleData } from "@/lib/muscle-data";
 import { getExercises } from "@/lib/api-client";
 import MaleMuscleFront from "@/components/Exercise/MaleMuscleFront";
@@ -10,6 +10,7 @@ import MaleMuscleBack from "@/components/Exercise/MaleMuscleBack";
 import FemaleMuscleFront from "@/components/Exercise/FemaleMuscleFront";
 import FemaleMuscleBack from "@/components/Exercise/FemaleMuscleBack";
 import { Exercise } from "@/types";
+import ReactPaginate from "react-paginate";
 
 function MuscleGroup() {
     const router = useRouter();
@@ -17,6 +18,7 @@ function MuscleGroup() {
     const [gender, setGender] = useState('male');
     const [exercises, setExercises] = useState([] as Exercise[]);
     const [page, setPage] = useState(0);
+    const [totalPages, setTotalPages] = useState(0);
     const [loading, setLoading] = useState(true);
 
 
@@ -30,15 +32,28 @@ function MuscleGroup() {
     useEffect(() => {
         if (!muscle) return;
         console.log(muscle)
-        getExercises(muscle, page)
+        getExercises(muscle, gender, page)
             .then(res => {
                 setExercises(res.content);
                 console.log(res);
+                setTotalPages(res.totalPages);
             })
             .catch(err => {
                 console.log(err);
             });
-    }, [muscle])
+    }, [gender, muscle, page])
+
+    function onGenderSelect(e:ChangeEvent) {
+        const selected = (e.target as HTMLSelectElement).value;
+        localStorage.setItem("exercise-gender", selected);
+        setGender(selected);
+       router.push(`/fitness-and-exercise/${selected}/${router.query.muscleGrp}`);
+      }
+
+
+    function onPageChange(selectedItem: { selected: number; }) {
+        setPage(selectedItem.selected);
+    }
 
     if (loading) return <Spinner />;
     if (!loading && (!muscle || !['male', 'female'].includes(gender))) return (
@@ -105,6 +120,13 @@ function MuscleGroup() {
                     </div>
 
                     <div className="max-w-52 lg:max-w-96 sticky top-0">
+                    <div className="flex items-center text-sm gap-4 justify-center">
+                        <label htmlFor="gender" className="mr-2">Gender</label>
+                        <select name="gender" id="gender" className="px-4 py-2 rounded-md shadow outline-none" value={gender} onChange={onGenderSelect}>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        </select>
+                    </div>
                         {
                             gender == 'male' ?
                                 <div className="hidden md:grid lg:grid-cols-2 justify-center items-center gap-4">
@@ -126,6 +148,23 @@ function MuscleGroup() {
                                 </div>
                         }
                     </div>
+                </div>
+                <div className="py-8">
+                    <ReactPaginate
+                        className="flex justify-center items-center gap-4 flex-wrap"
+                        pageLinkClassName={'px-4 py-2 rounded-md shadow outline-none bg-primary text-white text-sm hover:bg-green-700 hover:text-white'}
+                        pageCount={totalPages}
+                        breakLabel="..."
+                        nextLabel=">"
+                        previousLinkClassName="px-4 py-2 rounded-md outline-none hover:bg-green-700 hover:text-white"
+                        nextLinkClassName="px-4 py-2 rounded-md outline-none hover:bg-green-700 hover:text-white"
+                        pageRangeDisplayed={5}
+                        previousLabel="<"
+                        renderOnZeroPageCount={null}
+                        activeLinkClassName="!bg-green-700 !text-white"
+                        initialPage={page}
+                        onPageChange={onPageChange}
+                    />
                 </div>
             </Layout>
         </>

@@ -2,6 +2,7 @@ import Layout from '@/components/Layout'
 import SignSpeakDictionary from '@/components/SignSpeakDictionary';
 import VideoCamButton from '@/components/VideoCamButton';
 import Head from 'next/head';
+import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react'
 
@@ -38,8 +39,14 @@ function SignSpeak() {
                 </div>
 
                 <div className='m-4 px-4 py-12 rounded bg-white shadow text-center mb-12'>
-                    <p className='text-2xl font-semibold pb-12'>Want to test your sign language knowledge?</p>
-                    <Link href={"/signspeak/quiz"} className='bg-primary rounded px-4 py-2'>Take a Quiz</Link>
+                <h2 className='text-2xl pt-2'>
+                    Test Your Knowledge of American Sign Language
+                </h2>
+                <Image src={"/signspeak/sign-language-alphabets.jpg"} alt='sign language alphabets' width={400} height={400} className='my-4 mx-auto rounded-md shadow' />
+                <p className='py-6 text-lg mx-auto max-w-5xl'>
+                    Ready to put your sign language skills to the test? Take our quiz to see how well you know the American Sign Language (ASL) alphabet.
+                </p>
+                <Link href={"/signspeak/quiz"} className='bg-primary rounded px-4 py-3 font-semibold'>Take a Quiz</Link>
                 </div>
             </Layout>
         </>

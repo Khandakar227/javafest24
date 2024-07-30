@@ -2,10 +2,18 @@ import Link from 'next/link'
 import {motion} from 'framer-motion'
 import React, { useState } from 'react'
 import { useUser } from '@/hooks/user';
+import { useRouter } from 'next/router';
 
 export default function Avatar() {
     const [show, setShow] = useState(false);
-    const [user, _] = useUser();
+    const [user, setUser] = useUser();
+    const router = useRouter();
+
+    const logout = () => {
+        localStorage.removeItem('token');
+        setUser(null);
+        router.push('/')
+    }
   return (
     <div className='relative'>
         <button onClick={() => setShow(!show)} className="bg-green-950 rounded-full p-4"><span className="h-4 w-4" /></button>
@@ -18,7 +26,7 @@ export default function Avatar() {
                     user?.role == 'ADMIN' && (<li className='border-b'><Link className='py-2 block font-semibold' href="/admin">Admin</Link></li>)
                 }
                 <li className='border-b'><Link className='py-2 block font-semibold' href="/profile">Profile</Link></li>
-                <li className='border-b'><Link className='py-2 block font-semibold' href="/logout">Logout</Link></li>
+                <li className='border-b'><button className='py-2 block font-semibold' onClick={logout}>Logout</button></li>
             </ul>
         </motion.div>
     </div>

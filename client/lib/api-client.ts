@@ -38,8 +38,8 @@ export const getDoctor = async (id: string) => {
     return res;
 }
 
-export const getExercises = async (query: string, page = 0) => {
-    const res = await (await fetch(serverUrl + `/exercise/muscle/${query}?page=${page}`)).json();
+export const getExercises = async (query: string, gender: string, page = 0) => {
+    const res = await (await fetch(serverUrl + `/exercise/muscle/${query}?gender=${gender}&page=${page}`)).json();
     return res;
 }
 

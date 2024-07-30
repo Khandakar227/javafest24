@@ -6,6 +6,7 @@ import { fetchBloodGroups } from "@/lib/api-client";
 import { Pie } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, ChartOptions } from "chart.js";
 import SearchDonor from "@/components/SearchDonor";
+import Image from "next/image";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -84,7 +85,7 @@ export default function BloodBank() {
         ></div>
         <div className="flex flex-col md:flex-row justify-between items-stretch m-4 gap-4">
           <div className="shadow p-4 rounded bg-white">
-            <h3 className="text-2xl font-semibold">
+            <h3 className="text-2xl font-semibold text-center">
             Blood Group Demographics
             </h3>
             <div className="flex flex-row justify-center m-4 mx-auto" style={{ height: '300px', width: '100%' }}>
@@ -109,6 +110,7 @@ export default function BloodBank() {
                 <Link className="text-red-700 font-semibold underline mx-2" href={"/blood-bank/add"}
                 > Click here </Link>
               </p>
+              <Image alt="Blood donation illustration" src={"/blood-bank/blood-donation.svg"} width={300} height={300} className="my-4"/>
             </div>
           </div>
         </div>

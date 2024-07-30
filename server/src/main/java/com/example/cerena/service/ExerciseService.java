@@ -25,8 +25,8 @@ public class ExerciseService {
         return exerciseRepository.findById(id).orElse(null);
     }
 
-    public Page<Exercise> getExerciseByMuscleGp(String speciality, Pageable pageable) {
-        return exerciseRepository.findByMuscleGp(speciality, pageable);
+    public Page<Exercise> getExerciseByMuscleGp(String muscleGroup, String gender, Pageable pageable) {
+        return exerciseRepository.findByMuscleGp(muscleGroup, gender, pageable);
     }
 
     public Page<Exercise> getExerciseByEquipment(String district, Pageable pageable) {

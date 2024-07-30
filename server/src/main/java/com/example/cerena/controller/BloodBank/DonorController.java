@@ -14,6 +14,7 @@ import com.example.cerena.service.SMSService;
 import com.example.cerena.service.UserService;
 import com.example.cerena.service.BloodBank.DonorService;
 
+import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.Map;
@@ -49,7 +50,7 @@ public class DonorController {
         donor.setVerified(false);
         donor.setAddedBy(email);
         Donor newDonor =  donorService.saveDonor(donor);
-        //smsService.sendVerificationMessage(newDonor);
+        smsService.sendVerificationMessage(newDonor);
         
         return ResponseEntity.status(200).body(newDonor);
     }
@@ -72,31 +73,6 @@ public class DonorController {
         return ResponseEntity.status(200).body(donors);
     }
    
-    // @GetMapping("/search")
-    // public List<Donor> searchDonors(@RequestParam String bloodGroup, 
-    //                                 @RequestParam(required = false) String city,
-    //                                 @RequestParam(required = false) String division,
-    //                                 @RequestParam(required = false) String district) {
-    //     return donorService.searchDonors(bloodGroup, city, division, district);
-    // }
-
-    // @GetMapping("/searchbylocation")
-    // public List<Donor> searchDonorsByLocation(@RequestParam String city, 
-    //                                           @RequestParam String district,
-    //                                           @RequestParam String division) {
-    //     return donorService.searchDonorsByLocation(city, district, division);
-    // }
-
-    // @GetMapping("/searchbycity")
-    // public List<Donor> searchDonorsByCity(@RequestParam String city) {
-    //     return donorService.searchbyCity(city);
-    // }
-
-    // @GetMapping("/searchbycity/donordetails")
-    // public List<Donor> Donordetails(@RequestParam String city) {
-    //     return donorService.searchbyCity(city);
-    // }
-    
     @GetMapping("/search")
     public Page<Donor> findDonorNear(@RequestParam double lng, @RequestParam double lat, @RequestParam double maxDistance, @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size) {
@@ -106,9 +82,17 @@ public class DonorController {
         } catch (Exception e) {
             System.out.println(e);
             return null;
-        }        
+        }
     }
 
+    @GetMapping("/verify")
+    public ResponseEntity<String> verifyDonorsNumber(@RequestParam String token) {
+        Claims claims =  jwtService.extractAllClaims(token);
+        Donor donor = donorService.getDonorById(claims.get("id").toString());
+        donor.setVerified(true);
+        donorService.saveDonor(donor);
+        return ResponseEntity.status(200).body("Donor Verified");
+    }
     @GetMapping("/searchByBloodGroup")
     public Page<Donor> findDonorOfBloodGroupNear(@RequestParam String bloodGroup, @RequestParam double lng, @RequestParam double lat, @RequestParam double maxDistance, @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size) {

@@ -13,8 +13,8 @@ import com.example.cerena.model.Exercise;
 public interface ExerciseRepository extends MongoRepository<Exercise, String> {
     Exercise findByExcerciseName(String excerciseName);
 
-    @Query("{ 'muscleGp': { $regex: ?0, $options: 'i' } }")
-    Page<Exercise> findByMuscleGp(String muscleGp, Pageable pageable);
+    @Query("{ 'muscleGp': { $regex: ?0, $options: 'i' }, 'gender': ?1 }")
+    Page<Exercise> findByMuscleGp(String muscleGp, String gender, Pageable pageable);
 
     @Query("{ 'equipment': { $regex: ?0, $options: 'i' } }")
     Page<Exercise> findByEquipment(String equipment, Pageable pageable);

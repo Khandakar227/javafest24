@@ -89,11 +89,11 @@ public class ExerciseController {
     }
 
     @GetMapping("/muscle/{keyword}")
-    public Page<Exercise> getExerciseByMuscle(@PathVariable String keyword, @RequestParam(defaultValue = "0") int page,
+    public Page<Exercise> getExerciseByMuscle(@PathVariable String keyword, @RequestParam(defaultValue = "") String gender, @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size) {
         try {
             Pageable pageable = PageRequest.of(page, size);
-            return exerciseService.getExerciseByMuscleGp(keyword, pageable);
+            return exerciseService.getExerciseByMuscleGp(keyword, gender, pageable);
         } catch (Exception e) {
             System.out.println(e);
             return null;

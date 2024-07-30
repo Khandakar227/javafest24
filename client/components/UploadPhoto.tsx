@@ -14,6 +14,7 @@ function UploadPhoto() {
     const [previewImage, setPreviewImage] = useState("");
     const [ingredients, setIngrediants] = useState([] as Ingredients[]);
     const [totalCalorie, setTotalCalorie] = useState(0);
+    const [error, setError] = useState("");
     const [foodData, setFoodData] = useState({ foodName: "", width: 0, height: 0 } as FoodData);
     const [loading, setLoading] = useState(false);
     const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
@@ -39,11 +40,13 @@ function UploadPhoto() {
     }
 
     async function calculateCalorie() {
+        setError("");
         setLoading(true);
         if(!previewImage) return toast.error("Please upload an image of the food");
         estimateFoodCalorie(acceptedFiles[0], foodData.foodName, foodData.width, foodData.height)
         .then(res => {
             console.log(res);
+            if(res.error) {setError(res.error); return;}
             setIngrediants(res.ingredients);
             setFoodData(v => ({...v, foodName: res.food}));
             setTotalCalorie(res.total_calorie);
@@ -86,7 +89,9 @@ function UploadPhoto() {
         {
             loading && (<div className="flex justify-center items-center mx-auto "><Spinner size={4}/></div>)
         }
+
         {
+            error ? <p className="text-red-500 text-center">{error}</p> : 
             ingredients.length > 0 && (
                 <div className="bg-gray-100 p-4 rounded-md">
                     <h1 className="font-bold text-lg pb-4">Food: {foodData.foodName}</h1>

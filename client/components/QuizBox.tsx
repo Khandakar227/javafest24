@@ -1,5 +1,6 @@
 import { MouseEvent, useEffect, useState } from "react";
 import {getRandomWords} from '@/lib/api-client'
+import ShowQuizOverModal from "./ShowQuizOverModal";
 // import ShowQuizOverModal from "./ShowQuizOverModal";
 
 const totalQuestions = 10;
@@ -49,11 +50,12 @@ export default function QuizBox(props: { stopQuiz: () => void }) {
         setQuestionCount(0);
         setScore(0);
         props.stopQuiz();
+        setShowAlert(false);
     }
     return (
         <div>
             <div className='max-w-7xl mx-auto px-4 py-12'>
-                {/* <ShowQuizOverModal open={showAlert} score={score} totalQuestions={totalQuestions} onAction={handleAlertAction} /> */}
+                <ShowQuizOverModal open={showAlert} score={score} totalQuestions={totalQuestions} close={handleAlertAction} />
                 <h1 className='text-4xl font-bold text-center pb-4'>Quiz</h1>
             </div>
             <div className="py-4 flex justify-between items-center gap-4 mx-auto max-w-6xl">

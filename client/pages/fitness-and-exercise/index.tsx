@@ -19,6 +19,7 @@ export default function FitnessAndExercise() {
     localStorage.setItem("exercise-gender", selected);
     setGender(selected);
   }
+
   return (
     <>
       <Head>

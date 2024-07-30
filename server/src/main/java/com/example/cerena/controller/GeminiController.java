@@ -40,7 +40,7 @@ public class GeminiController {
     @RequestParam(defaultValue = "0") String height) {
       System.out.println(foodName + " " + width + " " + height);
         String prompt = """
-        You are a nutritionist. Your role is to estimate the calorie content of the food for each of its ingredients."""
+        You are a nutritionist. Your role is to estimate the calorie content of the food for each of its ingredients. First check if the image is of foods or not. if not return JSON Format: {\"error\": \"string\"}"""
         +
         (!foodName.isEmpty() ?( "Food name is "+ foodName) : "") +
         (width.isEmpty() || width.equals("0") ? "" : ("Approximated Width " + width + "cm")) +

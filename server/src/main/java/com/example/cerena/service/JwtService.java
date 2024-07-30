@@ -28,16 +28,11 @@ public class JwtService {
     public String extractEmail(String token) {
         return extractClaim(token, Claims::getSubject);
     }
-
+    
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
     }
-
-    // public String generateToken(String subject, Map<String, Object> extraClaims)
-    // {
-    // return buildToken(extraClaims, subject, jwtExpiration);
-    // }
 
     public String generateMailVerificationToken(String email) {
         HashMap<String, Object> claims = new HashMap<>();
@@ -59,10 +54,10 @@ public class JwtService {
         return buildToken(claims, email, jwtExpiration);
     }
 
-    public String generatePhoneVerificationToken(String mobileNo, String username) {
+    public String generatePhoneVerificationToken(String id, String mobileNo) {
         HashMap<String, Object> claims = new HashMap<>();
-        claims.put("mobileNo", mobileNo);
-        return buildToken(claims, username);
+        claims.put("id", id);
+        return buildToken(claims, mobileNo);
     }
 
     public long getExpirationTime() {
@@ -104,7 +99,7 @@ public class JwtService {
         return extractClaim(token, Claims::getExpiration);
     }
 
-    private Claims extractAllClaims(String token) {
+    public Claims extractAllClaims(String token) {
         SecretKey key = Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
 
         return Jwts
