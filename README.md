@@ -1,4 +1,8 @@
-<img src="https://github.com/Khandakar227/javafest24/blob/main/client/public/cerena-logo.png" alt="cerena" style="height: 80px; width: 80px; "/> <h1> CERENA</h1> <h4>All-in-One Healthcare Assistant.
+<div style="text-align: center;">
+   <img src="./client//public/cerena-logo.png" alt="cerena" style="height: 80px; width: 80px; margin: 0 auto;"/>
+</div>
+<h1> CERENA</h1>
+<h4>All-in-One Healthcare Assistant.
 </h4>
 
 ## Overview
