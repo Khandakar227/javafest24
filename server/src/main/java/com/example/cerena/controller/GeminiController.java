@@ -6,11 +6,13 @@ import java.util.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.cerena.model.WorkoutPlanInput;
 import com.example.cerena.service.GeminiService;
 
 @RestController
@@ -64,5 +66,15 @@ public class GeminiController {
             e.printStackTrace();
             return null;
         }
+    }
+
+    @PostMapping("/workout-plan")
+    public String recommendWorkout(@RequestBody WorkoutPlanInput input) {
+      String prompt = """
+          You are a fitness expert. You will be provided age, gender, goal, workout types. create a weekly basis workout plan.
+          return a json format: { day: string, workouts: {name: string, reps: number, sets: number, summery: string}[] }[]\n
+          """ + "Age: " + input.getAge() + ", goal: " + input.getGoal() + ", Gender: " + input.getGender() + ", workout types: " + input.getWorkout();
+      String response = geminiService.generateContent(prompt);
+      return response;
     }
 }

@@ -9,6 +9,11 @@ export const login = async (data: any) => {
     return res;
 }
 
+export const sendPasswordResetLink = async (email: string) => {
+    const res = await (await fetch(serverUrl + `/user/send-password-reset-mail?email=${email}`)).json();
+    return res;
+}
+
 export const getLoggedInUser = async () => {
     const token = localStorage.getItem("token");
     const res = await (await fetch(serverUrl + "/user/profile", {
@@ -145,3 +150,16 @@ export const fetchBloodGroups = async () => {
         return {}; 
     }
 };
+
+export const getWorkoutPlans = async (data:any) => {
+    const options = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      };
+      
+    const res = await (await fetch(`${serverUrl}/workout-plan`, options)).json();
+    return res;
+}

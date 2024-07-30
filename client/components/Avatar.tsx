@@ -16,7 +16,7 @@ export default function Avatar() {
     }
   return (
     <div className='relative'>
-        <button onClick={() => setShow(!show)} className="bg-green-950 rounded-full p-4"><span className="h-4 w-4" /></button>
+        <button onClick={() => setShow(!show)} className="bg-green-950 rounded-full px-4 py-2 text-white"><span>{user?.name[0]}</span></button>
         <motion.div animate={show ? "open" : "closed"} variants={{
             open: {opacity: 1, y: 0},
             closed: {opacity: 0, y: "-100%", width: 0, display: "none"}

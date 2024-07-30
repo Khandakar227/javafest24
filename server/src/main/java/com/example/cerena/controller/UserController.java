@@ -177,12 +177,13 @@ public class UserController {
     @GetMapping("/send-password-reset-mail")
     public ResponseEntity<Response> sendPasswordResetMail(@RequestParam String email) {
         try {
+            Response response = new Response("Password reset link has been sent to your email", false);
             User user = userService.getUserByEmail(email);
             if (user == null)
-                return ResponseEntity.ok().build();
+                return ResponseEntity.ok().body(response);
             String token = jwtService.generatePasswordResetToken(email);
             emailService.sendPasswordResetEmail(user.getName(), email, token);
-            return ResponseEntity.ok().build();
+            return ResponseEntity.ok().body(response);
         } catch (Exception e) {
             System.out.println(e);
             Response response = new Response("Failed to send password reset email", true);

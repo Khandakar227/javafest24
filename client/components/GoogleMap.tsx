@@ -31,6 +31,7 @@ const GoogleMapComponent: React.FC<GoogleMapComponentProps> = ({onLocationSelect
   const inputRef = useRef({} as HTMLInputElement);
 
   useEffect(() => {
+    console.log(autocompleteRef);
     if (autocompleteRef.current) {
       autocompleteRef.current.addListener("place_changed", () => {
         const place = autocompleteRef.current?.getPlace() || null;
