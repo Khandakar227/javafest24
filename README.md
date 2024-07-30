@@ -74,14 +74,16 @@ The system is thoroughly tested using unit testing and integration testing frame
 
 **Feature** | **Framework / Tool**
 --- | ---
-**Frontend** | Next.js, Tailwind CSS
-**Backend** | Spring Boot, API Gateway (Spring Cloud Gateway)
-**Database & Storage** | MongoDB
-**AI Models** | TensorFlow or PyTorch (for machine learning models),***need to be add something?***
-**Health & Fitness** | Calorie Tracking: Food Image Recognition Technology
+**Frontend** | [Next.js](https://nextjs.org/docs)
+**Backend** | [Spring Boot](https://spring.io/projects/spring-boot), [API Gateway](https://spring.io/projects/spring-cloud-gateway)
+**Database & Storage** | [MongoDB](https://www.mongodb.com/docs/)
+**AI Models** | [TensorFlow (for machine learning models)](https://www.tensorflow.org/),***need to be add something?***
+**CSS Framework** |[Tailwind CSS](https://tailwindcss.com/)
+**Design Tool** | [Canva](https://www.canva.com/),[Adobe Illustrator](https://illustrator.adobe.com/home)
+**Health & Fitness** | [Gemini API]()
 **Notifications** | ***faka apatoto***
-**Accessibility** | ***Sign Language*** : Custom ML models for gesture recognition
-**Location Services** | Geolocation APIs
+**Accessibility** | [Sign Language Pretrained ML models for gesture recognition](https://www.nature.com/articles/s41598-023-43852-x)
+**Location Services** | [Geolocation APIs](https://developers.google.com/maps/documentation/geolocation/overview)
 **Chatbot** | ***maybe kichu add krbo hopefully***
 **Others** | Web Push Notifications reminders
 
