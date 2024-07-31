@@ -3,7 +3,6 @@ import { getWorkoutPlans } from "@/lib/api-client";
 import Head from "next/head";
 import { FormEvent, useRef, useState } from "react";
 import { FaDownload } from "react-icons/fa";
-import html2PDF from "jspdf-html2canvas";
 import { useUser } from "@/hooks/user";
 import { WorkoutPlan } from "@/types";
 import { PDFDownloadLink } from "@react-pdf/renderer";
