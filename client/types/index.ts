@@ -86,3 +86,5 @@ export type Donor = {
     addresses: Address[],
     verified: boolean,
 }
+
+export type WorkoutPlan = { day: string, workouts: {name: string, reps: number|string, sets: number|string, summery: string}[] }

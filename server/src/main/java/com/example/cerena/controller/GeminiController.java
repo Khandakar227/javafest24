@@ -72,7 +72,7 @@ public class GeminiController {
     public String recommendWorkout(@RequestBody WorkoutPlanInput input) {
       String prompt = """
           You are a fitness expert. You will be provided age, gender, goal, workout types. create a weekly basis workout plan.
-          return a json format: { day: string, workouts: {name: string, reps: number, sets: number, summery: string}[] }[]\n
+          return a json format: { day: string, workouts: {name: string, reps: number|null, sets: number|null, summery: string}[] }[]\n
           """ + "Age: " + input.getAge() + ", goal: " + input.getGoal() + ", Gender: " + input.getGender() + ", workout types: " + input.getWorkout();
       String response = geminiService.generateContent(prompt);
       return response;
