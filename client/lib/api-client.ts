@@ -163,3 +163,60 @@ export const getWorkoutPlans = async (data:any) => {
     const res = await (await fetch(`${serverUrl}/workout-plan`, options)).json();
     return res;
 }
+
+// ADMIN
+export const uploadPhoto = async (photo:File) => {
+    const form = new FormData();
+    form.append("file", photo);
+    const options = {
+    method: 'POST',
+    headers: { 'Content-Type': 'multipart/form-data' },
+    body: form
+    };
+    const res = await (await fetch(`${serverUrl}/file/doctor/upload`, options)).json();
+    return res;
+}
+
+export const addDoctor = async (data:any) => {
+    const token = localStorage.getItem("token");
+    const options = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(data)
+      };
+      const res = await (await fetch(`${serverUrl}/doctor`, options)).json();
+      return res;
+}
+
+export const countDoctors = async () => {
+      const res = await (await fetch(`${serverUrl}/doctor/count`)).json();
+      return res;
+}
+
+export const countExercises = async () => {
+      const res = await (await fetch(`${serverUrl}/exercise/count`)).json();
+      return res;
+}
+
+export const countMedicines = async () => {
+    const res = await (await fetch(`${serverUrl}/medicine/count`)).json();
+    return res;
+}
+
+export const countGenerics = async () => {
+    const res = await (await fetch(`${serverUrl}/generic/count`)).json();
+    return res;
+}
+
+export const countDonors = async () => {
+    const res = await (await fetch(`${serverUrl}/donors/count`)).json();
+    return res;
+}
+
+export const countSigns = async () => {
+    const res = await (await fetch(`${serverUrl}/signs/count`)).json();
+    return res;
+}

@@ -1,6 +1,8 @@
 package com.example.cerena.controller;
 
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -121,5 +123,12 @@ public class DoctorController {
             @RequestParam(defaultValue = "20") int size) {
         Pageable pageable = PageRequest.of(page, size);
         return doctorService.getDoctorsByDistrict(district, pageable);
+    }
+
+    @GetMapping("/count")
+    public ResponseEntity<?> countDoctors() {
+        Map<String, Long> response = new HashMap<>();
+        response.put("count", doctorService.countDoctors());
+        return ResponseEntity.ok(response);
     }
 }

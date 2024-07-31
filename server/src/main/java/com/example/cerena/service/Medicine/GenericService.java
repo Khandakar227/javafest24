@@ -36,5 +36,7 @@ public class GenericService {
   public Optional<Generic> getGenericById(String id) {
     return Optional.of(genericRepository.findById(id));
   }
-
+  public long countGenerics() {
+      return genericRepository.count();
+  }
 }

@@ -46,4 +46,7 @@ public class DoctorService {
     public List<Doctor> addAllDoctors(List<Doctor> doctors) {
         return doctorRepository.saveAll(doctors);
     }
+    public long countDoctors() {
+        return doctorRepository.count();
+    }
 }

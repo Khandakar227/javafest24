@@ -1,5 +1,5 @@
 import Layout from "@/components/Layout";
-import UploadPhoto from "@/components/UploadPhoto";
+import UploadFoodPhoto from "@/components/UploadFoodPhoto";
 import Head from "next/head";
 
 export default function CalorieTracking() {
@@ -14,7 +14,7 @@ export default function CalorieTracking() {
           <p>Track your daily calorie intake from the foods you eat</p>
         </div>
         <div className={`shadow rounded-md px-4 py-8 m-4 bg-white`}>
-            <UploadPhoto />
+            <UploadFoodPhoto />
         </div>
       </Layout>
     </>

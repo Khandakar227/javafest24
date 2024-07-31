@@ -6,8 +6,8 @@
 </h4>
 
 ## Overview
-**CERENA** is an innovative healthcare platform designed to transform how people navigate their health. By harnessing the power of AI,ML. **CERENA** provides a comprehensive suite of tools to enhance learning, creativity, and overall well-being. This application is a single destination for all healthcare services, aiming to improve the quality and accessibility of healthcare.
-  
+**CERENA** is an innovative healthcare platform designed to transform how people navigate their health. By harnessing the power of AI,ML. This application is a single destination for all healthcare services, aiming to improve the quality and accessibility of healthcare.
+
 
 **Key points of CERENA :**
 * **`Conventional Healthcare`**: Comprehensive information on Doctors,Medications

@@ -55,4 +55,7 @@ public class MedicineService {
     public Page<Medicine> search(String keyword, Pageable page) {
         return medicineRepository.search(keyword, page);
     }
+    public long countMedicines() {
+        return medicineRepository.count();
+    }
 }

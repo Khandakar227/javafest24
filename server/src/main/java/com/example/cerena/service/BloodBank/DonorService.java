@@ -47,4 +47,7 @@ public class DonorService {
         return bloodGroupCount;
     }
     
+    public long count() {
+        return donorRepository.count();
+    }
 }

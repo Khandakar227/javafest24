@@ -18,6 +18,7 @@ import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.Map;
+import java.util.HashMap;
 
 @CrossOrigin(origins = "http://127.0.0.1:5500")
 @RestController
@@ -109,5 +110,12 @@ public class DonorController {
     @GetMapping("/countByBloodGroup")
     public Map<String, Long> countDonorsByBloodGroup() {
         return donorService.countDonorsByBloodGroup();
+    }
+    
+    @GetMapping("/count")
+    public ResponseEntity<?> count() {
+        Map<String, Long> response = new HashMap<>();
+        response.put("count", donorService.count());
+        return ResponseEntity.ok(response);
     }
 }

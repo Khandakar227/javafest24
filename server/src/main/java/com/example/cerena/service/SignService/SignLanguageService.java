@@ -64,4 +64,8 @@ public class SignLanguageService {
     public List<SignLanguageEntry> getRandomSample() {
         return signLanguageRepository.findRandomSample();
     }
+    
+    public long count() {
+        return signLanguageRepository.count();
+    }
 }

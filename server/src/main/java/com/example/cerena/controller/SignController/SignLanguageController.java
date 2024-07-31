@@ -19,6 +19,8 @@ import com.example.cerena.service.SignService.SignLanguageService;
 import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 @RestController
 @RequestMapping("/api/v1/signs")
@@ -155,4 +157,10 @@ public class SignLanguageController {
         }
     }
 
+    @GetMapping("/count")
+    public ResponseEntity<?> count() {
+        Map<String, Long> response = new HashMap<>();
+        response.put("count", signLanguageService.count());
+        return ResponseEntity.ok(response);
+    }
 }

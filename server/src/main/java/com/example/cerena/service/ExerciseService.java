@@ -40,4 +40,8 @@ public class ExerciseService {
     public List<Exercise> addAllExercises(List<Exercise> exercises) {
         return exerciseRepository.saveAll(exercises);
     }
+    
+    public long countExercises() {
+        return exerciseRepository.count();
+    }
 }

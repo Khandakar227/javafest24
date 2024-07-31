@@ -1,6 +1,8 @@
 package com.example.cerena.controller;
 
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -107,4 +109,10 @@ public class ExerciseController {
         return exerciseService.getExerciseByEquipment(keyword, pageable);
     }
 
+    @GetMapping("/count")
+    public ResponseEntity<?> countExercises() {
+        Map<String, Long> response = new HashMap<>();
+        response.put("count", exerciseService.countExercises());
+        return ResponseEntity.ok(response);
+    }
 }

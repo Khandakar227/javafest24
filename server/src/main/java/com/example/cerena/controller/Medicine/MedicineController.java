@@ -2,6 +2,8 @@ package com.example.cerena.controller.Medicine;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Map;
+import java.util.HashMap;
 
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -161,5 +163,12 @@ public class MedicineController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+    
+    @GetMapping("/count")
+    public ResponseEntity<?> countMedicines() {
+        Map<String, Long> response = new HashMap<>();
+        response.put("count", medicineService.countMedicines());
+        return ResponseEntity.ok(response);
     }
 }

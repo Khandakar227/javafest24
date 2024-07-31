@@ -8,6 +8,8 @@ import com.example.cerena.service.UserService;
 import com.example.cerena.service.Medicine.GenericService;
 
 import java.util.Optional;
+import java.util.Map;
+import java.util.HashMap;
 import jakarta.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,6 +85,13 @@ public class GenericController {
             System.out.println(e);
             return ResponseEntity.internalServerError().build();
         }
+    }
+
+    @GetMapping("/count")
+    public ResponseEntity<?> count() {
+        Map<String, Long> response = new HashMap<>();
+        response.put("count", genericService.countGenerics());
+        return ResponseEntity.ok(response);
     }
 
     // Update an existing generic

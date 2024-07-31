@@ -15,7 +15,7 @@ export default function Home() {
       </Head>
       <Layout>
         <div className={`px-4 py-16 bg-white shadow m-4 rounded-md ${poppins.className} home-bg`}>
-          <h1 className="text-center font-bold text-2xl md:text-3xl">Your <span className="px-1 rounded bg-green-700 text-white">all in one</span> </h1>
+          <h1 className="text-center font-bold text-2xl md:text-3xl">Your <span className="px-2 rounded bg-green-700 text-white">all in one</span> </h1>
           <h1 className="text-center font-bold text-3xl md:text-4xl">Personal Healthcare Assistant</h1>
           <p className="mx-auto text-center max-w-3xl pt-4">Our Personal Healthcare Assistant is designed to provide you with the information and tools you need to take control of your health and well-being.</p>
           <div className="pt-12">
