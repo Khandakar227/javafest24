@@ -39,7 +39,7 @@ function SignSpeak() {
                 </div>
 
                 <div className='m-4 px-4 py-12 rounded bg-white shadow text-center mb-12'>
-                <h2 className='text-2xl pt-2'>
+                <h2 className='text-2xl pt-2 font-semibold'>
                     Test Your Knowledge of American Sign Language
                 </h2>
                 <Image src={"/signspeak/sign-language-alphabets.jpg"} alt='sign language alphabets' width={400} height={400} className='my-4 mx-auto rounded-md shadow' />

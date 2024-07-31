@@ -32,6 +32,7 @@ function MuscleGroup() {
     useEffect(() => {
         if (!muscle) return;
         console.log(muscle)
+        setPage(0);
         getExercises(muscle, gender, page)
             .then(res => {
                 setExercises(res.content);

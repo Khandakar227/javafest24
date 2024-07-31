@@ -64,8 +64,10 @@
 .dashboard .chart-container {
     position: relative;
     height: 400px;
+}  
 }
 
-  
+.home-bg {
+  background: url("/home/bg.svg") no-repeat center center/cover;
+  @apply bg-white;
 }
-

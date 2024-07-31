@@ -59,10 +59,11 @@ export default function Intellifit() {
     e.preventDefault();
     setLoading(true);
     const formData = new FormData(e.target as HTMLFormElement);
-    const data = {
+    const data: {[key:string]: any} = {
       ...Object.fromEntries(formData),
       workout: formData.getAll("workout").join(", "),
     };
+    if(!data.age || !data.gender) return;
     getWorkoutPlans(data)
       .then((res) => {
         setWorkOutPlans(res);
@@ -95,8 +96,7 @@ export default function Intellifit() {
                     className="hover:underline text-red-500"
                     onClick={clear}
                   >
-                    {" "}
-                    Clear{" "}
+                    Clear
                   </button>
                 </div>
                 <p className="pb-2 font-semibold">
@@ -117,6 +117,7 @@ export default function Intellifit() {
                     name="age"
                     min={12}
                     className="bg-primary bg-opacity-15 px-4 py-2 rounded-md shadow outline-none"
+                    required
                   />
                   <p className="pt-4 text-sm">Gender:</p>
                   <div className="flex gap-8 items-center">
@@ -151,6 +152,7 @@ export default function Intellifit() {
                         id="goal"
                         defaultValue={goal}
                         className="accent-primary h-4 w-4"
+                        required
                       />
                       <span>{goal}</span>
                     </label>
@@ -169,6 +171,7 @@ export default function Intellifit() {
                         id="workout"
                         defaultValue={workout}
                         className="accent-primary h-4 w-4"
+                        required
                       />
                       <span>{workout}</span>
                     </label>
