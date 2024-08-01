@@ -113,7 +113,7 @@ public class DonorController {
     }
     
     @GetMapping("/count")
-    public ResponseEntity<?> count() {
+    public ResponseEntity<?> countDonor() {
         Map<String, Long> response = new HashMap<>();
         response.put("count", donorService.count());
         return ResponseEntity.ok(response);

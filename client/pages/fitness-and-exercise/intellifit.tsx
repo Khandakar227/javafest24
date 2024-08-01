@@ -171,7 +171,6 @@ export default function Intellifit() {
                         id="workout"
                         defaultValue={workout}
                         className="accent-primary h-4 w-4"
-                        required
                       />
                       <span>{workout}</span>
                     </label>
@@ -200,10 +199,10 @@ function WorkOutTable({ workouts }: { workouts: WorkoutPlan[] }) {
     <>
       <div ref={divRef}>
         {workouts.map((w) => (
-          <div className="rounded shadow p-2 my-4 bg-[#fffff0]">
+          <div className="rounded shadow p-2 my-4 bg-[#fffff0]" key={w.day}>
             <p className="text-lg font-semibold pb-2">{w.day}</p>
-            {w.workouts.map((workout) => (
-              <div className="pl-4 pb-4" key={workout.name}>
+            {w.workouts.map((workout, i) => (
+              <div className="pl-4 pb-4" key={i+workout.name}>
                 <p className="font-semibold text-sm">{workout.name}</p>
                 <p className="text-xs text-gray-700">{workout.summery}</p>
                 {
