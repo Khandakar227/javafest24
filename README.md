@@ -138,14 +138,32 @@ User and role based authentication system was implemented. **JSON Web Token** is
    - Install Mongodb and MongoDB Compass. Go to *`data/mongo`* folder. Import the data into database collection
    (data file name: mongo.`<collection name>`.json). Make sure to run backend before this step. Otherwise mongo collection won't be generated.
 
-    
+6. **Sign Detection Model Server**
+    - To use sign detection a custom trained sign language model was built using mobile net, tensorflow, opencv and mediapipe in python. go to *`model-server`* folder. Install necessary packages. model server is created using fast api.
 
+    ```
+    python -m venv venv
+    source venv/Scripts/activate <------------------ For Windows
+    source venv/bin/activate <------------------ For Linux
+    pip install mediapipe opencv-python tensorflow==2.15.1 fastapi uvicron
+    ```
+    To run the server:
+    ```
+    fastapi run server.py
+    ```
+   **Note**: It seems fastapi command does not work if virtual environment is not setup.
+   
 ## Conclusion
 
 **CERENA** aims to revolutionize the healthcare sector by offering scalable features and focusing on comprehensive healthcare for all. While it faces challenges like limited access to APIs and the need for efficient models, it strives to create a positive impact on users' health and well-being.
 
 
-<!-- Team Info here -->
+## About the Team
+Team name: **new JavaPariNa()**
+**Name** | **Email** | **LinkedIn**
+--- | --- | ---
+Khandakar Shakib Al hasan | shakibalhasan@iut-dhaka.edu | [shakib-hasan](www.linkedin.com/in/shakib-hasan-734494249)
+Meftahul Jannati Anonna | meftahul@iut-dhaka.edu | []()
 
 Thank You.
 
