@@ -25,5 +25,6 @@ public interface MedicineRepository extends MongoRepository<Medicine, String> {
     Page<Medicine> search(String text, Pageable pageable);
     Optional<Medicine> findMedicineBySlug(String slug);
     
+    
 }
 

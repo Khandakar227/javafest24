@@ -164,6 +164,7 @@ public class MedicineController {
             return ResponseEntity.notFound().build();
         }
     }
+     
     
     @GetMapping("/count")
     public ResponseEntity<?> countMedicines() {

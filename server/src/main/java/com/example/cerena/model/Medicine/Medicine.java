@@ -11,7 +11,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Document(collection = "medicine")
+@Document(collection = "medicines")
 
 @Data
 @AllArgsConstructor

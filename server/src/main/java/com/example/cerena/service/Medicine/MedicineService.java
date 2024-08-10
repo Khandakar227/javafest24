@@ -51,6 +51,7 @@ public class MedicineService {
     public List<Medicine> addAllMedicines(List<Medicine> medicines) {
         return medicineRepository.saveAll(medicines);
     }
+    
 
     public Page<Medicine> search(String keyword, Pageable page) {
         return medicineRepository.search(keyword, page);
