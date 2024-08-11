@@ -59,4 +59,7 @@ public class MedicineService {
     public long countMedicines() {
         return medicineRepository.count();
     }
+    public Page<Medicine> searchBygeneric(String generic, Pageable pageable) {
+        return medicineRepository.findByGenericContainingIgnoreCase(generic, pageable);
+    }
 }

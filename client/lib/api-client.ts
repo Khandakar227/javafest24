@@ -220,3 +220,12 @@ export const countSigns = async () => {
     const res = await (await fetch(`${serverUrl}/signs/count`)).json();
     return res;
 }
+export const getMedicineAlternatives = async (generic: string) => {
+    const formattedGeneric = generic.replace(/\s+/g, '-');
+    const res = await fetch(`${serverUrl}/medicine/alternatives/${formattedGeneric}`);
+    if (!res.ok) {
+        throw new Error(`Failed to fetch medicine alternatives for ${formattedGeneric}`);
+    }
+    const data = await res.json();
+    return data;
+}

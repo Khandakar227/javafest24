@@ -87,4 +87,17 @@ export type Donor = {
     verified: boolean,
 }
 
+export interface Alternative {
+    id: string;
+    slug:string;
+    brandName: string;
+    dosageForm: string;
+    strength: string;
+    company: string;
+    price: string;
+    manufacturer:string;
+    href: string;
+  }
+  
+
 export type WorkoutPlan = { day: string, workouts: {name: string, reps: number|string, sets: number|string, summery: string}[] }

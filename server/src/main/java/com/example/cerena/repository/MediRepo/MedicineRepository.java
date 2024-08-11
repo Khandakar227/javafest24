@@ -24,7 +24,7 @@ public interface MedicineRepository extends MongoRepository<Medicine, String> {
     @Query("{ '$or': [ {'brandName': { $regex: '?0', $options: 'i' }}, {'strength': { $regex: '?0', $options: 'i' }}, {dosageForm: { $regex: '?0', $options: 'i' }}, {manufacturer:{ $regex: '?0', $options: 'i' }} ] }")
     Page<Medicine> search(String text, Pageable pageable);
     Optional<Medicine> findMedicineBySlug(String slug);
-    
+    Page<Medicine> findByGenericContainingIgnoreCase(String genericName, Pageable pageable);
     
 }
 

@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,6 +35,7 @@ import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/api/v1/medicine")
+@CrossOrigin(origins = "http://127.0.0.1:5500")
 public class MedicineController {
     @Autowired
     MedicineService medicineService;
@@ -172,4 +174,15 @@ public class MedicineController {
         response.put("count", medicineService.countMedicines());
         return ResponseEntity.ok(response);
     }
+    @GetMapping("/alternatives/{generic}")
+    public Page<Medicine> searchAlternativeBrands(
+            @PathVariable String generic,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        
+        String decodedGeneric = generic.replace("-", " ");
+        return medicineService.searchBygeneric(decodedGeneric, pageable);
+    }
+
 }
