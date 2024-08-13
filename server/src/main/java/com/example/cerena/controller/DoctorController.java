@@ -84,7 +84,7 @@ public class DoctorController {
         @RequestParam(defaultValue = "") String district,
         @RequestParam(defaultValue = "") String speciality,
         @RequestParam(defaultValue = "0") int page,
-        @RequestParam(defaultValue = "20") int size,
+        @RequestParam(defaultValue = "21") int size,
         @RequestParam(defaultValue = "name") String sortField,
         @RequestParam(defaultValue = "ASC") Sort.Direction direction) {
         Pageable pageable = PageRequest.of(page, size, Sort.by(direction, sortField));
@@ -100,14 +100,14 @@ public class DoctorController {
     @GetMapping("/search")
     public Page<Doctor> searchDoctors(@RequestParam String query,
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "20") int size) {
+            @RequestParam(defaultValue = "21") int size) {
         Pageable pageable = PageRequest.of(page, size);
         return doctorService.searchDoctors(query, pageable);
     }
 
     @GetMapping("/speciality/{keyword}")
     public Page<Doctor> getDoctorsBySpeciality(@PathVariable String keyword, @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "20") int size) {
+            @RequestParam(defaultValue = "21") int size) {
         try {
             Pageable pageable = PageRequest.of(page, size);
             return doctorService.getDoctorsBySpeciality(keyword, pageable);
