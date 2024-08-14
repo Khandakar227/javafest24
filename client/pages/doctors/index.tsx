@@ -95,7 +95,7 @@ export default function Doctors() {
               name="keyword"
               id="search"
               placeholder="Look for doctors..."
-              className="max-w-md w-full px-4 py-2 rounded shadow outline-none border-custom"
+              className="max-w-md w-full px-4 py-2 rounded shadow outline-none border"
             />
             <button className="bg-primary text-white p-2 rounded-md ml-4 filter">
               Search
@@ -109,23 +109,23 @@ export default function Doctors() {
         ) : (
           <>
           <div className="py-8 px-4">
-          <div className="grid lg:grid-cols-3 md:grid-cols-2 justify-center items-center gap-4 ">
+          <div className="grid gap-4 ">
               {doctors.map((d) => (
-                <div className="shadow rounded text-left p-4 flex-col justify-between h-[270px]  med-grid">
+                <div key={d.id} className="shadow rounded p-4 flex-col justify-between med-grid">
                   <Link
                     href={`/doctors/${d.id}`}
+                    className="block"
                     key={d.id}
-                    
                   >
                     <img
                       src={d.photo}
                       alt={d.name}
                       className="w-20 h-20 rounded-full image-custom"
                     />
-                    <div className="py-2 px-10">
-                      <h2 className="text-lg font-semibold">{d.name}</h2>
-                      <p className="text-sm text-[gray]">{d.speciality}</p>
-                      <p className="text-sm text-gray-500">{d.district}</p>
+                    <div className="py-2 px-6">
+                      <h2 className="text-left text-lg font-semibold">{d.name}</h2>
+                      <p className="text-left text-sm text-gray-900">{d.speciality}</p>
+                      <p className="text-left text-sm text-gray-500">{d.district}</p>
                     </div>
                   </Link>
                 </div>

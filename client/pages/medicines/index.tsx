@@ -71,28 +71,19 @@ export default function Medicines() {
           </form>
 
           <div className="py-4 px-10">
-            <div className="grid lg:grid-cols-3 md:grid-cols-2 justify-center items-center gap-4 ">
+            <div className="grid lg:grid-cols-3 md:grid-cols-2 justify-center items-stretch gap-4 ">
               {medicines.map((medicine) => (
                 <div
-                  className="shadow rounded text-left p-4 flex-col justify-between h-[170px]  grid-custom"
+                  className="shadow rounded text-left p-4 flex-col justify-between border border-primary"
                   key={medicine.id}
                 >
                   <Link href={`/medicines/${medicine.slug}`} className="block">
                     <h1
-                      className="font-semibold text-xl"
-                      style={{
-                        marginRight: `calc(12px + 0.4vw)`,
-                        fontSize: "25px",
-                        color: "#435b66",
-                      }}
+                      className="font-semibold text-2xl text-green-900"
                     >
-                      {medicine.brandName}{" "}
+                      {medicine.brandName}
                       <small
-                        className="h1-subtitle font-normal"
-                        style={{
-                          fontSize: "15px",
-                          color: "#777777",
-                        }}
+                        className="h1-subtitle font-normal text-sm text-gray-800 pl-2"
                       >
                         {medicine.dosageForm}
                       </small>

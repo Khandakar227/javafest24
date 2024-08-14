@@ -34,7 +34,7 @@ export default function DoctorPage() {
     <Layout>
       <div className="p-4">
         <div
-          className="p-4 px-12 shadow rounded  mx-auto max-w-2xl bg-[#E7FBE6]"
+          className="p-4 px-12 shadow rounded  mx-auto max-w-2xl bg-[#f0ffef]"
           style={{
             width: "100%",
             maxWidth: "1000px",

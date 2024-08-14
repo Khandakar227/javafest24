@@ -90,25 +90,24 @@
 }
 .grid-custom{
   background-color: white; 
-  border: 2px solid #71C171;
-  color: #0a8181; 
+  border: 2px solid #327e32;
+  color: #327e32; 
   padding: 10px 20px; 
   border-radius: 4px; 
   text-align: center;
   text-decoration: none;
-  display: inline-block;
   transition: background-color 0.3s ease;
 }
 .image-custom{
-  border:3px solid  #0a8181;
+  border:3px solid  #327e32;
 }
 .border-custom{
-  border: 2px solid #019c01;
+  border: 2px solid #327e32;
 }
 .med-grid{
   background-color: white; 
-  border: 2px solid #019c01;
-  color: #0a8181; 
+  border: 1px solid #327e32;
+  color: #327e32; 
   padding: 10px 20px; 
   border-radius: 4px; 
   text-align: center;
@@ -117,7 +116,7 @@
   transition: background-color 0.3s ease;
 }
 .filter{
-  background-color:#019c01 ; 
+  background-color:#327e32 ; 
   text-decoration: white;
   padding: 10px 20px; 
   border-radius: 4px; 
