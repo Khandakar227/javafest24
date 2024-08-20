@@ -103,12 +103,12 @@ function DiseasePrediction() {
             <Layout>
                 <main className="grid md:grid-cols-2">
                     <div className="grid min-h-screen items-end">
-                        <div className="py-8 p-4 m-4 rounded bg-white shadow">
+                        <div className="py-8 p-4 m-4 rounded bg-white shadow bg-[#D6EFD8]">
                             <h1 className="text-xl font-bold">Enter your symptoms and receive an instant analysis. </h1>
                             <p>Our AI-powered prediction tool provides you with accurate insights to help you understand your health better.</p>
                         </div>
 
-                        <div className="py-8 p-4 m-4 rounded bg-white shadow">
+                        <div className="py-8 p-4 m-4 rounded bg-white shadow bg-[#D6EFD8]">
                             <ul>
                                 <li className="pb-4 font-semibold text-lg">How it Works:</li>
                                 <li>1. Enter your symptoms in the fields provided.</li>
@@ -118,11 +118,11 @@ function DiseasePrediction() {
                             <p className="pt-6 font-semibold text-sm">Note: This tool is for informational purposes only and is not a substitute for professional medical advice.</p>
                         </div>
 
-                        <div className="py-12">
+                        <div className="py-12 px-2">
                             {
                                 chats.map((chat, i) => (
                                     <div className={`flex ${chat.from == 'user' ? 'justify-end pl-4' : 'justify-start pr-4'}`} key={"chat " + i}>
-                                        <div className={`p-2 m-2 rounded ${chat.from == 'user' ? 'bg-green-200 text-end' : 'bg-gray-200'}`}>{chat.text}</div>
+                                        <div className={`p-2 m-2 rounded ${chat.from == 'user' ? 'bg-green-200 text-end' : 'bg-gray-200 px-4'}`}>{chat.text}</div>
                                     </div>
                                 ))
                             }
@@ -136,7 +136,7 @@ function DiseasePrediction() {
                                         className="text-sm outline-none p-2 rounded shadow border flex-1 h-14 resize-none"
                                         onChange={onAnswerChange}
                                     ></textarea>
-                                    <button disabled={loading} className="bg-primary rounded px-4 py-2" onClick={onRespond}>{loading ? <Spinner size={1} /> : 'Respond'}</button>
+                                    <button disabled={loading} className="bg-primary rounded px-4 py-2 hover:text-white" onClick={onRespond}>{loading ? <Spinner size={1} /> : 'Respond'}</button>
                                 </div>
                                 :
                                 <div className="flex gap-4 justify-center items-center px-2 py-3 w-full max-w-lg sticky bottom-0 mx-auto glass">
@@ -146,7 +146,7 @@ function DiseasePrediction() {
                                         className="text-sm outline-none p-2 rounded shadow border flex-1 h-14 resize-none"
                                         onChange={onPromptChange}
                                     ></textarea>
-                                    <button disabled={loading} className="bg-primary rounded px-4 py-2" onClick={onPredict}>{loading ? <Spinner size={1} /> : 'Predict'}</button>
+                                    <button disabled={loading} className="bg-primary rounded px-4 py-2 hover:text-white" onClick={onPredict}>{loading ? <Spinner size={1} /> : 'Predict'}</button>
                                 </div>
                         }
                     </div>
