@@ -163,7 +163,7 @@ Team name: **new JavaPariNa()**
 **Name** | **Email** | **LinkedIn**
 --- | --- | ---
 Khandakar Shakib Al hasan | shakibalhasan@iut-dhaka.edu | [shakib-hasan](www.linkedin.com/in/shakib-hasan-734494249)
-Meftahul Jannati Anonna | meftahul@iut-dhaka.edu | []()
+Meftahul Jannati Anonna | meftahul@iut-dhaka.edu | [Meftahul Jannati Anonna](https://www.linkedin.com/in/meftahuljannati/)
 
 Thank You.
 
