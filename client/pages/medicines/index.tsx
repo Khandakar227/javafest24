@@ -74,7 +74,7 @@ export default function Medicines() {
             <div className="grid lg:grid-cols-3 md:grid-cols-2 justify-center items-stretch gap-4 ">
               {medicines.map((medicine) => (
                 <div
-                  className="shadow rounded text-left p-4 flex-col justify-between border border-primary"
+                  className="shadow rounded text-left p-4 flex-col justify-between border border-primary hover:bg-green-50 hover:shadow-lg"
                   key={medicine.id}
                 >
                   <Link href={`/medicines/${medicine.slug}`} className="block">

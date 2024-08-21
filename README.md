@@ -143,7 +143,7 @@ User and role based authentication system was implemented. **JSON Web Token** is
 
     ```
     python -m venv venv
-    source venv/Scripts/activate <------------------ For Windows
+    ./venv/Scripts/activate <------------------ For Windows
     source venv/bin/activate <------------------ For Linux
     pip install mediapipe opencv-python tensorflow==2.15.1 fastapi uvicron
     ```

@@ -1,6 +1,7 @@
 import { getWords } from "@/lib/api-client";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import { ChangeEvent, useEffect, useState } from "react";
 import { FiSearch } from "react-icons/fi";
 import ReactPaginate from "react-paginate";
 
@@ -8,9 +9,12 @@ const alphabets = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 
 function SignSpeakDictionary() {
     const [words, setWords] = useState([] as {word:string}[]);
+    const [searchedWord, setSearchedWord] = useState("");
     const [totalPages, setTotalPages] = useState(0);
     const [page, setPage] = useState(0);
     const [alphabet, setAlphabet] = useState('');
+
+    const router = useRouter();
 
     useEffect(() => {
         getWords(page, alphabet)
@@ -23,15 +27,23 @@ function SignSpeakDictionary() {
     }, [page, alphabet])
 
     function onPageChange(selectedItem: { selected: number; }) {
-        console.log("selectedItem ", selectedItem)
         setPage(selectedItem.selected);
     }
+
+    function onSearch(e: ChangeEvent<HTMLInputElement>) {
+        setSearchedWord(e.target.value);
+    }
+
+    function searchWord() {
+        router.push(`/signspeak/all?prefix=${searchedWord}`);
+    }
+
     return (
         <>
             <h1 className="text-2xl font-semibold py-6 text-center">ASL Dictionary</h1>
             <div className='max-w-4xl mx-auto flex gap-4 justify-center items-center py-5'>
-                <input type="search" name="prefix" id="prefix" className='px-2 py-1 rounded shadow border w-full outline-none focus:outline-primary' placeholder='Type a word...' />
-                <button className='bg-primary p-2 rounded'><FiSearch size={20} /></button>
+                <input onChange={onSearch} type="search" name="prefix" id="prefix" className='px-2 py-1 rounded shadow border w-full outline-none focus:outline-primary' placeholder='Type a word...' />
+                <button className='bg-primary p-2 rounded' onClick={searchWord}><FiSearch size={20} /></button>
             </div>
             <div className='flex flex-wrap gap-1 items-center justify-center'>
                 <button onClick={() => setAlphabet('')} key={'All'} className={`${alphabet == '' ? "bg-green-900 text-white" : "bg-primary"} text-sm py-1 px-3 rounded shadow`}>All</button>
@@ -46,7 +58,7 @@ function SignSpeakDictionary() {
                 <div className="grid justify-between items-center gap-4 lg:grid-cols-3 md:grid-cols-2">
                 {
                     words.map((word, i) => (
-                        <Link href={`/signspeak/word/${word.word}`} className={`block p-2 m-2 text-sm`} key={"word " + i}>{word.word?.split(',')[0]}</Link>
+                        <Link href={`/signspeak/word/${word.word}`} className={`block p-2 m-2 text-sm hover:bg-green-50`} key={"word " + i}>{word.word?.split(',')[0]}</Link>
                     ))
                 }
                 </div>

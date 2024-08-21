@@ -41,7 +41,7 @@ function Word() {
                                 {
                                     word[0].videos.map((video, i) => (
                                         <div key={video + i}>
-                                            <video src={`/api/proxy-video?url=${video}`} width="640px" height="480px" controls controlsList="nodownload" onContextMenu={() => false}></video>
+                                            <video className="shadow rounded-md" src={`/api/proxy-video?url=${video}`} width="640px" height="480px" controls controlsList="nodownload" onContextMenu={() => false}></video>
                                         </div>
                                     ))
                                 }

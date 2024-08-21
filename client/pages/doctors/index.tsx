@@ -111,7 +111,7 @@ export default function Doctors() {
           <div className="py-8 px-4">
           <div className="grid gap-4 ">
               {doctors.map((d) => (
-                <div key={d.id} className="shadow rounded p-4 flex-col justify-between med-grid">
+                <div key={d.id} className="shadow rounded p-4 flex-col justify-between med-grid hover:bg-green-50 ">
                   <Link
                     href={`/doctors/${d.id}`}
                     className="block"

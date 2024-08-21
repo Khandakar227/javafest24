@@ -10,10 +10,10 @@ import socketio
 
 detector = HandDetector()
 
-model_path = "Model/keras_model.h5"
-label_path = "Model/labels.txt"
+model_path = "Model/2.0/keras_model.h5"
+label_path = "Model/2.0/labels.txt"
 
-classifier = Classifier("Model/keras_model.h5" , "Model/labels.txt")
+classifier = Classifier(model_path , label_path)
 offset = 20
 imgSize = 300
 counter = 0

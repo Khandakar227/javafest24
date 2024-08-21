@@ -113,7 +113,7 @@
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.1s ease;
 }
 .filter{
   background-color:#327e32 ; 
