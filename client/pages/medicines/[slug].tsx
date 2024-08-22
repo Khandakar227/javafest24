@@ -13,7 +13,7 @@ type DosageForm =
   | "Injection"
   | "Capsule"
   | "Cream"
-  | "Dialysis Solution"
+  | "Dialysis Solution"|"Opthalmic Solution"
   | "Eye Drop"
   | "Gel"
   | "Syrup"|"Emulsion";
@@ -27,7 +27,8 @@ const dosageFormIcons: Record<DosageForm, string> = {
   "Eye Drop": "/images-med/eye-drop.png",
   "Gel": "/images-med/gel.png",
  "Syrup": "/images-med/syrup.png",
-  "Emulsion":"/images-med/emulsion.png"
+  "Emulsion":"/images-med/emulsion.png",
+  "Solution":"/images-med/dialysis-solution.png"
 };
 const mapDosageForm = (str: string) => {
   if (/Injection/.test(str)) {
@@ -36,6 +37,10 @@ const mapDosageForm = (str: string) => {
     return 'Gel';
   } else if (/Emulsion|Suspension|Powder/.test(str)) {
     return 'Emulsion';
+  }
+  else if(/Ophthalmic Solution|Oral Solution|Scalp Solution|Nebuliser Solution/.test(str))
+  {
+    return 'Solution'
   }
  
   return str;

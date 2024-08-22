@@ -54,7 +54,7 @@ function UploadPhoto() {
         .finally(() => setLoading(false));
     }
     return (
-        <div className="max-w-2xl mx-auto">
+        <div className="max-w-2xl mx-auto ">
         {
             previewImage ? (
                 <div className="w-full mx-auto">
@@ -67,7 +67,7 @@ function UploadPhoto() {
             :
             <>
             <p>Upload photo of your food</p>
-            <div {...getRootProps({ className: "dropzone" })}>
+            <div {...getRootProps({ className: "dropzone" })} >
                 <div className="flex justify-center items-center pb-4">
                     <FaCloudUploadAlt size={48} />
                 </div>
@@ -78,28 +78,28 @@ function UploadPhoto() {
             </>
         }
         <p className="pt-6 text-xs">For beeter accuracy add additional information (Optional)</p>
-        <input onChange={handleChange} type="text" name="foodName" id="foodName" placeholder="Name of the Food" className="shadow border w-full rounded-md outline-none px-4 py-2 my-3" />
-        <p className="text-xs">Approximate Dimension (in cm.)</p>
+        <input onChange={handleChange} type="text" name="foodName" id="foodName" placeholder="Name of the Food" className="shadow border w-full rounded-md outline-none px-4 py-2 my-3 border border-green-500" />
+        <p className="text-xs">Approximate Dimension (in cm.)(Optional)</p>
         <div className="flex items-center gap-1 flex-wrap">
-            <input onChange={handleChange} type="number" name="width" id="width" placeholder="Width" className="w-full max-w-40 shadow border rounded-md outline-none px-4 py-2 my-3"/>
+            <input onChange={handleChange} type="number" name="width" id="width" placeholder="Width" className="w-full max-w-40 shadow border rounded-md outline-none px-4 py-2 my-3 border border-green-500"/>
             <span><IoClose/></span>
-            <input onChange={handleChange} type="number" name="height" id="height" placeholder="Height" className="w-full max-w-40 shadow border rounded-md outline-none px-4 py-2 my-3"/>
+            <input onChange={handleChange} type="number" name="height" id="height" placeholder="Height" className="w-full max-w-40 shadow border rounded-md outline-none px-4 py-2 my-3  border border-green-500"/>
         </div>
-        <button disabled={loading} onClick={calculateCalorie} className="my-4 bg-primary rounded px-4 py-1">{loading ? 'Please wait...' : 'Calculate Calorie'}</button>
+        <button disabled={loading} onClick={calculateCalorie} className="my-4 bg-primary rounded px-4 py-1 hover:text-white">{loading ? 'Please wait...' : 'Calculate Calorie'}</button>
         {
             loading && (<div className="flex justify-center items-center mx-auto "><Spinner size={4}/></div>)
         }
 
         {
-            error ? <p className="text-red-500 text-center">{error}</p> : 
+            error ? <p className="text-red-500 text-center ">{error}</p> : 
             ingredients.length > 0 && (
-                <div className="bg-gray-100 p-4 rounded-md">
+                <div className="bg-gray-100 p-4 rounded-md border border-green-500">
                     <h1 className="font-bold text-lg pb-4">Food: {foodData.foodName}</h1>
                     <h2 className="font-semibold">Ingredients</h2>
                     <ul>
                         {
                             ingredients.map((ing, i) => (
-                                <li key={i} className="flex justify-between gap-2 border-b py-1">
+                                <li key={i} className="flex justify-between gap-2 border-green-500 border-b py-1">
                                     <span>{ing.name}</span>
                                     <span>{ing.calorie} kcal</span>
                                 </li>

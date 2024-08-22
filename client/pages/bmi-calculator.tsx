@@ -57,7 +57,7 @@ export default function BmiCalculator() {
           </p>
         </div>
         <div
-          className={`shadow rounded-md px-6 py-6 m-4 bg-white grid md:grid-cols-2 gap-4 justify-between items-center bg-[#D6EFD8]`}
+          className={`shadow rounded-md px-6 py-6 m-4  grid md:grid-cols-2 gap-4 justify-between items-center bg-[#D6EFD8]`}
         >
           <form onSubmit={calculate}>
             <div className="flex justify-center items-center gap-4 max-w-xl">

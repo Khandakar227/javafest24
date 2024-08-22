@@ -41,7 +41,7 @@ const UploadPhoto = ({setImage}:UploadPhotoProps) => {
                 </div>
             )
             :
-            <div {...getRootProps({ className: "dropzone" })}>
+            <div {...getRootProps({ className: "dropzone" })} >
                 <div className="flex justify-center items-center pb-4">
                     <FaCloudUploadAlt size={48} />
                 </div>
