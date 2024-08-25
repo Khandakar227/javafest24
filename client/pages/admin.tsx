@@ -1,7 +1,10 @@
 import AddDoctor from "@/components/AddDoctor";
 import AddExerciseForm from "@/components/Exercise/AddExerciseForm";
+import GenericForm from "@/components/GenericForm";
 import Layout from "@/components/Layout";
+import MedicineForm from "@/components/MedicineForm";
 import Modal from "@/components/Modal";
+import SignSpeakWordForm from "@/components/SignSpeakWordForm";
 import Spinner from "@/components/Spinner";
 import { userUserLoaded, useUser } from "@/hooks/user";
 import { countDoctors, countDonors, countExercises, countGenerics, countMedicines, countSigns } from "@/lib/api-client";
@@ -147,6 +150,15 @@ function Admin() {
               :
               show == "exercises" ?
               <AddExerciseForm/>
+              :
+              show == "generics" ?
+              <GenericForm />
+              :
+              show == "medicines" ?
+              <MedicineForm />
+              :
+              show == "asl" ?
+              <SignSpeakWordForm />
               :
               ""
               }

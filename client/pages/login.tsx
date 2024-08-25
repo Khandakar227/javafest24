@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { FormEvent, useState } from "react";
+import toast from "react-hot-toast";
 
 export default function Login() {
   const router = useRouter();
@@ -22,7 +23,7 @@ export default function Login() {
       setLoading(true);
       const res = await login(data); // this function also saves the token in local storage
       if (res.error) {
-        alert(res.message);
+        toast.error(res.message);
         setLoading(false);
         return;
       }

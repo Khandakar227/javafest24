@@ -4,11 +4,14 @@ import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
@@ -48,6 +51,33 @@ public class FileStorageService {
             
             return staticPath.relativize(filePath).toString().replace("\\", "/");
         } catch (Exception e) {
+            throw new RuntimeException("Could not store the file. Error: " + e.getMessage());
+        }
+    }
+
+    
+    public List<String> saves(List<MultipartFile> file) {
+        try {
+            String baseUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
+            List<String> videoUrls = new ArrayList<>();
+            for (MultipartFile f : file) {
+                // Get the original file extension
+                String originalFilename = f.getOriginalFilename();
+                String extension = "";
+                if (originalFilename != null && originalFilename.contains(".")) {
+                    extension = originalFilename.substring(originalFilename.lastIndexOf('.'));
+                }
+                String randomUUID = UUID.randomUUID().toString();
+                
+                // Construct the new filename with the UUID
+                String newFilename = randomUUID + extension;
+                Path filePath = this.root.resolve(newFilename);
+    
+                Files.write(filePath, f.getBytes());
+                videoUrls.add(baseUrl + "/" + staticPath.relativize(filePath).toString().replace("\\", "/"));
+            }
+            return videoUrls;
+           } catch (Exception e) {
             throw new RuntimeException("Could not store the file. Error: " + e.getMessage());
         }
     }

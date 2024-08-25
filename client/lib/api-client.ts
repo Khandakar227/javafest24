@@ -91,6 +91,15 @@ export const getFullMedicineInfo = async(slug:string) => {
     return res;
 }
 
+export const getDistinctGenerics = async() => {
+    const res = await (await fetch(serverUrl + `/generic/distinct-generics`)).json();
+    return res;
+}
+
+export const getDistinctDrugClasses = async() => {
+    const res = await (await fetch(serverUrl + `/generic/distinct-drug-class`)).json();
+    return res;
+}
 export const estimateFoodCalorie = async(image:File, foodName="", width=0, height=0) => {
     const form = new FormData();
     form.append("file", image);
@@ -220,6 +229,20 @@ export const countSigns = async () => {
     const res = await (await fetch(`${serverUrl}/signs/count`)).json();
     return res;
 }
+
+export const addSigns = async (data: {word: string, videos: string[]}) => {
+    const token = localStorage.getItem("token");
+    const res = await (await fetch(`${serverUrl}/signs`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(data)
+    })).json();
+    return res;
+}
+
 export const getMedicineAlternatives = async (generic: string) => {
     const formattedGeneric = generic.replace(/\s+/g, '-');
     const res = await fetch(`${serverUrl}/medicine/alternatives/${formattedGeneric}`);
@@ -228,4 +251,15 @@ export const getMedicineAlternatives = async (generic: string) => {
     }
     const data = await res.json();
     return data;
+}
+
+export const deleteSign = async (id: string) => {
+    const token = localStorage.getItem("token");
+    const res = await (await fetch(`${serverUrl}/signs/id/${id}`, {
+        method: 'DELETE',
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    })).json();
+    return res;
 }

@@ -14,7 +14,7 @@ export default function AddExerciseForm() {
             <select name="specialty" id="specialty" className="w-full mt-2 border px-4 py-2 rounded-md shadow outline-none">
                 <option value="">Select Muscle Group</option>
                 {
-                    Object.values(muscleData).map(mg => <option value={mg} key={mg}>{mg}</option>)
+                    Object.keys(muscleData).map(k => <option value={muscleData[k as keyof typeof muscleData]} key={k}>{muscleData[k as keyof typeof muscleData]}</option>)
                 }
             </select>
             <input type="number" name="rating" id="rating" min={0} max={10} placeholder="Rating (0 - 10)" className="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm" />

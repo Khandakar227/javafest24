@@ -1,5 +1,9 @@
 package com.example.cerena.controller;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +37,24 @@ public class FileController {
             e.printStackTrace();
             message = "Could not upload the file: " + file.getOriginalFilename() + "!";
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new FilePathResponse(message, false, ""));
+        }
+    }
+
+    @PostMapping("/videos/upload")
+    public ResponseEntity<Map<String, Object>> uploadVideo(@RequestParam("files") List<MultipartFile> files, HttpServletRequest request) {
+        Map<String, Object> response = new HashMap<>();
+        try {
+            storageService.init();
+            List<String> videoUrls = storageService.saves(files);
+            response.put("message", "Uploaded the file successfully: " + videoUrls.size());
+            response.put("videoUrls", videoUrls);
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+        } catch (Exception e) {
+            System.out.println(e.getLocalizedMessage());
+            e.printStackTrace();
+            response.put("message", "Could not upload the videos! "+ e.getLocalizedMessage());
+            response.put("error", true);
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(response);
         }
     }
 

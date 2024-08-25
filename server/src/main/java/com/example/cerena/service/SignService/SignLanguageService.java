@@ -57,9 +57,9 @@ public class SignLanguageService {
         return mongoTemplate.findAndModify(query, update, SignLanguageEntry.class);
     }
     
-    // public void deleteEntry(String id) {
-    //     signLanguageRepository.deleteById(id);
-    // }
+    public void deleteEntry(String id) {
+        signLanguageRepository.deleteById(id);
+    }
 
     public List<SignLanguageEntry> getRandomSample() {
         return signLanguageRepository.findRandomSample();

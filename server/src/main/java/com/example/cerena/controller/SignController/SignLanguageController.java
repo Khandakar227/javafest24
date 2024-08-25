@@ -51,6 +51,27 @@ public class SignLanguageController {
         SignLanguageEntry entry = signLanguageService.getEntryById(id);
         return new ResponseEntity<>(entry, HttpStatus.OK);
     }
+    @DeleteMapping("/id/{id}")
+    public ResponseEntity<Response> deleteSignById(@PathVariable String id, HttpServletRequest request) {
+        try {
+            String authorization = request.getHeader("Authorization");
+            if (authorization == null)
+                return ResponseEntity.status(403).build();
+
+            String token = authorization.substring(7);
+            String email = jwtService.extractEmail(token);
+            User user = userService.getUserByEmail(email);
+
+            if (user == null || !jwtService.isTokenValid(token, user) || !user.getRole().equals("ADMIN"))
+                return ResponseEntity.status(403).build();
+
+            signLanguageService.deleteEntry(id);
+            return ResponseEntity.ok(new Response("Sign deleted", false));
+        } catch (Exception e) {
+            System.out.println(e);
+            return ResponseEntity.internalServerError().build();
+        }
+    }
 
     @GetMapping("/word/{word}")
     public ResponseEntity<List<SignLanguageEntry>> getSignByWord(@PathVariable String word) {

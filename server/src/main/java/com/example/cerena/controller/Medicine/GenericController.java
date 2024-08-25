@@ -94,6 +94,16 @@ public class GenericController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/distinct-drug-class")
+    public ResponseEntity<?> distinctDrugclass() {
+        return ResponseEntity.ok(genericService.getDistinctDrugClass());
+    }
+
+    @GetMapping("/distinct-generics")
+    public ResponseEntity<?> distinctName() {
+        return ResponseEntity.ok(genericService.getDistinctGenerics());
+    }
+
     // Update an existing generic
     // @PutMapping("/{id}")
     // public ResponseEntity<Generic> updateGeneric(@PathVariable ObjectId id,

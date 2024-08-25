@@ -9,6 +9,7 @@ import toast from "react-hot-toast";
 import { BloodGroups } from "@/lib/const";
 import { Address } from "@/types";
 import { registerDonor } from "@/lib/api-client";
+import Spinner from "@/components/Spinner";
 
 export default function Add() {
   const [user, setUser] = useUser();
@@ -73,6 +74,12 @@ async function handleLocationSelect(fullAddress: {location: number[], name:strin
             For verification, a <b>verification link</b> will be sent to donor's <b>mobile number</b>
           </p>
         </div>
+
+        {
+          !userLoaded && <div className="shadow rounded-md px-4 py-12 m-4 bg-white">
+            <Spinner />
+          </div>
+        }
 
         <div className="shadow rounded-md px-4 py-12 m-4 bg-white">
             <form onSubmit={onSubmit} className="mx-auto max-w-2xl">

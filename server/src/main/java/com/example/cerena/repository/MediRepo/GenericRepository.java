@@ -12,6 +12,4 @@ import com.example.cerena.model.Medicine.Generic;
 public interface GenericRepository extends MongoRepository<Generic, ObjectId> {
     Optional<Generic> findByName(String name);
     Generic findById(String id);
-
-    
 }
