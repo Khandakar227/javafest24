@@ -3650,22 +3650,7 @@
   "contact": "Address: 77/1, Jail Road, Dhap, Rangpur - 5400, Bangladesh\nVisiting Hour: 3pm to 9pm (Everyday)\nAppointment: +8809613787813",
   "_class": "com.example.mongodemo.model.Doctor"
 },
-{
-  "_id": {
-    "$oid": "666d60ffb30b2b4dc686f04e"
-  },
-  "photo": "https://www.doctorbangladesh.com/wp-content/uploads/Dr.-Md.-Mominul-Hoque.jpg",
-  "name": "Prof. Dr. Md. Mominul Haque",
-  "degree": "MBBS, DDV, M.Phil (Physiology)",
-  "speciality": "Skin, Allergy, Leprosy & Sexual Diseases Specialist",
-  "designation": "Professor & Head, Physiology",
-  "workplace": "Dinajpur Medical College & Hospital",
-  "chamber": "Islami Bank Community Hospital, Rangpur",
-  "about": "Prof. Dr. Md. Mominul Haque is a Sexual Diseases Specialist in Rangpur. His qualification is MBBS, DDV, M.Phil (Physiology). He is a Professor & Head, Physiology at Dinajpur Medical College & Hospital. He regularly provides treatment to his patients at Islami Bank Community Hospital, Rangpur. Practicing hour of Prof. Dr. Md. Mominul Haque at Islami Bank Community Hospital, Rangpur is 3pm to 8pm (Closed: Thursday & Friday).",
-  "district": "Rangpur",
-  "contact": "Address: Jail Road, Dhap, Rangpur\nVisiting Hour: 3pm to 8pm (Closed: Thursday & Friday)\nAppointment: +8801750908297",
-  "_class": "com.example.mongodemo.model.Doctor"
-},
+
 {
   "_id": {
     "$oid": "666d60ffb30b2b4dc686f04f"
@@ -3744,22 +3729,6 @@
   "about": "Dr. Saiful Alam is a Cancer Specialist in Khulna. His qualification is MBBS (DMC), BCS (Health), MCPS (Radiotherapy), MD (Radiation Oncology). He is a Clinical & Radiation Oncologist, at National Institute of Cancer Research & Hospital. He regularly provides treatment to his patients at Khulna City Medical College & Hospital and Gazi Medical College Hospital, Khulna. Practicing hour of Dr. Saiful Alam at Khulna City Medical College & Hospital is 5pm to 11pm (Thursday), 10am to 1pm (Friday) and at Gazi Medical College Hospital, Khulna is 5pm to 8pm (Only Friday).",
   "district": "Khulna",
   "contact": "Address: 25/26, KDA Avenue, Moilapota Square, Khulna Sadar, Khulna\nVisiting Hour: 5pm to 11pm (Thursday), 10am to 1pm (Friday)\nAppointment: +8801999099099",
-  "_class": "com.example.mongodemo.model.Doctor"
-},
-{
-  "_id": {
-    "$oid": "666d60ffb30b2b4dc686f054"
-  },
-  "photo": "https://www.doctorbangladesh.com/wp-content/uploads/Dr.-AYM-Shahidullah.jpg",
-  "name": "Dr. AYM Shahidullah",
-  "degree": "MBBS, MS (CVTS)",
-  "speciality": "Cardiovascular & Thoracic Surgery Specialist",
-  "designation": "Associate Professor, Cardiac Surgery",
-  "workplace": "Khulna City Medical College & Hospital",
-  "chamber": "Khulna City Medical College & Hospital",
-  "about": "Dr. AYM Shahidullah is a Cardiovascular Surgeon in Khulna. His qualification is MBBS, MS (CVTS). He is a Associate Professor, Cardiac Surgery at Khulna City Medical College & Hospital. He regularly provides treatment to his patients at Khulna City Medical College & Hospital. Practicing hour of Dr. AYM Shahidullah at Khulna City Medical College & Hospital is 11am to 6pm (Closed: Friday).",
-  "district": "Khulna",
-  "contact": "Address: 25/26, KDA Avenue, Moilapota Square, Khulna Sadar, Khulna\nVisiting Hour: 11am to 6pm (Closed: Friday)\nAppointment: +8801999099099",
   "_class": "com.example.mongodemo.model.Doctor"
 },
 {
@@ -4148,22 +4117,6 @@
 },
 {
   "_id": {
-    "$oid": "666d60ffb30b2b4dc686f06d"
-  },
-  "photo": "https://www.doctorbangladesh.com/wp-content/uploads/Dr.-Abdullah-Al-Mamun-3.jpg",
-  "name": "Dr. Abdullah Al Mamun",
-  "degree": "MBBS, BCS (Health), DDV (BSMMU)",
-  "speciality": "Skin, Allergy, Sex Specialist and Aesthetic Surgeon",
-  "designation": "Dermatologist, ",
-  "workplace": "Khulna Medical College & Hospital",
-  "chamber": "Good Health Clinic & Diagnostic, Khulna",
-  "about": "Dr. Abdullah Al Mamun is a Dermatologist in Khulna. His qualification is MBBS, BCS (Health), DDV (BSMMU). He is a Dermatologist, at Khulna Medical College & Hospital. He regularly provides treatment to his patients at Good Health Clinic & Diagnostic, Khulna, Sandhani Clinic & Diagnostic Complex, Khulna and South Zone (Pvt.) Hospital, Khulna.",
-  "district": "Khulna",
-  "contact": "Address: 268, Khan Jahan Ali Road, Tootpara Kabarsthan More, Khulna\nVisiting Hour: 3pm to 4pm (Closed: Friday)\nAppointment: +8801755591384",
-  "_class": "com.example.mongodemo.model.Doctor"
-},
-{
-  "_id": {
     "$oid": "666d60ffb30b2b4dc686f06e"
   },
   "photo": "https://www.doctorbangladesh.com/wp-content/uploads/Dr.-Abdullah-Al-Mamun-3.jpg",
@@ -4242,22 +4195,7 @@
   "contact": "Address: Band Road, Chandmari, Barisal Sadar, Barisal – 8200\nVisiting Hour: Unknown. Please call to know visiting hour\nAppointment: +8801711993953",
   "_class": "com.example.mongodemo.model.Doctor"
 },
-{
-  "_id": {
-    "$oid": "666d60ffb30b2b4dc686f073"
-  },
-  "photo": "https://www.doctorbangladesh.com/wp-content/uploads/Dr.-A-K-Choudhary-Apurba.jpg",
-  "name": "Dr. A K Choudhary Apurba",
-  "degree": "MBBS, BCS (Health), MS (CVTS)",
-  "speciality": "Cardiovascular & Thoracic Specialist Surgeon",
-  "designation": "Consultant Surgeon, Cardiac Surgery",
-  "workplace": "Sher-E-Bangla Medical College & Hospital",
-  "chamber": "Popular Diagnostic Center, Barisal",
-  "about": "Dr. A K Choudhary Apurba is a Cardiac Surgeon in Barisal. His qualification is MBBS, BCS (Health), MS (CVTS). He is a Consultant Surgeon, Cardiac Surgery at Sher-E-Bangla Medical College & Hospital. He regularly provides treatment to his patients at Popular Diagnostic Center, Barisal. Practicing hour of Dr. A K Choudhary Apurba at Popular Diagnostic Center, Barisal is 6pm to 9pm (Closed: Friday).",
-  "district": "Barishal",
-  "contact": "Address: 955 & 109, Shahid Nazrul Islam Road, Alekanda, Banglabazar, Barisal\nVisiting Hour: 6pm to 9pm (Closed: Friday)\nAppointment: +8809613787819",
-  "_class": "com.example.mongodemo.model.Doctor"
-},
+
 {
   "_id": {
     "$oid": "666d60ffb30b2b4dc686f074"
@@ -5712,22 +5650,6 @@
 },
 {
   "_id": {
-    "$oid": "666d60ffb30b2b4dc686f0cf"
-  },
-  "photo": "https://www.doctorbangladesh.com/wp-content/uploads/dr-male.jpg",
-  "name": "Dr. A.K.M. Rezwanul Islam",
-  "degree": "MBBS, BCS (Health), MD (Cardiology)",
-  "speciality": "Cardiology, Medicine, Rheumatic Fever & Hypertension Specialist",
-  "designation": "Junior Consultant, Cardiology",
-  "workplace": "Shaheed Ziaur Rahman Medical College & Hospital",
-  "chamber": "Ibn Sina Diagnostic & Consultation Center, Bogra",
-  "about": "Dr. A.K.M. Rezwanul Islam is a Cardiologist in Bogra. His qualification is MBBS, BCS (Health), MD (Cardiology). He is a Junior Consultant, Cardiology at Shaheed Ziaur Rahman Medical College & Hospital. He regularly provides treatment to his patients at Ibn Sina Diagnostic & Consultation Center, Bogra. Practicing hour of Dr. A.K.M. Rezwanul Islam at Ibn Sina Diagnostic & Consultation Center, Bogra is 4pm to 9pm (Closed: Friday).",
-  "district": "Bogura",
-  "contact": "Address: House # 1103/1116, Kanochgari, Sherpur Road, Bogura – 5800\nVisiting Hour: 4pm to 9pm (Closed: Friday)\nAppointment: +8801701560011",
-  "_class": "com.example.mongodemo.model.Doctor"
-},
-{
-  "_id": {
     "$oid": "666d60ffb30b2b4dc686f0d0"
   },
   "photo": "https://www.doctorbangladesh.com/wp-content/uploads/dr-male.jpg",
@@ -6494,22 +6416,7 @@
   "contact": "Address: 21, Mirpur Road, Shyamoli, Dhaka – 1207, Bangladesh\nVisiting Hour: Unknown. Please call to know visiting hour\nAppointment: +8809666700100",
   "_class": "com.example.mongodemo.model.Doctor"
 },
-{
-  "_id": {
-    "$oid": "666d60ffb30b2b4dc686f100"
-  },
-  "photo": "https://www.doctorbangladesh.com/wp-content/uploads/Dr.-Lita-Parvin.jpg",
-  "name": "Dr. Lita Parvin",
-  "degree": "MBBS, BCS (Health), DDV (Skin & Sex), Fellow (Dermato & Cosmetic Surgery)",
-  "speciality": "Skin, Sex, Hair, Allergy Specialist & Dermato-Cosmetic Surgeon",
-  "designation": "Consultant, Dermatology & Venereology",
-  "workplace": "Kushtia Medical College & Hospital",
-  "chamber": "Popular Diagnostic Centre, Kushtia",
-  "about": "Dr. Lita Parvin is a Dermatologist in Kushtia. Her qualification is MBBS, BCS (Health), DDV (Skin & Sex), Fellow (Dermato & Cosmetic Surgery). She is a Consultant, Dermatology & Venereology at Kushtia Medical College & Hospital. She regularly provides treatment to her patients at Popular Diagnostic Centre, Kushtia. Practicing hour of Dr. Lita Parvin at Popular Diagnostic Centre, Kushtia is 3pm to 7pm (Only Friday).",
-  "district": "Kushtia",
-  "contact": "Address: City Tower, House # 01, Mir Mosharraf Hossain Road, Coart Para, Kushtia\nVisiting Hour: 3pm to 7pm (Only Friday)\nAppointment: +8809666787817",
-  "_class": "com.example.mongodemo.model.Doctor"
-},
+
 {
   "_id": {
     "$oid": "666d60ffb30b2b4dc686f101"
