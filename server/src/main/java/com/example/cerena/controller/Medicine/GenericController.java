@@ -105,26 +105,15 @@ public class GenericController {
     }
 
     // Update an existing generic
-    // @PutMapping("/{id}")
-    // public ResponseEntity<Generic> updateGeneric(@PathVariable ObjectId id,
-    // @RequestBody Generic genericDetails) {
-    // return genericRepository.findById(id)
-    // .map(generic -> {
-    // generic.setGenName(genericDetails.getGenName());
-    // // set other fields
-    // return ResponseEntity.ok(genericRepository.save(generic));
-    // })
-    // .orElse(ResponseEntity.notFound().build());
-    // }
+    @PutMapping("/{id}")
+    public Generic updateGeneric(@PathVariable String id, @RequestBody Generic genericDetails) {
+    return genericService.createGeneric(genericDetails);
+    }
 
     // Delete a generic
-    // @DeleteMapping("/{id}")
-    // public ResponseEntity<Void> deleteGeneric(@PathVariable ObjectId id) {
-    // return genericRepository.findById(id)
-    // .map(generic -> {
-    // genericRepository.delete(generic);
-    // return ResponseEntity.noContent().build();
-    // })
-    // .orElse(ResponseEntity.notFound().build());
-    // }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteGeneric(@PathVariable String id) {
+        genericService.deleteById(id);
+        return ResponseEntity.ok().build();
+    }
 }

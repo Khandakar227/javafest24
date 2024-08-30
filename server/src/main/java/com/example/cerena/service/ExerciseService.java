@@ -44,4 +44,9 @@ public class ExerciseService {
     public long countExercises() {
         return exerciseRepository.count();
     }
+
+    public void deleteEntry(String id) {
+        exerciseRepository.deleteById(id);
+    }
+
 }

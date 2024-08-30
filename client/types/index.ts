@@ -90,6 +90,7 @@ export type Donor = {
 export interface Alternative {
     id: string;
     slug:string;
+    name: string;
     brandName: string;
     dosageForm: string;
     strength: string;

@@ -2,24 +2,30 @@ import Layout from "@/components/Layout"
 import Spinner from "@/components/Spinner";
 import Head from "next/head"
 import { useRouter } from "next/router";
-import { ChangeEvent, useEffect, useState } from "react"
+import { ChangeEvent, MouseEvent, useEffect, useState } from "react"
 import { muscleData } from "@/lib/muscle-data";
-import { getExercises } from "@/lib/api-client";
+import { deleteExercise, getExercises } from "@/lib/api-client";
 import MaleMuscleFront from "@/components/Exercise/MaleMuscleFront";
 import MaleMuscleBack from "@/components/Exercise/MaleMuscleBack";
 import FemaleMuscleFront from "@/components/Exercise/FemaleMuscleFront";
 import FemaleMuscleBack from "@/components/Exercise/FemaleMuscleBack";
 import { Exercise } from "@/types";
 import ReactPaginate from "react-paginate";
+import { FaPen, FaTrash } from "react-icons/fa";
+import { useUser } from "@/hooks/user";
 
+interface ExerciseWIthId extends Exercise {
+    id: string;
+}
 function MuscleGroup() {
     const router = useRouter();
     const [muscle, setMuscle] = useState('');
     const [gender, setGender] = useState('male');
-    const [exercises, setExercises] = useState([] as Exercise[]);
+    const [exercises, setExercises] = useState([] as ExerciseWIthId[]);
     const [page, setPage] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
     const [loading, setLoading] = useState(true);
+    const [user, _] = useUser();
 
 
     useEffect(() => {
@@ -32,7 +38,6 @@ function MuscleGroup() {
     useEffect(() => {
         if (!muscle) return;
         console.log(muscle)
-        setPage(0);
         getExercises(muscle, gender, page)
             .then(res => {
                 setExercises(res.content);
@@ -54,6 +59,27 @@ function MuscleGroup() {
 
     function onPageChange(selectedItem: { selected: number; }) {
         setPage(selectedItem.selected);
+    }
+
+
+    const deleteData = (e:MouseEvent, id:string) => {
+        const confirmDelete = confirm("Are you sure you want to delete this exercise?");
+        if (!confirmDelete) return;
+        
+        (e.target as HTMLButtonElement).disabled = true;
+        const originalText = (e.target as HTMLButtonElement).innerHTML;
+        (e.target as HTMLButtonElement).innerHTML = "Deleting...";
+
+        deleteExercise(id)
+        .then(res => {
+            if (res.error) return console.log(res.error);
+            setExercises(exercises.filter(e => e.id !== id));
+        })
+        .catch(err => console.log(err))
+        .finally(() => {
+            (e.target as HTMLButtonElement).innerHTML = originalText;
+            (e.target as HTMLButtonElement).disabled = false
+        })
     }
 
     if (loading) return <Spinner />;
@@ -113,6 +139,14 @@ function MuscleGroup() {
                                         }
                                         </div>
                                         )
+                                        }
+                                        {
+                                            user?.role == "ADMIN" && (
+                                            <div className="flex justify-end items-center gap-4 pt-4">
+                                                <button className="text-red-600" onClick={(_e) => deleteData(_e, e.id)}><FaTrash/></button>
+                                                <button className="text-orange-400"><FaPen /></button>
+                                            </div>
+                                            )
                                         }
                                     </div>
                                 ))

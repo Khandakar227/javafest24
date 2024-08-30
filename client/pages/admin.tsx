@@ -88,7 +88,17 @@ function Admin() {
                 </div>
 
               <div className={`shadow rounded-md px-4 py-6 m-4 bg-white`}>
-                <div className="flex justify-between items-center gap-4">
+                <div className="flex justify-between items-center gap-4 pt-4">
+                  <h2 className="font-semibold text-xl md:text-2xl">Generics</h2>
+                  <button onClick={() => setShow("generics")} className="bg-primary rounded px-2 py-1">
+                    Add Generic
+                  </button>
+                </div>
+                <p className="font-semibold text-xl text-end py-4">
+                  Total: {_countGenerics}
+                </p>
+                <hr />
+                <div className="flex justify-between items-center gap-4 pt-4">
                   <h2 className="font-semibold text-xl md:text-2xl">Medicine Inventory</h2>
                   <button onClick={() => setShow("medicines")} className="bg-primary rounded px-2 py-1">
                     Add Medicine
@@ -96,16 +106,6 @@ function Admin() {
                 </div>
                 <p className="font-semibold text-xl text-end py-4">
                     Total: {_countMedicines}
-                </p>
-                <hr />
-                <div className="flex justify-between items-center gap-4 pt-4">
-                  <h2 className="font-semibold text-xl md:text-2xl">Generics</h2>
-                  <button onClick={() => setShow("generics")} className="bg-primary rounded px-2 py-1">
-                    Add Generic
-                  </button>
-                </div>
-                <p className="font-semibold text-xl text-end pt-4">
-                  Total: {_countGenerics}
                 </p>
               </div>
               </div>

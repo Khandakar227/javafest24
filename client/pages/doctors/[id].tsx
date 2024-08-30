@@ -1,8 +1,10 @@
 import Layout from "@/components/Layout";
-import { getDoctor } from "@/lib/api-client";
+import { useUser } from "@/hooks/user";
+import { deleteDoctor, getDoctor } from "@/lib/api-client";
 import { Doctor } from "@/types";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { MouseEvent, useEffect, useState } from "react";
+import { FaPen, FaTrash } from "react-icons/fa";
 function extractDoctorInfo(contactInfo: string) {
   const addressMatch = contactInfo.match(/Address:\s*(.*)/);
   const visitingHourMatch = contactInfo.match(/Visiting Hour:\s*(.*)/);
@@ -17,6 +19,7 @@ function extractDoctorInfo(contactInfo: string) {
 
 export default function DoctorPage() {
   const router = useRouter();
+  const [user, _] = useUser();
   const [doctor, setDoctor] = useState({} as Doctor);
 
   useEffect(() => {
@@ -26,13 +29,44 @@ export default function DoctorPage() {
       })
       .catch((err) => console.log(err));
   }, [router.query.id]);
+
   if (!doctor) return null;
   const { address, visitingHour, appointment } = doctor.contact
     ? extractDoctorInfo(doctor.contact)
     : { address: "", visitingHour: "", appointment: "" };
+
+    
+    const deleteData = (e:MouseEvent, id:string) => {
+      const confirmDelete = confirm("Are you sure you want to delete?");
+      if (!confirmDelete) return;
+      
+      (e.target as HTMLButtonElement).disabled = true;
+      const originalText = (e.target as HTMLButtonElement).innerHTML;
+      (e.target as HTMLButtonElement).innerHTML = "Deleting...";
+
+      deleteDoctor(id)
+      .then(res => {
+          if (res.error) return console.log(res.error);
+          router.push("/doctors");  
+        })
+      .catch(err => console.log(err))
+      .finally(() => {
+          (e.target as HTMLButtonElement).innerHTML = originalText;
+          (e.target as HTMLButtonElement).disabled = false
+      })
+  }
+
   return (
     <Layout>
       <div className="p-4">
+      {
+          user?.role == "ADMIN" && (
+          <div className="flex justify-end items-center gap-4 pt-4">
+              <button className="text-red-600" onClick={(_e) => deleteData(_e, doctor.id)}><FaTrash/></button>
+              <button className="text-orange-400"><FaPen /></button>
+          </div>
+          )
+      }
         <div
           className="p-4 px-12 shadow rounded  mx-auto max-w-2xl bg-[#f0ffef]"
           style={{

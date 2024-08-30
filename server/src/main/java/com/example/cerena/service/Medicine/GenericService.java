@@ -3,7 +3,6 @@ package com.example.cerena.service.Medicine;
 import java.util.List;
 import java.util.Optional;
 
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
@@ -23,10 +22,6 @@ public class GenericService {
     return genericRepository.findAll();
   }
 
-  public Optional<Generic> getGenericById(ObjectId id) {
-    return Optional.of(genericRepository.findById(id).orElse(null));
-  }
-
   public Optional<Generic> getGenericByName(String name) {
     return genericRepository.findByName(name);
   }
@@ -40,7 +35,7 @@ public class GenericService {
   }
 
   public Optional<Generic> getGenericById(String id) {
-    return Optional.of(genericRepository.findById(id));
+    return genericRepository.findById(id);
   }
 
   public long countGenerics() {
@@ -60,4 +55,9 @@ public class GenericService {
         .as(String.class)
         .all();
   }
+  
+  public void deleteById(String id) {
+    genericRepository.deleteById(id);
+  }
+
 }

@@ -3,10 +3,11 @@ import { useEffect, useState } from "react";
 import Layout from "@/components/Layout";
 import { getMedicineAlternatives } from "@/lib/api-client";
 import Head from "next/head";
+import { Alternative } from "@/types";
 
 export default function AlternativeMedicines() {
   const router = useRouter();
-  const [alternatives, setAlternatives] = useState(null);
+  const [alternatives, setAlternatives] = useState([] as any[]);
 
   useEffect(() => {
     if (!router.query.generic) return;
@@ -18,7 +19,7 @@ export default function AlternativeMedicines() {
       .catch((err) => console.log(err));
   }, [router.query.generic]);
 
-  const handleRowClick = (slug) => {
+  const handleRowClick = (slug:string) => {
     router.push(`/medicines/${slug}`);
   };
 

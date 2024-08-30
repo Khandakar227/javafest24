@@ -1,11 +1,13 @@
 import Layout from "@/components/Layout";
-import { getFullMedicineInfo } from "@/lib/api-client";
+import { deleteMedicine, getFullMedicineInfo } from "@/lib/api-client";
 import { Generic, Medicine } from "@/types";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { MouseEvent, useEffect, useState } from "react";
 import Image from "next/image";
+import { useUser } from "@/hooks/user";
+import { FaPen, FaTrash } from "react-icons/fa";
 
 type DosageForm =
   | "Tablet"
@@ -16,7 +18,7 @@ type DosageForm =
   | "Dialysis Solution"|"Opthalmic Solution"
   | "Eye Drop"
   | "Gel"
-  | "Syrup"|"Emulsion";
+  | "Syrup"|"Emulsion" | string;
 const dosageFormIcons: Record<DosageForm, string> = {
   Tablet: "/images-med/tablet.png",
   Mouthwash: "/images-med/mouthwash.png",
@@ -51,6 +53,7 @@ function getIconUrl(dosageForm: DosageForm): string {
 }
 
 export default function Slug() {
+  const [user, _] = useUser();
   const router = useRouter();
 
   const [medicine, setMedicine] = useState<{
@@ -66,7 +69,29 @@ export default function Slug() {
       })
       .catch((err) => console.log(err));
   }, [router.query.slug]);
+
   const transformedDosageForm = medicine ? mapDosageForm(medicine.medicine.dosageForm) : "";
+
+  const deleteData = (e:MouseEvent, id:string) => {
+    const confirmDelete = confirm("Are you sure you want to delete this exercise?");
+    if (!confirmDelete) return;
+    
+    (e.target as HTMLButtonElement).disabled = true;
+    const originalText = (e.target as HTMLButtonElement).innerHTML;
+    (e.target as HTMLButtonElement).innerHTML = "Deleting...";
+
+    deleteMedicine(id)
+    .then(res => {
+        if (res.error) return console.log(res.error);
+        router.push("/medicines");
+    })
+    .catch(err => console.log(err))
+    .finally(() => {
+        (e.target as HTMLButtonElement).innerHTML = originalText;
+        (e.target as HTMLButtonElement).disabled = false
+    })
+}
+
   return (
     <>
       <Head>
@@ -77,7 +102,15 @@ export default function Slug() {
           {medicine && medicine.medicine && (
             <>
               <div className="py-4">
-              
+                
+              {
+                  user?.role == "ADMIN" && (
+                  <div className="flex justify-end items-center gap-4 pt-4">
+                      <button className="text-red-600" onClick={(_e) => deleteData(_e, medicine.medicine.id)}><FaTrash/></button>
+                      <button className="text-orange-400"><FaPen /></button>
+                  </div>
+                  )
+              }
                 <div className="flex items-center">
                   <h1
                     className="text-3xl font-bold"

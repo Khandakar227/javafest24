@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -115,4 +116,27 @@ public class ExerciseController {
         response.put("count", exerciseService.countExercises());
         return ResponseEntity.ok(response);
     }
+
+    @DeleteMapping("/id/{id}")
+    public ResponseEntity<Response> deleteById(@PathVariable String id, HttpServletRequest request) {
+        try {
+            String authorization = request.getHeader("Authorization");
+            if (authorization == null)
+                return ResponseEntity.status(403).build();
+
+            String token = authorization.substring(7);
+            String email = jwtService.extractEmail(token);
+            User user = userService.getUserByEmail(email);
+
+            if (user == null || !jwtService.isTokenValid(token, user) || !user.getRole().equals("ADMIN"))
+                return ResponseEntity.status(403).build();
+
+            exerciseService.deleteEntry(id);
+            return ResponseEntity.ok(new Response("Exercise deleted", false));
+        } catch (Exception e) {
+            System.out.println(e);
+            return ResponseEntity.internalServerError().build();
+        }
+    }
+
 }

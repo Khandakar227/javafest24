@@ -3,14 +3,14 @@ import { FaCloudUploadAlt } from "react-icons/fa";
 import Image from "next/image";
 import { IoClose } from "react-icons/io5";
 import toast from "react-hot-toast";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type UploadPhotoProps = {
     image: File | null,
     setImage: (image: File|null) => void
 }
 
-const UploadPhoto = ({setImage}:UploadPhotoProps) => {
+const UploadPhoto = ({image, setImage}:UploadPhotoProps) => {
     const [previewImage, setPreviewImage] = useState("");
     const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
         onDrop: async (acceptedFiles) => {
@@ -25,6 +25,11 @@ const UploadPhoto = ({setImage}:UploadPhotoProps) => {
         maxSize: 8192002,
     });
 
+    useEffect(() => {
+        if(!image) {
+            setPreviewImage("");
+        }
+    }, [image])
     function clearImage() {
         setPreviewImage("");
         setImage(null);

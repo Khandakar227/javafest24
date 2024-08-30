@@ -174,15 +174,14 @@ export const getWorkoutPlans = async (data:any) => {
 }
 
 // ADMIN
-export const uploadPhoto = async (photo:File) => {
+export const uploadPhoto = async (photo:File, folder='doctor') => {
     const form = new FormData();
     form.append("file", photo);
     const options = {
     method: 'POST',
-    headers: { 'Content-Type': 'multipart/form-data' },
     body: form
     };
-    const res = await (await fetch(`${serverUrl}/file/doctor/upload`, options)).json();
+    const res = await (await fetch(`${serverUrl}/file/${folder}/upload`, options)).json();
     return res;
 }
 
@@ -242,6 +241,18 @@ export const addSigns = async (data: {word: string, videos: string[]}) => {
     })).json();
     return res;
 }
+export const addExercise = async (data: any) => {
+    const token = localStorage.getItem("token");
+    const res = await (await fetch(`${serverUrl}/exercise`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(data)
+    })).json();
+    return res;
+}
 
 export const getMedicineAlternatives = async (generic: string) => {
     const formattedGeneric = generic.replace(/\s+/g, '-');
@@ -256,6 +267,50 @@ export const getMedicineAlternatives = async (generic: string) => {
 export const deleteSign = async (id: string) => {
     const token = localStorage.getItem("token");
     const res = await (await fetch(`${serverUrl}/signs/id/${id}`, {
+        method: 'DELETE',
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    })).json();
+    return res;
+}
+
+export const deleteExercise = async (id: string) => {
+    const token = localStorage.getItem("token");
+    const res = await (await fetch(`${serverUrl}/exercise/id/${id}`, {
+        method: 'DELETE',
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    })).json();
+    return res;
+}
+
+export const deleteMedicine = async (id: string) => {
+    const token = localStorage.getItem("token");
+    const res = await (await fetch(`${serverUrl}/medicine/id/${id}`, {
+        method: 'DELETE',
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    })).json();
+    return res;
+}
+
+export const deleteDoctor = async (id: string) => {
+    const token = localStorage.getItem("token");
+    const res = await (await fetch(`${serverUrl}/doctor/id/${id}`, {
+        method: 'DELETE',
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    })).json();
+    return res;
+}
+
+export const deleteGeneric = async (id: string) => {
+    const token = localStorage.getItem("token");
+    const res = await (await fetch(`${serverUrl}/generic/id/${id}`, {
         method: 'DELETE',
         headers: {
             Authorization: `Bearer ${token}`,

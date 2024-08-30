@@ -49,4 +49,12 @@ public class DoctorService {
     public long countDoctors() {
         return doctorRepository.count();
     }
+    
+    public void deleteEntry(String id) {
+        doctorRepository.deleteById(id);
+    }
+
+    public Doctor updateById(Doctor doctor) {
+        return doctorRepository.save(doctor);
+    }
 }

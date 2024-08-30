@@ -40,6 +40,22 @@ public class FileController {
         }
     }
 
+    @PostMapping("/exercise/upload")
+    public ResponseEntity<FilePathResponse> uploadExercisePhoto(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
+        String message = "";
+        try {
+            storageService.init();
+            String filePath = storageService.save(file);
+            message = "Uploaded the file successfully: " + file.getOriginalFilename();
+            return ResponseEntity.status(HttpStatus.OK).body(new FilePathResponse(message, false, filePath));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            message = "Could not upload the file: " + file.getOriginalFilename() + "!";
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new FilePathResponse(message, false, ""));
+        }
+    }
+
     @PostMapping("/videos/upload")
     public ResponseEntity<Map<String, Object>> uploadVideo(@RequestParam("files") List<MultipartFile> files, HttpServletRequest request) {
         Map<String, Object> response = new HashMap<>();

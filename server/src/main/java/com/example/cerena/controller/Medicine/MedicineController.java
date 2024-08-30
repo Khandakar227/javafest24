@@ -5,7 +5,6 @@ import java.util.Optional;
 import java.util.Map;
 import java.util.HashMap;
 
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -101,7 +100,7 @@ public class MedicineController {
     }
 
     @GetMapping("/generic/{id}")
-    public ResponseEntity<Optional<Generic>> getGenericById(@PathVariable ObjectId id) {
+    public ResponseEntity<Optional<Generic>> getGenericById(@PathVariable String id) {
         Optional<Generic> generic = genericService.getGenericById(id);
         if (generic.isPresent()) {
             return new ResponseEntity<>(generic, HttpStatus.OK);
