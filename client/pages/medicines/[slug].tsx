@@ -70,10 +70,10 @@ export default function Slug() {
       .catch((err) => console.log(err));
   }, [router.query.slug]);
 
-  const transformedDosageForm = medicine ? mapDosageForm(medicine.medicine.dosageForm) : "";
+  const transformedDosageForm = medicine ? mapDosageForm(medicine?.medicine?.dosageForm) : "";
 
   const deleteData = (e:MouseEvent, id:string) => {
-    const confirmDelete = confirm("Are you sure you want to delete this exercise?");
+    const confirmDelete = confirm("Are you sure you want to delete this medicine?");
     if (!confirmDelete) return;
     
     (e.target as HTMLButtonElement).disabled = true;
@@ -102,7 +102,6 @@ export default function Slug() {
           {medicine && medicine.medicine && (
             <>
               <div className="py-4">
-                
               {
                   user?.role == "ADMIN" && (
                   <div className="flex justify-end items-center gap-4 pt-4">
@@ -120,6 +119,8 @@ export default function Slug() {
                       color: "#435b66",
                     }}
                   >
+                  {
+                    getIconUrl(transformedDosageForm) && (
                     <span className="mr-2 md-icon-container mt-neg no-mr">
                       <Image
                         src={getIconUrl(transformedDosageForm)}
@@ -129,6 +130,8 @@ export default function Slug() {
                         height={31}
                       />
                     </span>
+                    )
+                  }
 
                     {medicine.medicine.brandName}
                     <small
@@ -153,7 +156,7 @@ export default function Slug() {
               </div>
               <div className="py-6">
                 <p style={{ color: "#3a5571" }}>
-                  {medicine.medicine.price.replace(/,/g, " ")}
+                  {medicine?.medicine?.price.replace(/,/g, " ")}
                 </p>
               </div>
               <div className="similar-brands inline-block mt-10 margin-b-2">

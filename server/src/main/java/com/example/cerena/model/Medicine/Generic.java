@@ -1,6 +1,7 @@
 package com.example.cerena.model.Medicine;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.index.TextIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -18,7 +19,7 @@ public class Generic {
     private String id;
 
     private int genericId;
-    
+    @Indexed(unique = true)
     @TextIndexed private String name;
 
     private String slug;

@@ -62,4 +62,7 @@ public class MedicineService {
     public Page<Medicine> searchBygeneric(String generic, Pageable pageable) {
         return medicineRepository.findByGenericContainingIgnoreCase(generic, pageable);
     }
+    public void deleteById(String id) {
+        medicineRepository.deleteById(id);
+    }
 }

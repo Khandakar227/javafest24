@@ -1,10 +1,10 @@
-import { getDistinctDrugClasses } from "@/lib/api-client";
+import { addGeneric, getDistinctDrugClasses } from "@/lib/api-client";
 import { FormEvent, useEffect, useState } from "react";
 import { AutoCompleteTextInput } from "./AutoCompleteTextInput";
+import toast from "react-hot-toast";
 
 const genericFormFields = [
     { label: 'Name', key: 'name', element: 'input', required: true },
-    { label: 'Slug', key: 'slug', element: 'input', required: true },
     { label: 'Drug Class', key: 'drugClass', type: 'search', element: 'input', required: false },
     { label: 'Indication', key: 'indication', element: 'input', required: false },
     { label: 'Indication Description', key: 'indicationDescription', element: 'textarea', required: false },
@@ -31,28 +31,26 @@ export default function GenericForm() {
             setDrugClasses(res);
         }).catch(err => console.log(err));
     }, [])
-
-    async function onSubmit(e: FormEvent) {
+    
+    const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
-        const data = Object.fromEntries(new FormData(e.target as HTMLFormElement));
-        console.log(data);
-        setLoading(true)
+        const formData = new FormData(e.target as HTMLFormElement);
+        const data = Object.fromEntries(formData.entries());
+        const slug = (data.name as string).toLowerCase().replace(/ /g, '-');
+        console.log({...data, slug}); // Handle the form submission here
+        addGeneric({...data, slug})
+          .then((res) => {
+            if (res.error) return console.log(res.error);
+            (e.target as HTMLFormElement).reset();
+            toast.success("Generic info added successfully!");
+          })
+          .catch((err) => console.log(err))
+        .finally(() => setLoading(false));
+      };
+  
 
-
-        // .then(response => {
-        //     if (response.error) return toast.error(response.error);
-        //     (e.target as HTMLFormElement).reset();
-        //     setAddresses([]);
-        //     toast.success("Donor added successfully!");
-        // })
-        // .catch(err => {
-        //     toast.error(err.message);
-        //     console.log(err)
-        // })
-        // .finally(() => setLoading(false));
-    }
-    return (
-        <form onSubmit={onSubmit}>
+      return (
+        <form onSubmit={handleSubmit}>
             <h2 className="text-xl pb-4 font-semibold"> Add New Generic Information </h2>
             {genericFormFields.map(field => (
                 <div key={field.key} className="form-group">

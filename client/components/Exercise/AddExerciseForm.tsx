@@ -99,8 +99,8 @@ export default function AddExerciseForm() {
             </label>
           ))}
         </div>
-        <button type="submit" className="bg-primary px-4 py-2 rounded mt-4">
-          Add
+        <button type="submit" disabled={loading} className="bg-primary px-4 py-2 rounded mt-4">
+          {loading ? 'Adding' : 'Add'}
         </button>
       </form>
     </div>

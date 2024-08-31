@@ -63,7 +63,7 @@ function MuscleGroup() {
 
 
     const deleteData = (e:MouseEvent, id:string) => {
-        const confirmDelete = confirm("Are you sure you want to delete this exercise?");
+        const confirmDelete = confirm("Are you sure you want to delete?");
         if (!confirmDelete) return;
         
         (e.target as HTMLButtonElement).disabled = true;

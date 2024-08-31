@@ -3,6 +3,7 @@ import { addDoctor, uploadPhoto } from "@/lib/api-client";
 import { FormEvent, useState } from "react"
 import toast from "react-hot-toast";
 import UploadPhoto from "./UploadPhoto";
+import { mainUrl } from "@/lib/const";
 
 export default function AddDoctor() {
     const [loading, setLoading] = useState(false);
@@ -10,19 +11,24 @@ export default function AddDoctor() {
 
     const onAddDoctor = (e:FormEvent) => {
         e.preventDefault();
-        const data = Object.fromEntries(new FormData(e.target as HTMLFormElement));
+        const formData= new FormData(e.target as HTMLFormElement);
+        formData.delete('file');
+        const data = Object.fromEntries(formData);
         setLoading(true);
-        // uploadPhoto(image as File).then(fileResponse => {
-        //     if(fileResponse.error) return toast.error(fileResponse.message);
-        //     addDoctor({...data, photo: fileResponse.})
-        //     .then(res => {
-    
-        //     }).catch(err => {
-        //         console.log(err)
-        //     })
-        //     .finally(() => setLoading(false))
-        // })
         console.log(data);
+        uploadPhoto(image as File).then(fileResponse => {
+            if(fileResponse.error) return toast.error(fileResponse.message);
+            addDoctor({...data, photo: mainUrl + "/" + fileResponse.filePath})
+            .then(res => {
+                if(res.error) return toast.error(res.message);
+                toast.success("Doctor added successfully!");
+                (e.target as HTMLFormElement).reset();
+                setImage(null);
+            }).catch(err => {
+                console.log(err)
+            })
+            .finally(() => setLoading(false))
+        })
     }
   return (
     <div>

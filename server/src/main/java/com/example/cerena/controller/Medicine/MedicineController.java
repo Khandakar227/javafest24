@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -184,4 +185,11 @@ public class MedicineController {
         return medicineService.searchBygeneric(decodedGeneric, pageable);
     }
 
+        // Delete a generic
+    @DeleteMapping("/id/{id}")
+    public ResponseEntity<Response> deleteGeneric(@PathVariable String id) {
+        medicineService.deleteById(id);
+        Response response = new Response("Medicine deleted", false);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 }

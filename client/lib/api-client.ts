@@ -264,6 +264,32 @@ export const getMedicineAlternatives = async (generic: string) => {
     return data;
 }
 
+export const addMedicine = async (data: any) => {
+    const token = localStorage.getItem("token");
+    const res = await (await fetch(`${serverUrl}/medicine`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(data)
+    })).json();
+    return res;
+}
+
+export const addGeneric = async (data: any) => {
+    const token = localStorage.getItem("token");
+    const res = await (await fetch(`${serverUrl}/generic`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(data)
+    })).json();
+    return res;
+}
+
 export const deleteSign = async (id: string) => {
     const token = localStorage.getItem("token");
     const res = await (await fetch(`${serverUrl}/signs/id/${id}`, {

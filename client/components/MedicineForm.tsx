@@ -1,16 +1,15 @@
-import {  } from "@/lib/api-client";
+import { addMedicine } from "@/lib/api-client";
 import { FormEvent, useEffect, useState } from "react";
 import { getDistinctGenerics } from '@/lib/api-client'
 import { AutoCompleteTextInput } from "./AutoCompleteTextInput";
+import toast from "react-hot-toast";
 
 const medicineFormFields = [
     { label: 'Brand Name', key: 'brandName', element: 'input', required: true },
     { label: 'Dosage Form', key: 'dosageForm', element: 'input', required: true },
     { label: 'Generic', key: 'generic', type: 'search',  element: 'input', required: true },
-    { label: 'ID', key: 'id', element: 'input', required: true },
     { label: 'Manufacturer', key: 'manufacturer', element: 'input', required: true },
     { label: 'Price', key: 'price', element: 'input', required: true },
-    { label: 'Slug', key: 'slug', element: 'input', required: false },
     { label: 'Strength', key: 'strength', element: 'input', required: true },
     { label: 'Type', key: 'type', element: 'input', required: true },
   ];
@@ -29,8 +28,18 @@ export default function MedicineForm() {
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
     const data = Object.fromEntries(formData.entries());
-    console.log(data); // Handle the form submission here
-  }
+    
+    const slug = (data.brandName as string).toLowerCase().replace(/ /g, '-');
+    addMedicine({...data, slug})
+      .then((res) => {
+        if (res.error) return console.log(res.error);
+        (e.target as HTMLFormElement).reset();
+        toast.success("Medicine added successfully!");
+        setLoading(false);
+      })
+      .catch((err) => console.log(err));
+  };
+  
     return (
         <form onSubmit={handleSubmit}>
             <h2 className="text-xl pb-4 font-semibold"> Add New Generic Information </h2>

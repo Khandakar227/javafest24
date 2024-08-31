@@ -112,8 +112,9 @@ public class GenericController {
 
     // Delete a generic
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteGeneric(@PathVariable String id) {
+    public ResponseEntity<Response> deleteGeneric(@PathVariable String id) {
         genericService.deleteById(id);
-        return ResponseEntity.ok().build();
+        Response response = new Response("Generic deleted", false);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
