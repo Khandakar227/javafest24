@@ -39,7 +39,6 @@ export default function SignSpeakWordForm() {
         } finally {
             setLoading(false);
         }
-        
     }
 
     const uploadFile = async (files:File[]) => {

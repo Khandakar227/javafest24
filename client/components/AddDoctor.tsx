@@ -39,7 +39,7 @@ export default function AddDoctor() {
             <input type="text" name="degree" id="degree" placeholder="Degree" className="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm" />
             <input type="text" name="workplace" id="workplace" placeholder="Workplace" className="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm" />
             <input type="text" name="designation" id="designation" placeholder="Designation" className="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm" />
-            <select name="specialty" id="specialty" className="mt-2 border px-4 py-2 rounded-md shadow outline-none">
+            <select name="speciality" id="specialty" className="mt-2 border px-4 py-2 rounded-md shadow outline-none">
                 <option value="">Select Medical Speciality</option>
                 {
                     medical_specialties.map(ss => <option value={ss.value} key={ss.label}>{ss.label}</option>)

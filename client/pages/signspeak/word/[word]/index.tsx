@@ -6,6 +6,7 @@ import Head from "next/head";
 import { useRouter } from "next/router"
 import { MouseEvent, useEffect, useState } from "react"
 import { FaPencilAlt } from "react-icons/fa";
+import Link from "next/link";
 
 function Word() {
     const router = useRouter();
@@ -72,7 +73,7 @@ function Word() {
                             }
                             <div className="pt-6 flex justify-end items-center gap-4">
                                 <button onClick={deleteData} className="bg-red-600 text-white px-4 py-2 rounded"><MdDelete /></button>
-                                <button className="bg-orange-400 text-white px-4 py-2 rounded"><FaPencilAlt /></button>
+                                <Link href={`/signspeak/word/${word[0].word}/update`} className="block bg-orange-400 text-white px-4 py-2 rounded"><FaPencilAlt /></Link>
                             </div>
                         </div>
                 }

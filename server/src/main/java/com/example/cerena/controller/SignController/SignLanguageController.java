@@ -155,9 +155,30 @@ public class SignLanguageController {
         }
     }
 
+
+    @PutMapping("/id/{id}")
+    public ResponseEntity<SignLanguageEntry> updateSignById(@PathVariable String id, @RequestBody SignLanguageEntry entry,
+    HttpServletRequest request) {
+        try {
+            String authorization = request.getHeader("Authorization");
+            if (authorization == null)
+                return ResponseEntity.status(403).build();
+
+            String token = authorization.substring(7);
+            String email = jwtService.extractEmail(token);
+            User user = userService.getUserByEmail(email);
+
+            if (user == null || !jwtService.isTokenValid(token, user) || !user.getRole().equals("ADMIN"))
+                return ResponseEntity.status(403).build();
+            SignLanguageEntry updatedEntry = signLanguageService.saveEntry(entry);
+            return new ResponseEntity<>(updatedEntry, HttpStatus.OK);
+        } catch (Exception e) {
+            System.out.println(e);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
     @PutMapping("/words/{word}")
-    public ResponseEntity<SignLanguageEntry> updateSign(@PathVariable String word, @RequestBody SignLanguageEntry entry,
-            HttpServletRequest request) {
+    public ResponseEntity<SignLanguageEntry> updateSign(@PathVariable String word, @RequestBody SignLanguageEntry entry, HttpServletRequest request) {
         try {
             String authorization = request.getHeader("Authorization");
             if (authorization == null)

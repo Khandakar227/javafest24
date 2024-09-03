@@ -182,7 +182,7 @@ export const uploadPhoto = async (photo:File, folder='doctor') => {
     body: form
     };
     const res = await (await fetch(`${serverUrl}/file/${folder}/upload`, options)).json();
-    return res;
+    return res as {message: string, error: boolean, filePath: string};
 }
 
 export const addDoctor = async (data:any) => {
@@ -241,6 +241,35 @@ export const addSigns = async (data: {word: string, videos: string[]}) => {
     })).json();
     return res;
 }
+
+export const updateDoctor = async (data:any) => {
+    const token = localStorage.getItem("token");
+    const options = {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(data)
+      };
+      const res = await (await fetch(`${serverUrl}/doctor/id/${data.id}`, options)).json();
+      return res;
+}
+
+export const updateSigns = async (data: {id: string, word: string, videos: string[]}) => {
+    const token = localStorage.getItem("token");
+    const res = await (await fetch(`${serverUrl}/signs/words/${data.word}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(data)
+    })).json();
+    return res;
+}
+
+
 export const addExercise = async (data: any) => {
     const token = localStorage.getItem("token");
     const res = await (await fetch(`${serverUrl}/exercise`, {

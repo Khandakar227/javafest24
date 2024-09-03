@@ -2,6 +2,7 @@ import Layout from "@/components/Layout";
 import { useUser } from "@/hooks/user";
 import { deleteDoctor, getDoctor } from "@/lib/api-client";
 import { Doctor } from "@/types";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { MouseEvent, useEffect, useState } from "react";
 import { FaPen, FaTrash } from "react-icons/fa";
@@ -63,7 +64,7 @@ export default function DoctorPage() {
           user?.role == "ADMIN" && (
           <div className="flex justify-end items-center gap-4 pt-4">
               <button className="text-red-600" onClick={(_e) => deleteData(_e, doctor.id)}><FaTrash/></button>
-              <button className="text-orange-400"><FaPen /></button>
+              <Link href={`/doctors/${doctor.id}/update`} className="block text-orange-400"><FaPen /></Link>
           </div>
           )
       }
