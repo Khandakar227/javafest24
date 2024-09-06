@@ -35,3 +35,5 @@ build/
 
 ### env file ###
 .env
+# trail html for backend
+trial.html

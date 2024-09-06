@@ -1,0 +1,156 @@
+[{
+  "_id": {
+    "$oid": "66a5e44c91e8ca0bdba8448e"
+  },
+  "fullName": "Shakib Al Hasan",
+  "bloodGroup": "B+",
+  "gender": "Male",
+  "age": 23,
+  "mobileNo": "01837782939",
+  "isVerified": false,
+  "addresses": [
+    {
+      "name": "Textile Gate, Chattogram, Bangladesh",
+      "location": [
+        91.8132464,
+        22.3791809
+      ]
+    },
+    {
+      "name": "2no gate Houseing society road, Chittagong, Bangladesh",
+      "location": [
+        91.82492,
+        22.3659513
+      ]
+    },
+    {
+      "name": "Baizid Bostami, Bangladesh",
+      "location": [
+        91.8178403,
+        22.4087783
+      ]
+    }
+  ],
+  "_class": "com.example.cerena.model.BloodBank.Donor",
+  "addedBy": "xenonknight54@gmail.com"
+},
+{
+  "_id": {
+    "$oid": "66a6841491e8ca0bdba844ad"
+  },
+  "fullName": "Rafid Hossain",
+  "bloodGroup": "A+",
+  "gender": "Male",
+  "age": 20,
+  "mobileNo": "01837782939",
+  "addedBy": "xenonknight54@gmail.com",
+  "isVerified": false,
+  "addresses": [
+    {
+      "name": "K B Bazar Rd, Gazipur 1704, Bangladesh",
+      "location": [
+        90.37926,
+        23.948102
+      ]
+    },
+    {
+      "name": "GEC More, Chittagong, Bangladesh",
+      "location": [
+        91.8215486,
+        22.3590715
+      ]
+    },
+    {
+      "name": "Muradpur, Chattogram, Bangladesh",
+      "location": [
+        91.8287858,
+        22.3659729
+      ]
+    }
+  ],
+  "_class": "com.example.cerena.model.BloodBank.Donor"
+},
+{
+  "_id": {
+    "$oid": "66a6c00b07e527653a0b3246"
+  },
+  "fullName": "Meftahul Jannati Anonna",
+  "bloodGroup": "A+",
+  "gender": "Female",
+  "age": 19,
+  "mobileNo": "01789260803",
+  "addedBy": "anonnaalamiut@gmail.com",
+  "isVerified": false,
+  "addresses": [
+    {
+      "name": "PCXJ+3RC, Dhaka, Bangladesh"
+    }
+  ],
+  "_class": "com.example.cerena.model.BloodBank.Donor"
+},
+{
+  "_id": {
+    "$oid": "66a6c22b07e527653a0b3247"
+  },
+  "fullName": "Meftahul Jannati Anonna",
+  "bloodGroup": "A+",
+  "gender": "Female",
+  "age": 19,
+  "mobileNo": "01789260803",
+  "addedBy": "anonnaalamiut@gmail.com",
+  "isVerified": false,
+  "addresses": [
+    {
+      "name": "5JVW+6G Sakhua, Bangladesh",
+      "location": [
+        0,
+        0
+      ]
+    }
+  ],
+  "_class": "com.example.cerena.model.BloodBank.Donor"
+},
+{
+  "_id": {
+    "$oid": "66a6c26107e527653a0b3248"
+  },
+  "fullName": "Arnob",
+  "bloodGroup": "A+",
+  "gender": "Male",
+  "age": 15,
+  "mobileNo": "01789260803",
+  "addedBy": "anonnaalamiut@gmail.com",
+  "isVerified": false,
+  "addresses": [
+    {
+      "name": "1/B Atish Deepankar Rd, Dhaka, Bangladesh",
+      "location": [
+        0,
+        0
+      ]
+    }
+  ],
+  "_class": "com.example.cerena.model.BloodBank.Donor"
+},
+{
+  "_id": {
+    "$oid": "66a6c4cb07e527653a0b3249"
+  },
+  "fullName": "Arnob",
+  "bloodGroup": "A+",
+  "gender": "Male",
+  "age": 15,
+  "mobileNo": "01789260803",
+  "addedBy": "anonnaalamiut@gmail.com",
+  "isVerified": false,
+  "addresses": [
+    {
+      "name": "6J92+8X Rajrajeshwar, Bangladesh",
+      "location": [
+        90.6023936829448,
+        23.218352729030755
+      ]
+    }
+  ],
+  "_class": "com.example.cerena.model.BloodBank.Donor"
+}]
