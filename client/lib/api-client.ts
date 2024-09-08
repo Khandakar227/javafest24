@@ -258,14 +258,15 @@ export const updateDoctor = async (data:any) => {
 
 export const updateSigns = async (data: {id: string, word: string, videos: string[]}) => {
     const token = localStorage.getItem("token");
-    const res = await (await fetch(`${serverUrl}/signs/words/${data.word}`, {
+    const res = await (await fetch(`${serverUrl}/signs/id/${data.id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(data)
-    })).json();
+    }))?.json();
+    console.log(res);
     return res;
 }
 

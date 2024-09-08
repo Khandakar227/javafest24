@@ -7,6 +7,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { FormEvent, useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { IoCloseCircle } from "react-icons/io5";
 
 const signSpeakFormFields = [
     { label: "Word", name: "word", type: "text" },
@@ -87,17 +88,18 @@ const handleSubmit = async (e: FormEvent) => {
         const formData = new FormData(e.target as HTMLFormElement);
         const videos = formData.getAll('videos') as File[];
         let videoUrls = word[0].videos;
+        console.log("videoUrls", videoUrls);
         if(videos.length) {
             videoUrls = await uploadFile(formData.getAll('videos') as File[]) as string[];
-
+            console.log("videoUrls", videoUrls);
         }
         const _word = formData.get('word') as string;
 
         updateSigns({...word[0], word:_word, videos: videoUrls as string[]}).then(response => {
             if (response.error) return toast.error(response.error);
             (e.target as HTMLFormElement).reset();
-            toast.success("Word update successfully!");
-            setLoading(false);
+            toast.success("Word updated successfully!");
+            router.push(`/signspeak/word/${word[0].word}`);
         })
     } catch (error) {
         console.log(error)
@@ -107,6 +109,10 @@ const handleSubmit = async (e: FormEvent) => {
     }
 }
 
+    function removeAVideo(video: string) {
+        const newVideos = word[0].videos.filter(v => v !== video);
+        setWord([{...word[0], videos: newVideos}]);
+    }
   return (
     <>
     <Layout>
@@ -120,15 +126,29 @@ const handleSubmit = async (e: FormEvent) => {
                 </div>
             )
                 :
-                <div className="p-4">
-                <form onSubmit={handleSubmit} className="bg-white px-4 py-12 shadow rounded">  
+                <div className="px-4 py-20">
+                <form onSubmit={handleSubmit} className="bg-white px-4 py-16 shadow rounded">  
                 {signSpeakFormFields.map((field) => (
                 <div key={field.name} className="form-group">
                     {field.type === "file" ? (
-                    <input
-                        className="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
-                        type="file" name={field.name} id={field.name} multiple={true} accept="video/*" required
-                    />
+                    <>
+                        {
+                            word[0].videos.length > 0 && (
+                            <div className="grid items-stretch gap-4 text-sm py-6">
+                                {word[0].videos.map((video, i) => (
+                                <div key={video + i} className="flex justify-between gap-4 items-start">
+                                    <p>{i+1}. {video}</p>
+                                    <button onClick={() => removeAVideo(video)}><IoCloseCircle/></button>
+                                </div>
+                                ))}
+                            </div>
+                            )
+                        }
+                        <input
+                            className="mt-2 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
+                            type="file" name={field.name} id={field.name} multiple={true} accept="video/*" required
+                        />
+                    </>
                     ) : (
                     <input
                         defaultValue={word[0][field.name as keyof typeof word[0]]}

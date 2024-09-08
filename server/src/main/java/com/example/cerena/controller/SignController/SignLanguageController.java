@@ -177,6 +177,8 @@ public class SignLanguageController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    
     @PutMapping("/words/{word}")
     public ResponseEntity<SignLanguageEntry> updateSign(@PathVariable String word, @RequestBody SignLanguageEntry entry, HttpServletRequest request) {
         try {
