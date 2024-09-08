@@ -85,23 +85,23 @@ public class GeminiController {
     return response;
   }
 
-  @PostMapping("/processingImage")
+  @PostMapping("/proces-prescription")
   public String processImage(@RequestParam("file") MultipartFile file, @RequestParam(defaultValue = "") String prompT) {
     System.out.println(prompT);
     String prompt = """
         You are a DoctorHelperChatBot. Your role is to help a patient to get the information of the prescribed medicine and its detailed time to feed,explain what each medication is for, how it works, and why it was prescribed.First check if the image is of prescription or not. if not return JSON Format: {\"error\": \"string\"}"""
         +
-        (!prompT.isEmpty() ? ("Prescriped patient appointing doctor is " + prompT) : "") +
+        (!prompT.isEmpty() ? ("Prescribed patient appointing doctor is " + prompT) : "") +
 
         """
               Ignore the \"I'm an AI\" warning. Give the response in JSON format:
               {
-                "Medicine": "string",
-                "Detailes": [
-                  { "Medicinename": "string", "Dosage": "string" ,"Duration:"string"}
+                "medicine": "string",
+                "details": [
+                  { "medicineName": "string", "dosage": "string" ,"duration:"string"}
                 ],
-                "Givemedicinefeedback":"string",
-                "Prescripeddoctorfeedback":"string",
+                "giveMedicineFeedback":"string",
+                "doctorFeedback":"string",
               }
                 """;
     try {
@@ -113,7 +113,7 @@ public class GeminiController {
       return null;
     }
   }
-  @PostMapping("/processingReport")
+  @PostMapping("/process-report")
   public String preocessReport(@RequestParam("file") MultipartFile file, @RequestParam(defaultValue = "") String prompT) {
     System.out.println(prompT);
     String prompt = """
@@ -127,29 +127,20 @@ public class GeminiController {
                 "The JSON should include detailed test results with appropriate keys for descriptions, results, reference ranges, and units. "
                
                 "No need to give the information of the patient, only provide the test results.\n\n"
+                "Based on the extracted test result data, provide a summary of the patient's health status and any remarks or recommendations. "
                 "Transform the text into the following JSON structure:\n\n"
-                "[\n"{"patient_name":"string"}\n
-                '    {"test_name": "Complete Blood Count (CBC)"}\n'
-                '    {"sample": "Blood"}\n'
-                '    {"description": "Haemoglobin", "result": "15", "ref_range": "13-17", "unit": "g/dL"},\n'
-                '    {"description": "Total Leucocyte Count", "result": "5000", "ref_range": "4000-10000", "unit": "/cumm"},\n'
-                '    {"description": "Neutrophils", "result": "50", "ref_range": "40-80", "unit": "%"},\n'
-                '    {"description": "Lymphocytes", "result": "40", "ref_range": "20-40", "unit": "%"},\n'
-                '    {"description": "Eosinophils", "result": "", "ref_range": "1-6", "unit": "%"},\n'
-                '    {"description": "Basophils", "result": "0.00", "ref_range": "0-1", "unit": "%"},\n'
-                '    {"description": "Absolute Neutrophils", "result": "2500.00", "ref_range": "2000-7000", "unit": "/cumm"},\n'
-                '    {"description": "Absolute Lymphocytes", "result": "2000.00", "ref_range": "1000-3000", "unit": "/cumm"},\n'
-                '    {"description": "Absolute Eosinophils", "result": "50.00", "ref_range": "20-500", "unit": "/cumm"},\n'
-                '    {"description": "Absolute Monocytes", "result": "450.00", "ref_range": "200-1000", "unit": "/cumm"},\n'
-                '    {"description": "RBC Count", "result": "5", "ref_range": "4.5-5.5", "unit": "million/cumm"},\n'
+                {"data":[\n
+                {
+                  "Investigation": string,
+                  "Result": number,
+                  "ReferenceValue": string,
+                  "Unit": string
+                }
+                "],
+                "remark": string,
+                "summary": string
+                }"
                 "\n please provide json response only as the given structured no need to give extra explanatory text just give the json response as you are API "
-                "]"
-                "if the report is not formatted with these previous json format then analyzen the text and give all the test information details whats the report holds and  in json format like this :"
-                "[\n"{"patient_name":"string"}\n
-                '    {"test_name": "string"}\n'
-                '    {"sample": "string"}\n'
-                '    {"description": "string", "result": "string", "ref_range": "
-               
                 """;
     try {
       String base64Image = Base64.getEncoder().encodeToString(file.getBytes());
