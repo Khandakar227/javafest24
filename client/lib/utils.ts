@@ -14,6 +14,7 @@ export const navsmenu = [
     { label: 'Blood Bank', href: '/blood-bank' },
     { label: 'Sign Speak', href: '/signspeak' },
     { label: 'Food Calorie', href: '/food-calorie' },
+    { label: 'Health Scanner', href: '/health-scanner' },
 ]
 
 export const getBasePath = (pathname:string) => {
