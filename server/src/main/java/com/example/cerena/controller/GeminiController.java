@@ -85,11 +85,11 @@ public class GeminiController {
     return response;
   }
 
-  @PostMapping("/proces-prescription")
+  @PostMapping("/process-prescription")
   public String processImage(@RequestParam("file") MultipartFile file, @RequestParam(defaultValue = "") String prompT) {
     System.out.println(prompT);
     String prompt = """
-        You are a DoctorHelperChatBot. Your role is to help a patient to get the information of the prescribed medicine and its detailed time to feed,explain what each medication is for, how it works, and why it was prescribed.First check if the image is of prescription or not. if not return JSON Format: {\"error\": \"string\"}"""
+        You are a DoctorHelperChatBot. Your role is to help a patient to get the information of the prescribed medicine and its detailed time to feed,explain what each medication is for, how it works, and why it was prescribed,Sig should include information on how much drug to take, how to take it, and how often to take it..First check if the image is of prescription or not. if not return JSON Format: {\"error\": \"string\"}"""
         +
         (!prompT.isEmpty() ? ("Prescribed patient appointing doctor is " + prompT) : "") +
 
@@ -98,7 +98,7 @@ public class GeminiController {
               {
                 "medicine": "string",
                 "details": [
-                  { "medicineName": "string", "dosage": "string" ,"duration:"string"}
+                  { "medicineName": "string", "dosage": "string","duration:"string","how_much_drug_to_take":"string","how_often_to_take":"string"}
                 ],
                 "giveMedicineFeedback":"string",
                 "doctorFeedback":"string",
