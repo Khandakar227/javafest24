@@ -35,7 +35,7 @@ export default function Layout({ children }: PropsWithChildren) {
         </div>
         <div className="flex-auto bg-slate-100">
           {children}
-          <footer className="bg-primary text-gray-50 px-6 py-4 mt-8 grid justify-end items-center text-end">
+          <footer className="bg-primary text-gray-50 px-6 py-4 grid justify-end items-center text-end">
             <Link href="/" className="w-fit mx-auto"><Image src={'/cerena-logo.png'} alt="Cerena" width={45} height={45} /></Link>
             <p>&copy; {new Date().getFullYear()} Cerena. All rights reserved.</p>
           </footer>

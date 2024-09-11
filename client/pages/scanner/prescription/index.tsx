@@ -35,13 +35,9 @@ export default function Scanner() {
     <>
       <Head>
         <title>Medicines - Cerena</title>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Montserrat:wght@700&display=swap"
-          rel="stylesheet"
-        />
       </Head>
       <Layout>
-        <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-r from-green-100 to-indigo-100 py-8">
+        <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-r from-lime-100 to-green-100 py-8">
           <h1 className="text-4xl font-bold text-green-800 mb-6">
             Scan Prescription
           </h1>
@@ -51,7 +47,7 @@ export default function Scanner() {
             doctor.
           </p>
 
-          <div className="bg-green-100 rounded-lg shadow-lg p-6 flex flex-col items-center w-full max-w-2xl">
+          <div className="bg-primary bg-opacity-50 rounded-lg shadow-lg p-6 flex flex-col items-center w-full max-w-2xl">
             <UploadPrescription
               setPrescriptionData={setPrescriptionData}
               setError={setError}
@@ -136,7 +132,7 @@ export default function Scanner() {
                               } overflow-hidden transition-all duration-1000 ease-in-out`}
                             >
                               {visibleFeedback === index && (
-                                <div className="bg-gray-100 p-4 rounded-lg border-2 border border-green-700">
+                                <div className="bg-gray-100 p-4 rounded-lg border-2 border-green-700">
                                   <p className="text-sm font-medium mb-2">
                                     Medicine Feedback:
                                   </p>

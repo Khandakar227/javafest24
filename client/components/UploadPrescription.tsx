@@ -62,7 +62,7 @@ const UploadPrescription = ({ setPrescriptionData, setError, setLoading }: Uploa
             body: formData,
         })
             .then(async (res) => {
-                const data: PrescriptionData = await res.json();
+                const data = await res.json();
                 if (data.error) {
                     setError(data.error);
                 } else {
@@ -83,7 +83,7 @@ const UploadPrescription = ({ setPrescriptionData, setError, setLoading }: Uploa
                         </button>
                     </div>
 
-                    <Image src={previewImage} alt={acceptedFiles[0]?.name || "Preview"} className="w-full mx-auto rounded-lg shadow border border-green-700 border-2"  width={400} height={400} />
+                    <Image src={previewImage} alt={acceptedFiles[0]?.name || "Preview"} className="w-full mx-auto rounded-lg shadow border-green-700 border-2"  width={400} height={400} />
                 </div>
             ) : (
                 <div {...getRootProps({ className: "dropzone" })}>
@@ -99,12 +99,12 @@ const UploadPrescription = ({ setPrescriptionData, setError, setLoading }: Uploa
             <input
                 type="text"
                 placeholder="Doctor's Name (Optional)"
-                className="border px-4 py-2 my-3 rounded w-full border border-green-700 border-2"
+                className="px-4 py-2 my-3 rounded w-full border-green-700 border-2"
                 value={doctorName}
                 onChange={(e) => setDoctorName(e.target.value)}
             />
 
-            <button disabled={false} onClick={processPrescription} className="my-4 bg-gradient-to-r from-green-400 to-indigo-100 border border-green-700 border-2 rounded px-4 py-2 hover:from-green-500 hover:to-green-800 hover:text-white">
+            <button disabled={false} onClick={processPrescription} className="my-4 bg-gradient-to-r from-primary w-full to-indigo-100 border-green-700 border-2 rounded px-4 py-2 hover:from-green-500 hover:to-green-800 hover:text-white">
                 Process Prescription
             </button>
         </div>
