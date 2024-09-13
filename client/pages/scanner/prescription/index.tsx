@@ -34,10 +34,16 @@ export default function Scanner() {
   return (
     <>
       <Head>
-        <title>Medicines - Cerena</title>
+        <title>Prescription Scanner - Cerena</title>
+
       </Head>
       <Layout>
         <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-r from-lime-100 to-green-100 py-8">
+        <img
+                                src="/Scanner/prescriptionicons.png"
+                                alt="Scan Medicine"
+                                className="w-24 h-24 mb-4"
+                            />
           <h1 className="text-4xl font-bold text-green-800 mb-6">
             Scan Prescription
           </h1>
@@ -65,6 +71,7 @@ export default function Scanner() {
 
           {prescriptionData && !error && (
             <div className="mt-10 bg-green-100 rounded-lg shadow-lg p-8 w-full max-w-2xl">
+              
               <h2 className="text-2xl font-bold text-green-800 mb-4 flex justify-center items-center">
                 Prescription Details
               </h2>

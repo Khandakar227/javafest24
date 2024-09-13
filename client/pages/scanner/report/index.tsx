@@ -50,6 +50,11 @@ export default function Home() {
       <Layout>
         <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-r from-lime-100 to-green-100 py-8 relative">
           <Toaster />
+          <img
+                                src="/Scanner/medicalreport.png"
+                                alt="Scan Medicine"
+                                className="w-24 h-24 mb-4"
+                            />
           <h1 className="text-4xl font-bold text-green-800 mb-8">Scan Report</h1>
           <p className="text-lg text-gray-600 text-center max-w-2xl mb-10">
             Upload your medical report to get detailed information about yourself.
@@ -65,29 +70,30 @@ export default function Home() {
             </div>
 
             <div
-              className={`relative w-full max-w-2xl p-6 rounded-lg shadow-lg transition-all duration-500 ${loading ? "bg-cover bg-center bg-no-repeat" : "bg-green-100"
-                }`}
-              style={{
-                backgroundImage: loading
-                  ? "url('/public/Scanner/timespinner.png')" 
-                  : "none",
-              }}
+              className={`relative w-full max-w-2xl p-6 rounded-lg shadow-lg transition-all duration-500 "bg-cover bg-center bg-no-repeat" 
+              }`
+            }
+            style={{
+              backgroundImage: "url('https://cdn.dribbble.com/users/2085015/screenshots/15331129/media/d418f37dba14cd68e132304f69637ccc.png?resize=1000x750&vertical=center')"
+              
+            }}
             >
+             
               {loading ? (
                 <div className="absolute inset-0 flex justify-center items-center">
-                  
+
                   <Spinner size={15} />
                 </div>
               ) : (
                 <>
-               
+
                   {reportData && !error && (
                     <>
                       <h2 className="text-2xl font-bold text-green-800 mb-4 flex justify-center items-center">
                         Report Analysis
                       </h2>
 
-                     
+
                       <div className="w-full h-64 mb-6 bg-yellow-50">
                         <ResponsiveContainer width="100%" height="100%">
                           <LineChart

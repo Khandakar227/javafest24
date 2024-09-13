@@ -10,6 +10,11 @@ export default function Scanner() {
             </Head>
             <Layout>
                 <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-r from-green-100 to-gray-100 py-8">
+                <img
+                                src="/Scanner/lens.png"
+                                alt="Scan Medicine"
+                                className="w-24 h-24 mb-4"
+                            />
                     <h1 className="text-4xl font-bold text-green-800 mb-6">
                         Scanner
                     </h1>
