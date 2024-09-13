@@ -1,10 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import UploadReport from "@/components/UploadReport";
 import { Toaster } from "react-hot-toast";
 import Head from "next/head";
 import Layout from "@/components/Layout";
 import Spinner from "@/components/Spinner";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  Legend,
+} from "recharts";
 import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 // import { escape } from "html-escaper";
 
@@ -27,9 +36,17 @@ const getMaxReferenceValue = (referenceValue: string): number => {
 
 export default function Home() {
   const [reportData, setReportData] = useState<ReportData | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [visibleFeedback, setVisibleFeedback] = useState<string | null>(null);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const toggleFeedback = (section: string) => {
     setVisibleFeedback(visibleFeedback === section ? null : section);
@@ -51,17 +68,20 @@ export default function Home() {
         <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-r from-lime-100 to-green-100 py-8 relative">
           <Toaster />
           <img
-                                src="/Scanner/medicalreport.png"
-                                alt="Scan Medicine"
-                                className="w-24 h-24 mb-4"
-                            />
-          <h1 className="text-4xl font-bold text-green-800 mb-8">Scan Report</h1>
+            src="/Scanner/medicalreport.png"
+            alt="Scan Medicine"
+            className="w-24 h-24 mb-4"
+          />
+          <h1 className="text-4xl font-bold text-green-800 mb-8">
+            Scan Report
+          </h1>
           <p className="text-lg text-gray-600 text-center max-w-2xl mb-10">
-            Upload your medical report to get detailed information about yourself.
+            Upload your medical report to get detailed information about
+            yourself.
           </p>
 
           <div className="flex flex-col md:flex-row gap-8 w-full max-w-6xl">
-            <div className="bg-primary bg-opacity-50 rounded-lg shadow-lg p-6 flex flex-col items-center w-full max-w-lg">
+            <div className="bg-green-300 bg-opacity-50 rounded-lg shadow-lg p-6 flex flex-col items-center w-full max-w-lg">
               <UploadReport
                 setReportData={setReportData}
                 setError={setError}
@@ -70,29 +90,24 @@ export default function Home() {
             </div>
 
             <div
-              className={`relative w-full max-w-2xl p-6 rounded-lg shadow-lg transition-all duration-500 "bg-cover bg-center bg-no-repeat" 
-              }`
-            }
-            style={{
-              backgroundImage: "url('https://cdn.dribbble.com/users/2085015/screenshots/15331129/media/d418f37dba14cd68e132304f69637ccc.png?resize=1000x750&vertical=center')"
-              
-            }}
+              className={`relative w-full max-w-2xl p-6 rounded-lg shadow-lg transition-all duration-500"
+                bg-cover bg-center bg-no-repeat`}
+              style={{
+                backgroundImage:
+                  "url('https://cdn.dribbble.com/users/2085015/screenshots/15331129/media/d418f37dba14cd68e132304f69637ccc.png?resize=1000x750&vertical=center')",
+              }}
             >
-             
               {loading ? (
                 <div className="absolute inset-0 flex justify-center items-center">
-
                   <Spinner size={15} />
                 </div>
               ) : (
                 <>
-
                   {reportData && !error && (
                     <>
-                      <h2 className="text-2xl font-bold text-green-800 mb-4 flex justify-center items-center">
+                      <h2 className="text-2xl font-bold text-white mb-4 flex justify-center items-center bg-transparent">
                         Report Analysis
                       </h2>
-
 
                       <div className="w-full h-64 mb-6 bg-yellow-50">
                         <ResponsiveContainer width="100%" height="100%">
@@ -100,7 +115,10 @@ export default function Home() {
                             data={chartData}
                             margin={{ top: 10, right: 30, left: 20, bottom: 0 }}
                           >
-                            <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
+                            <CartesianGrid
+                              strokeDasharray="3 3"
+                              stroke="#e0e0e0"
+                            />
                             <XAxis dataKey="name" />
                             <YAxis tickLine={false} />
                             <Tooltip
@@ -127,11 +145,15 @@ export default function Home() {
                         </ResponsiveContainer>
                       </div>
 
-
                       <div className="mt-6">
                         <h3
                           onClick={() => toggleFeedback("summary")}
-                          className="text-lg font-semibold text-green-800 cursor-pointer flex items-center"
+                          className="text-lg font-semibold text-white cursor-pointer flex items-center"
+                          style={{
+                            backgroundColor: "rgba(255, 255, 255, 0.3)", 
+                            borderRadius: "8px",
+                            padding: "8px 16px", 
+                          }}
                         >
                           Summary
                           {visibleFeedback === "summary" ? (
@@ -152,7 +174,12 @@ export default function Home() {
                       <div className="mt-4">
                         <h3
                           onClick={() => toggleFeedback("remark")}
-                          className="text-lg font-semibold text-green-800 cursor-pointer flex items-center"
+                          className="text-lg font-semibold text-white cursor-pointer flex items-center"
+                          style={{
+                            backgroundColor: "rgba(255, 255, 255, 0.3)", 
+                            borderRadius: "8px",
+                            padding: "8px 16px", 
+                          }}
                         >
                           Remark
                           {visibleFeedback === "remark" ? (
@@ -173,7 +200,12 @@ export default function Home() {
                       <div className="mt-4">
                         <h3
                           onClick={() => toggleFeedback("suggestions")}
-                          className="text-lg font-semibold text-green-800 cursor-pointer flex items-center"
+                          className="text-lg font-semibold text-white cursor-pointer flex items-center"
+                          style={{
+                            backgroundColor: "rgba(255, 255, 255, 0.3)", 
+                            borderRadius: "8px",
+                            padding: "8px 16px", 
+                          }}
                         >
                           Health Suggestions
                           {visibleFeedback === "suggestions" ? (
@@ -189,13 +221,17 @@ export default function Home() {
                                 {reportData.recommendations
                                   .split(/\d\.\s+/)
                                   .filter(Boolean)
-                                  .map((suggestion, index) => (
-                                    suggestion.trim() && (
-                                      <li key={index} className="text-gray-700 mt-2">
-                                        {suggestion.trim()}
-                                      </li>
-                                    )
-                                  ))}
+                                  .map(
+                                    (suggestion, index) =>
+                                      suggestion.trim() && (
+                                        <li
+                                          key={index}
+                                          className="text-gray-700 mt-2"
+                                        >
+                                          {suggestion.trim()}
+                                        </li>
+                                      )
+                                  )}
                               </ul>
                             ) : (
                               <p className="text-gray-700 mt-2">
