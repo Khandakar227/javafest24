@@ -124,11 +124,15 @@ public class GeminiController {
         """
                 
                 "I need to transform this text into a well-structured JSON format that can be easily stored in a database and displayed on a frontend. "
-                "The JSON should include detailed test results with appropriate keys for descriptions, results, reference ranges, and units. "
+                "The JSON should include detailed test results with appropriate keys for descriptions, results, reference ranges, and units. if they 
+                are available on the report  "
                
                 "No need to give the information of the patient, only provide the test results.\n\n"
                 "Based on the extracted test result data, provide a summary of the patient's health status and any remarks or recommendations. "
                 "Transform the text into the following JSON structure:\n\n"
+                "if major issues are found then give suggestions or recommendations to recovery from that stage and if the patient
+                is healthy or fine then also gives how to keep  fit health"
+
                 {"data":[\n
                 {
                   "Investigation": string,
@@ -138,8 +142,13 @@ public class GeminiController {
                 }
                 "],
                 "remark": string,
-                "summary": string
+                "summary": string,
+               
+                "recommendations":string
+              
+  
                 }"
+
                 "\n please provide json response only as the given structured no need to give extra explanatory text just give the json response as you are API "
                 """;
     try {
