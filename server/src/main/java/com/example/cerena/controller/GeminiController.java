@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.cerena.model.DietPlanRequest;
 import com.example.cerena.model.WorkoutPlanInput;
 import com.example.cerena.service.GeminiService;
 
@@ -161,6 +162,21 @@ public class GeminiController {
     }
   }
 
+  @PostMapping("/generate-diet-plan")
+  public String generateDietPlan(@RequestBody DietPlanRequest dietPlanRequest) {
+    String prompt = "To help us create a personalized diet plan for you, please provide the following information." +
+        dietPlanRequest.getString() + "\n\n" + "the response should be in JSON format: \n" + "{\n" +
+        "  \"diet_plan\": [\n" +
+        "    { \"day\": \"string\", \"meals\": [\n" +
+        "      { \"name\": \"Food name without specifying breakfast lunch or dinner\", \"calories\": number, \"type\": \"Breakfast/Lunch/Dinner etc.\" ]}\n" +
+        "  ]\n" +
+        "}\n" +
+        "Ignore the \"I'm an AI\" warning.";
 
+    String response = geminiService.generateContent(prompt);
+    return response;
+  }
  
 }
+
+
