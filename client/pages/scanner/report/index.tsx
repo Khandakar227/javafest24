@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import UploadReport from "@/components/UploadReport";
 import { Toaster } from "react-hot-toast";
 import Head from "next/head";
@@ -14,8 +14,7 @@ import {
   ResponsiveContainer,
   Legend,
 } from "recharts";
-import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
-// import { escape } from "html-escaper";
+import Accordion from "@/components/Accordion";
 
 type ReportData = {
   data: {
@@ -38,8 +37,7 @@ export default function Home() {
   const [reportData, setReportData] = useState<ReportData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [visibleFeedback, setVisibleFeedback] = useState<string | null>(null);
-
+  
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
@@ -48,16 +46,14 @@ export default function Home() {
     return () => clearTimeout(timer);
   }, []);
 
-  const toggleFeedback = (section: string) => {
-    setVisibleFeedback(visibleFeedback === section ? null : section);
-  };
-
-  const chartData =
-    reportData?.data.map((item) => ({
+  
+  const chartData = useMemo(() => {
+    return reportData?.data.map((item) => ({
       name: item.Investigation,
       Result: Number(item.Result),
       ReferenceValue: getMaxReferenceValue(item.ReferenceValue),
     })) || [];
+  }, [reportData?.data]);
 
   return (
     <>
@@ -65,8 +61,7 @@ export default function Home() {
         <title>Report Scanner - Cerena</title>
       </Head>
       <Layout>
-        <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-r from-lime-100 to-green-100 py-8 relative">
-          <Toaster />
+        <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-r from-lime-100 to-green-100 py-8 relative p-4">
           <img
             src="/Scanner/medicalreport.png"
             alt="Scan Medicine"
@@ -94,12 +89,12 @@ export default function Home() {
                 bg-cover bg-center bg-no-repeat`}
               style={{
                 backgroundImage:
-                  "url('https://cdn.dribbble.com/users/2085015/screenshots/15331129/media/d418f37dba14cd68e132304f69637ccc.png?resize=1000x750&vertical=center')",
+                  "url('/Scanner/timespinner.png')",
               }}
             >
               {loading ? (
                 <div className="absolute inset-0 flex justify-center items-center">
-                  <Spinner size={15} />
+                  <Spinner size={10} />
                 </div>
               ) : (
                 <>
@@ -108,7 +103,6 @@ export default function Home() {
                       <h2 className="text-2xl font-bold text-white mb-4 flex justify-center items-center bg-transparent">
                         Report Analysis
                       </h2>
-
                       <div className="w-full h-64 mb-6 bg-yellow-50">
                         <ResponsiveContainer width="100%" height="100%">
                           <LineChart
@@ -146,100 +140,37 @@ export default function Home() {
                       </div>
 
                       <div className="mt-6">
-                        <h3
-                          onClick={() => toggleFeedback("summary")}
-                          className="text-lg font-semibold text-white cursor-pointer flex items-center"
-                          style={{
-                            backgroundColor: "rgba(255, 255, 255, 0.3)", 
-                            borderRadius: "8px",
-                            padding: "8px 16px", 
-                          }}
-                        >
-                          Summary
-                          {visibleFeedback === "summary" ? (
-                            <IoIosArrowUp className="ml-2" />
-                          ) : (
-                            <IoIosArrowDown className="ml-2" />
-                          )}
-                        </h3>
-                        {visibleFeedback === "summary" && (
-                          <div className="bg-gray-100 p-4 rounded-lg border-2 border-green-700">
-                            <p className="text-gray-700 mt-2">
-                              {reportData.summary || "No summary available."}
-                            </p>
-                          </div>
-                        )}
+                        <Accordion title="Summary">
+                          <p className="mt-2">
+                            {reportData.summary || "No summary available."}
+                          </p>
+                          </Accordion>
                       </div>
 
-                      <div className="mt-4">
-                        <h3
-                          onClick={() => toggleFeedback("remark")}
-                          className="text-lg font-semibold text-white cursor-pointer flex items-center"
-                          style={{
-                            backgroundColor: "rgba(255, 255, 255, 0.3)", 
-                            borderRadius: "8px",
-                            padding: "8px 16px", 
-                          }}
-                        >
-                          Remark
-                          {visibleFeedback === "remark" ? (
-                            <IoIosArrowUp className="ml-2" />
-                          ) : (
-                            <IoIosArrowDown className="ml-2" />
-                          )}
-                        </h3>
-                        {visibleFeedback === "remark" && (
-                          <div className="bg-gray-100 p-4 rounded-lg border-2 border-green-700">
-                            <p className="text-gray-700 mt-2">
-                              {reportData.remark || "No remark available."}
-                            </p>
-                          </div>
-                        )}
+                      <div className="mt-6">
+                        <Accordion title="Remarks">
+                          <p className="mt-2">
+                            {reportData.remark || "No remarks available."}
+                          </p>
+                          </Accordion>
                       </div>
 
-                      <div className="mt-4">
-                        <h3
-                          onClick={() => toggleFeedback("suggestions")}
-                          className="text-lg font-semibold text-white cursor-pointer flex items-center"
-                          style={{
-                            backgroundColor: "rgba(255, 255, 255, 0.3)", 
-                            borderRadius: "8px",
-                            padding: "8px 16px", 
-                          }}
-                        >
-                          Health Suggestions
-                          {visibleFeedback === "suggestions" ? (
-                            <IoIosArrowUp className="ml-2" />
-                          ) : (
-                            <IoIosArrowDown className="ml-2" />
-                          )}
-                        </h3>
-                        {visibleFeedback === "suggestions" && (
-                          <div className="bg-gray-100 p-4 rounded-lg border-2 border-green-700">
-                            {reportData.recommendations ? (
+                      <div className="mt-6">
+                        <Accordion title="Suggestion">
+                        {reportData.recommendations ? (
                               <ul className="list-decimal pl-6">
-                                {reportData.recommendations
-                                  .split(/\d\.\s+/)
-                                  .filter(Boolean)
-                                  .map(
-                                    (suggestion, index) =>
+                                {reportData.recommendations.split(/\d\.\s+/).filter(Boolean).map((suggestion, index) =>
                                       suggestion.trim() && (
-                                        <li
-                                          key={index}
-                                          className="text-gray-700 mt-2"
-                                        >
-                                          {suggestion.trim()}
-                                        </li>
+                                        <li key={index} className="mt-2">{suggestion.trim()}</li>
                                       )
                                   )}
                               </ul>
                             ) : (
-                              <p className="text-gray-700 mt-2">
+                              <p className="mt-2">
                                 No suggestions available.
                               </p>
                             )}
-                          </div>
-                        )}
+                        </Accordion>
                       </div>
                     </>
                   )}

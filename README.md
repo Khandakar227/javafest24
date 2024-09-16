@@ -106,13 +106,14 @@ User and role based authentication system was implemented. **JSON Web Token** is
 
 2. **Configure Environment Variables:**
    - Navigate to the project's root directory.
+   - Env variables are written in a [Google Doc](https://docs.google.com/document/d/1kA7E0Am9aMSDImubvLTc7QsybWJAJjq8sj_RokedHGk/edit?usp=sharing). Access is provided to **javafest@therapservices.net**. You can also request view access.
    - In the *`client`* folder, update the `.env.local` variables with your API keys and required variables.
 
       ```
       NEXT_PUBLIC_GOOGLE_MAPS_API_KEY = 
       ```
    
-   - In the *`server/src/main/resources`* folder, ADD
+   - In the *`server/src/main/resources`* folder, ADD all the variables from the [doc file](https://docs.google.com/document/d/1kA7E0Am9aMSDImubvLTc7QsybWJAJjq8sj_RokedHGk/edit?usp=sharing).
 
 3. **Frontend Setup:**
    - Open a terminal in the *`client`* folder.

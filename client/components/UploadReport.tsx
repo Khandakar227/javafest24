@@ -82,7 +82,7 @@ const UploadReport = ({ setReportData, setError, setLoading }: UploadReportProps
             {previewImage ? (
                 <div className="w-full mx-auto ">
                     <div className="text-end py-2 ">
-                        <button onClick={clearImage} className="p-1 rounded bg-primary hover:bg-red-500">
+                        <button onClick={clearImage} className="p-1 rounded hover:text-red-500">
                             <IoCloseCircleOutline size={30} />
                         </button>
                     </div>
