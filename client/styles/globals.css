@@ -176,3 +176,14 @@ h3 {
   background-image: linear-gradient(180deg, rgb(113 193 113 / 60%), rgb(255 255 255 / 80%)), url(/diet-plan/bg.jpg);
   background-attachment: fixed;
 }
+
+.sidebar_icon{
+ 
+  display: inline-block;
+}
+.sidebar_link{
+  display: inline-block;
+  font-size: medium;
+  text-decoration: none;
+  border-radius: 0.8rem;
+}
