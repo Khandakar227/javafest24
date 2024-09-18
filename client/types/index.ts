@@ -89,16 +89,20 @@ export type Donor = {
 
 export interface Alternative {
     id: string;
-    slug:string;
+    slug: string;
     name: string;
     brandName: string;
     dosageForm: string;
     strength: string;
     company: string;
     price: string;
-    manufacturer:string;
+    manufacturer: string;
     href: string;
-  }
-  
+}
 
-export type WorkoutPlan = { day: string, workouts: {name: string, reps: number|string, sets: number|string, summery: string}[] }
+
+export type WorkoutPlan = { day: string, workouts: { name: string, reps: number | string, sets: number | string, summery: string }[] }
+
+export type Meal = {
+    name: string, calories: number, type: string, ingrediants: string[]
+}

@@ -173,6 +173,19 @@ export const getWorkoutPlans = async (data:any) => {
     return res;
 }
 
+export const getDietPlan = async (data:any) => {
+    const options = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      };
+      
+    const res = await (await fetch(`${serverUrl}/generate-diet-plan`, options)).json();
+    return res;
+}
+
 // ADMIN
 export const uploadPhoto = async (photo:File, folder='doctor') => {
     const form = new FormData();

@@ -164,13 +164,11 @@ public class GeminiController {
 
   @PostMapping("/generate-diet-plan")
   public String generateDietPlan(@RequestBody DietPlanRequest dietPlanRequest) {
-    String prompt = "To help us create a personalized diet plan for you, please provide the following information." +
+    String prompt = "To help us create a personalized diet plan for one day for user, please provide the following information." +
         dietPlanRequest.getString() + "\n\n" + "the response should be in JSON format: \n" + "{\n" +
         "  \"diet_plan\": [\n" +
-        "    { \"day\": \"string\", \"meals\": [\n" +
-        "      { \"name\": \"Food name without specifying breakfast lunch or dinner\", \"calories\": number, \"type\": \"Breakfast/Lunch/Dinner etc.\" ]}\n" +
+        "      { \"name\": \"Food name without specifying breakfast lunch or dinner\", \"calories\": number, \"type\": \"Breakfast/Lunch/Dinner etc.\", \"ingrediants\": string[] ]}\n" +
         "  ]\n" +
-        "}\n" +
         "Ignore the \"I'm an AI\" warning.";
 
     String response = geminiService.generateContent(prompt);

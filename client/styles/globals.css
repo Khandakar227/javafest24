@@ -173,5 +173,6 @@ h3 {
 
 /* Diet planner */
 .bg-diet-plan {
-  background-image: linear-gradient(135deg, rgb(113 193 113 / 60%), rgb(255 255 255 / 80%)), url(/diet-plan/background.webp);
+  background-image: linear-gradient(180deg, rgb(113 193 113 / 60%), rgb(255 255 255 / 80%)), url(/diet-plan/bg.jpg);
+  background-attachment: fixed;
 }
