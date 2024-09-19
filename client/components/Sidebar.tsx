@@ -8,9 +8,12 @@ export default function Sidebar() {
     return (
     <div className="grid gap-4">
         {
-            navsmenu.map(n => <Link href={n.href}
-              className={`w-full min-w-60 px-6 py-2 block hover:bg-primary hover:text-white ${getBasePath(router.pathname) == n.href ? "bg-green-700 text-white" : ""}`}
-              key={n.href}>{n.label}</Link>)
+            navsmenu.map(({href, label, icon: Icon}) => <Link href={href}
+              className={`flex gap-4 w-full min-w-60 px-6 py-2 hover:bg-primary hover:text-white ${getBasePath(router.pathname) == href ? "bg-green-700 text-white" : ""}`}
+              key={href}>
+                <Icon size={22} />
+                <span>{label}</span>
+              </Link>)
         }
     </div>
   )
