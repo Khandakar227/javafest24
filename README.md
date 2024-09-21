@@ -18,7 +18,7 @@
 
 
 
-Watch a demo presentation of **CERENA** [here](**).  
+Watch a demo presentation of **CERENA** [here](https://youtu.be/oZafKTJgqBc).  
 
 
 ## Features
@@ -30,6 +30,7 @@ Watch a demo presentation of **CERENA** [here](**).
    - ***Disease Prediction***: Initial diagnosis tool for predicting potential diseases based on symptoms.
 
    - ***Exercise and Fitness***: Personalized workout regimens and schedules focusing on specific muscles.
+   - ***Workout Planner***: Personalized AI workout planner based on necessary info and goals. 
 
    - ***Calorie Tracking***: Integration with food image recognition technology to estimate calorie intake from meal images.
 <!-- - AR Physical Training Game: Optional feature for exercising through augmented reality games. -->
@@ -45,6 +46,10 @@ Watch a demo presentation of **CERENA** [here](**).
 
    - ***Admin Dashboard***: Monitoring users and adding, updating, modifying informations.
 
+   - ***Prescription and Medical Report Scanner***: Scanning the documents and get detailed info and remarks.
+
+   - ***Diet Planner***: AI suggested diet planner based on various factors.
+
 
 
 ## System Design
@@ -54,9 +59,9 @@ The system is designed using predominantly monolithic architecture in Java, ensu
 
    - **DoctorService**: Provides information on doctors. 
 
-   - **MedicationService**: Offers details about medications.
+   - **MedicinenService**: Offers details about medications.
 
-   - **HealthTrackingService**: Tracks health metrics like BMI and diet.
+   - **HealthTrackingService and GenericService**: Tracks health metrics like BMI and diet.
 
    - **FitnessService**: Provides workout plans and exercise information based on muscle group. User can download the workout plan as pdf
 
@@ -64,13 +69,19 @@ The system is designed using predominantly monolithic architecture in Java, ensu
 
    - **BloodBankService**: Lists blood banks and donor.
 
-   - **LocationService**: Finds nearby Donor
+   - **LocationService**: Finds nearby Donor.
 
-   - **SignLanguageService**: Detects ASL(American Sign Language) gestures and converts them into text, has a text to speech feature. Built our custom trained sign language detection model. Intrigue quiz system for learning sign languages.
+   - **SignLanguageService**: Detects ASL(American Sign Language) gestures and converts them into text, has a text to speech feature. Built our custom trained sign language detection model (Datasets were our own). Intrigue quiz system for learning sign languages.
+
+   - **Prescription and Report Service**: Using Gemini Service to create Prescription and Medical Report Scanner.
+   - **Diet Planner Service**: Using Gemini Service to create Daily Food Diet planner.
 
    - **EmailService**: For sending password reset mail, email verification links.
 
    - **SmsService**: For sending sms to verify phone numbers of Blood Donors.
+   - **JwtService**: Handling authentication and authorization for JSON web tokens.
+   - **FileStorageService**: Managing Media files and videos.
+   - **AuthService**: For handling user authentication, authorization including reset password and email verification.
 
 
 
@@ -113,7 +124,7 @@ User and role based authentication system was implemented. **JSON Web Token** is
       NEXT_PUBLIC_GOOGLE_MAPS_API_KEY = 
       ```
    
-   - In the *`server/src/main/resources`* folder, ADD all the variables from the [doc file](https://docs.google.com/document/d/1kA7E0Am9aMSDImubvLTc7QsybWJAJjq8sj_RokedHGk/edit?usp=sharing).
+   - In the *`server/src/main/resources`* folder, ADD all the variables from the [doc file](https://docs.google.com/document/d/1kA7E0Am9aMSDImubvLTc7QsybWJAJjq8sj_RokedHGk/edit?usp=sharing) to `application.properties`.
 
 3. **Frontend Setup:**
    - Open a terminal in the *`client`* folder.
@@ -141,12 +152,14 @@ User and role based authentication system was implemented. **JSON Web Token** is
 
 6. **Sign Detection Model Server**
     - To use sign detection a custom trained sign language model was built using mobile net, tensorflow, opencv and mediapipe in python. go to *`model-server`* folder. Install necessary packages. model server is created using fast api.
+    
+    Python version: 3.10.11
 
     ```
     python -m venv venv
     ./venv/Scripts/activate <------------------ For Windows
     source venv/bin/activate <------------------ For Linux
-    pip install mediapipe opencv-python tensorflow==2.15.1 fastapi uvicron
+    pip install mediapipe opencv-python tensorflow==2.15.1  fastapi uvicron cvzone socketio numpy opencv-python
     ```
     To run the server:
     ```
@@ -163,7 +176,7 @@ User and role based authentication system was implemented. **JSON Web Token** is
 Team name: **new JavaPariNa()**
 **Name** | **Email** | **LinkedIn**
 --- | --- | ---
-Khandakar Shakib Al hasan | shakibalhasan@iut-dhaka.edu | [shakib-hasan](https://www.linkedin.com/in/shakib-hasan-734494249)
+Khandakar Shakib Al Hasan | shakibalhasan@iut-dhaka.edu | [Khandakar Shakib](https://www.linkedin.com/in/shakib-hasan-734494249)
 Meftahul Jannati Anonna | meftahul@iut-dhaka.edu | [Meftahul Jannati Anonna](https://www.linkedin.com/in/meftahuljannati/)
 
 Thank You.
