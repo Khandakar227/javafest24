@@ -91,6 +91,10 @@ User and role based authentication system was implemented. **JSON Web Token** is
 
 ## Technologies and Dependencies for ***CERENA***
 
+### Build System
+**Frontend**: Next js Compiler (Turbo pack) \
+**Backend**: Maven
+
 **Feature** | **Framework / Tool**
 --- | ---
 **Frontend** | [Next.js](https://nextjs.org/docs)
